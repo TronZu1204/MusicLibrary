@@ -21,13 +21,25 @@ public class Playlist implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date created;
     @ManyToOne
-    @JoinColumn(name = "userID")
     private User user;
-    @ManyToMany(mappedBy = "inplaylist")
+    @ManyToMany
     @JoinTable(name = "SongsinPlaylist", joinColumns = @JoinColumn(name = "Playlistid"),
         inverseJoinColumns = @JoinColumn(name = "Musicid"))
     private Set<Music> Songs;
 
+    
+    public Playlist(){
+        
+    }
+    public Playlist(long playlistID, String name, Date created, User user, Set<Music> Songs) {
+        this.playlistID = playlistID;
+        this.name = name;
+        this.created = created;
+        this.user = user;
+        this.Songs = Songs;
+    }
+
+    
     public long getPlaylistID() {
         return playlistID;
     }

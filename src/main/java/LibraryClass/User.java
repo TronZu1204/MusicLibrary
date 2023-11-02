@@ -24,13 +24,27 @@ public class User implements Serializable {
      private String pass;
      private String infor;
      private String gmail;
-     private int phoneNumber;
+     private long phoneNumber;
      private String image;
      @Temporal(TemporalType.DATE)
      private Date created;
-     @OneToMany(mappedBy = "havePlaylist")
+     @OneToMany
      private Set<Playlist> playlist;
 
+     public User(){
+         
+     }
+    public User(long userID, String name, String pass, String infor, String gmail, long phoneNumber, String image, Date created, Set<Playlist> playlist) {
+        this.userID = userID;
+        this.name = name;
+        this.pass = pass;
+        this.infor = infor;
+        this.gmail = gmail;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.created = created;
+        this.playlist = playlist;
+    }
     public long getUserID() {
         return userID;
     }
@@ -71,11 +85,11 @@ public class User implements Serializable {
         this.gmail = gmail;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

@@ -18,8 +18,6 @@ public class Music implements Serializable {
     private long musicID;
     private String name;
     @ManyToOne
-    @MapsId("User")
-    @JoinColumn(name = "name")
     private User author;
     private String category;
     private int like;
@@ -27,8 +25,25 @@ public class Music implements Serializable {
     private String image;
     @Temporal(TemporalType.DATE)
     private Date created;
-    @ManyToMany(mappedBy = "Musicid")
+    @ManyToMany
     private Set<Playlist> inPlaylist;
+    
+    public Music(){
+        
+    }
+    public Music(long musicID, String name, User author, String category, int like, int listen, String image, Date created, Set<Playlist> inPlaylist) {
+        this.musicID = musicID;
+        this.name = name;
+        this.author = author;
+        this.category = category;
+        this.like = like;
+        this.listen = listen;
+        this.image = image;
+        this.created = created;
+        this.inPlaylist = inPlaylist;
+    }
+    
+    
 
     public long getMusicID() {
         return musicID;
