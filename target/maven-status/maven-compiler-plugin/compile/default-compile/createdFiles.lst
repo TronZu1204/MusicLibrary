@@ -1,0 +1,9 @@
+LibraryClass\User.class
+LibraryClass\Playlist_.class
+com\mycompany\musiclibrary\resources\JakartaEE8Resource.class
+LibraryClass\Music_.class
+com\mycompany\musiclibrary\JakartaRestConfiguration.class
+LibraryClass\Playlist.class
+LibraryClass\Music.class
+JPAOperations\CreateUserServlet.class
+LibraryClass\User_.class
