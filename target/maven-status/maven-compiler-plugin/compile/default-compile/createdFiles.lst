@@ -1,9 +1,11 @@
 LibraryClass\User.class
+DBUtil\UserDB.class
 LibraryClass\Playlist_.class
 com\mycompany\musiclibrary\resources\JakartaEE8Resource.class
 LibraryClass\Music_.class
 com\mycompany\musiclibrary\JakartaRestConfiguration.class
 LibraryClass\Playlist.class
 LibraryClass\Music.class
-JPAOperations\CreateUserServlet.class
+DBUtil\DButil.class
 LibraryClass\User_.class
+Webservlet\UserServlet.class
