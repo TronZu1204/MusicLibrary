@@ -23,8 +23,6 @@ public class Playlist implements Serializable {
     @ManyToOne
     private User user;
     @ManyToMany
-    @JoinTable(name = "SongsinPlaylist", joinColumns = @JoinColumn(name = "Playlistid"),
-        inverseJoinColumns = @JoinColumn(name = "Musicid"))
     private Set<Music> Songs;
 
     
