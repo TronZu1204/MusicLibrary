@@ -20,27 +20,23 @@ public class Music implements Serializable {
     @ManyToOne
     private User author;
     private String category;
-    private int like;
+    private int liked;
     private int listen;
     private String image;
     @Temporal(TemporalType.DATE)
     private Date created;
-    @ManyToMany
-    private Set<Playlist> inPlaylist;
     
-    public Music(){
-        
-    }
-    public Music(long musicID, String name, User author, String category, int like, int listen, String image, Date created, Set<Playlist> inPlaylist) {
+    public Music(){    
+        }
+    public Music(long musicID, String name, User author, String category, int like, int listen, String image, Date created) {
         this.musicID = musicID;
         this.name = name;
         this.author = author;
         this.category = category;
-        this.like = like;
+        this.liked = like;
         this.listen = listen;
         this.image = image;
         this.created = created;
-        this.inPlaylist = inPlaylist;
     }
     
     
@@ -78,11 +74,11 @@ public class Music implements Serializable {
     }
 
     public int getLike() {
-        return like;
+        return liked;
     }
 
     public void setLike(int like) {
-        this.like = like;
+        this.liked = like;
     }
 
     public int getListen() {
@@ -108,13 +104,5 @@ public class Music implements Serializable {
     public void setCreated(Date created) {
         this.created = created;
     }
-
-    public Set<Playlist> getInPlaylist() {
-        return inPlaylist;
-    }
-
-    public void setInPlaylist(Set<Playlist> inPlaylist) {
-        this.inPlaylist = inPlaylist;
-    }
-    
 }
+
