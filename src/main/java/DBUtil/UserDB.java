@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 import LibraryClass.User;
 /**
@@ -30,4 +31,74 @@ public class UserDB {
             em.close();
         }
     }
+    
+    public static List<User> selectUser(String email,String pass){
+    EntityManager em = DButil.getFactory().createEntityManager();
+    String qString = "Select u FROM User u " + "WHERE u.gmail = :email AND" +" u.pass = :pass";
+    TypedQuery<User> q = em.createQuery(qString, User.class);
+    q.setParameter("email", email);
+    q.setParameter("pass", pass);
+    List<User> user = null;
+    try{
+        user = q.getResultList();
+        return user;
+    }
+    catch (NoResultException e){
+        return null;
+    }
+    finally{
+        em.close();
+    }  
+} 
+
+public static boolean userExist(String email, String pass){
+   List<User> u = selectUser(email, pass);
+   return !u.isEmpty();
 }
+
+public static boolean updateUser(User user){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        User updated = em.find(User.class, user.getUserID());
+        try {
+            updated.setPass(user.getPass());
+            updated.setName(user.getName());
+            updated.setPhoneNumber(user.getPhoneNumber());
+            updated.setInfor(user.getInfor());
+            em.merge(updated);
+            trans.commit();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            trans.rollback();
+            return false;
+        }
+        finally {
+            em.close();
+            return true;
+        }
+    
+}
+
+public static void deleteUser(User user){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        User updated = em.find(User.class, user.getUserID());
+        try {
+            em.remove(em.merge(updated));
+            trans.commit();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            trans.rollback();
+        }
+        finally {
+            em.close();
+        }
+    
+}
+}
+
+
