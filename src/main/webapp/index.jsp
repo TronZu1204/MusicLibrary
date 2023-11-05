@@ -32,6 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head> 
     	 <!-- /w3layouts-agile -->
  <body class="sticky-header left-side-collapsed"  onload="initMap()">
+     
     <section>
       <!-- left side start-->
 		<div class="left-side sticky-left-side">
@@ -246,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                                     <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
 														<div id="loginBox">  
 												<form action="login" method="post" id="loginForm">
-                                                                                                    <input type="hidden" name="action" value="logoutUser">
+                                                                                                    
                                                                                                    
 																	<fieldset id="body">
 																		<fieldset>
@@ -254,12 +255,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 																			  
 																		</fieldset>
 																		<fieldset>
-																				<label>Username = ${loggeduser.getGmail()}</label>
+																				<label>Email = ${loggeduser.getGmail()}</label>
 																				
 																		 </fieldset>
 																		
                                                                                                                                         </fieldset>
-															<input type="submit" id="login" value="Sign out">
+                                                                                                                        <input type="submit" name ="action" id="setting" value="Setting">
+															<input type="submit" name="action" value="Log out" id="login">
+                                                                                                                        
 														 </form>
 													</div>
 												</div>
