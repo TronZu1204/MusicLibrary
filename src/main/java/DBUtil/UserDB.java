@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 import LibraryClass.User;
 /**
@@ -30,4 +31,28 @@ public class UserDB {
             em.close();
         }
     }
+    
+    public static List<User> selectUser(String email,String pass){
+    EntityManager em = DButil.getFactory().createEntityManager();
+    String qString = "Select u FROM User u " + "WHERE u.gmail = :email AND" +" u.pass = :pass";
+    TypedQuery<User> q = em.createQuery(qString, User.class);
+    q.setParameter("email", email);
+    q.setParameter("pass", pass);
+    List<User> user = null;
+    try{
+        user = q.getResultList();
+        return user;
+    }
+    catch (NoResultException e){
+        return null;
+    }
+    finally{
+        em.close();
+    }  
+} 
+
+public static boolean userExist(String email, String pass){
+   List<User> u = selectUser(email, pass);
+   return !u.isEmpty();
+}
 }

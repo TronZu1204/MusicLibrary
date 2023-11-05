@@ -1,4 +1,5 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -128,11 +129,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="sign-right">
 										<form action="login" method="post">
 											<h3>Create your account </h3>
+                                                                                        
                                                                                         <input type="hidden" name="action" value="registerUser">
-											<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-											<input type="text" name="Number" value="Phone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone';}" required="">
-											<input type="text" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email id';}" required="">	
-											<input type="password" name="Password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">	
+                                                                                        <label>Name</label><br>
+											<input type="text" name="Name"  required>
+                                                                                        <label>Phone number</label><br>
+											<input type="text" name="Number"  required>
+                                                                                        <label>Email</label><br>
+											<input type="text" name="Email" required>	
+                                                                                        <label>Password</label><br>
+											<input type="password" name="Password" required>	
 											
 											<input type="submit" value="CREATE ACCOUNT" >
 										</form>
@@ -211,17 +217,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											 </ul>	
 											</div>
 											<div class="col-md-4 login-pop">
+                                                                                            <c:choose>
+                                                                                                <c:when test="${loggeduser == null}">
 												<div id="loginpop"> <a href="#" id="loginButton"><span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><i class="fa fa-sign-in"></i></a>
 														<div id="loginBox">  
 												<form action="login" method="post" id="loginForm">
+                                                                                                                                          <p>${message}</p>
+                                                                                                    <input type="hidden" name="action" value="loginUser">
+                                                              
 																	<fieldset id="body">
 																		<fieldset>
 																			  <label for="email">Email Address</label>
-																			  <input type="text" name="email" id="email">
+																			  <input type="text" name="loginEmail" id="email">
 																		</fieldset>
 																		<fieldset>
 																				<label for="password">Password</label>
-																				<input type="password" name="password" id="password">
+																				<input type="password" name="loginPass" id="password">
 																		 </fieldset>
 																		<input type="submit" id="login" value="Sign in">
 																		<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
@@ -230,7 +241,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														 </form>
 													</div>
 												</div>
-
+                                                                                                </c:when>
+                                                                                                <c:otherwise>
+                                                                                                    <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+														<div id="loginBox">  
+												<form action="login" method="post" id="loginForm">
+                                                                                                    <input type="hidden" name="action" value="logoutUser">
+                                                                                                   
+																	<fieldset id="body">
+																		<fieldset>
+																			  <label>Username = ${loggeduser.getName()}</label>
+																			  
+																		</fieldset>
+																		<fieldset>
+																				<label>Username = ${loggeduser.getGmail()}</label>
+																				
+																		 </fieldset>
+																		
+                                                                                                                                        </fieldset>
+															<input type="submit" id="login" value="Sign out">
+														 </form>
+													</div>
+												</div>
+                                                                                                </c:otherwise>
+                                                                                            </c:choose>
 											</div>
 										<div class="clearfix"> </div>
 								</div>
@@ -477,7 +511,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													</div>
 												</div>
 												<div class="jp-playlist">
-													<ul style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">1. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">2. Mark-Ronson-Uptown <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">3. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">4. Maroon-Sugar <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">5. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">6. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">Ã—</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">7. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li></ul>
+													<ul style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">1. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">2. Mark-Ronson-Uptown <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">3. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">4. Maroon-Sugar <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">5. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">6. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">7. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li></ul>
 												</div>
 												<div class="jp-no-solution" style="display: none;">
 													<span>Update Required</span>

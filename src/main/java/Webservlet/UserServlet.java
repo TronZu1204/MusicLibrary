@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
 
 import LibraryClass.User;
 import DBUtil.*;
@@ -35,7 +37,24 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         if(action.equals("registerUser")){
         registerUser(request, response);
-        url= "/index.html";
+        url= "/index.jsp";
+        }
+        else if(action.equals("loginUser")){
+            List<User> u = loginUser(request,response);
+            
+            if(u == null){
+                request.setAttribute("message", "Unknown user, please try again");
+                url="/index.jsp";
+            }
+            else{
+                User user = u.get(1);
+                request.setAttribute("loggeduser", user);
+                url="/index.jsp";
+            }
+        }
+        else if(action.equals("logoutUser")){
+            request.removeAttribute("loggedUser");
+            url="/index.jsp";
         }
          getServletContext()
                 .getRequestDispatcher(url)
@@ -47,7 +66,10 @@ public class UserServlet extends HttpServlet {
         String number = request.getParameter("Number");
         String pass = request.getParameter("Password");
         long Phone = Long.parseLong(number);
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis);  
         User user = new User();
+        user.setCreated(date);
         user.setName(name);
         user.setGmail(email);
         user.setPhoneNumber(Phone);
@@ -58,5 +80,18 @@ public class UserServlet extends HttpServlet {
         return url;
     }
 
-
+    private List<User> loginUser(HttpServletRequest request, HttpServletResponse response){
+                String loginEmail = request.getParameter("loginEmail");
+                String loginPass = request.getParameter("loginPass");
+                List<User> u = null;
+                boolean check = UserDB.userExist(loginEmail, loginPass);
+                System.out.println("User excist: "+check);
+                if(check == true){
+                u = UserDB.selectUser(loginEmail, loginPass);
+                return u;
+                }
+                else{
+                    return null;
+                }
+    }
 }
