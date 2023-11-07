@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: W3layouts
@@ -72,7 +71,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<ul class="sub-menu-list">
 								<li><a href="contact.html">Location</a> </li>
 							</ul>
-						</li>     
+						</li>
+                                                <li><a href="profile.jsp"><i class="lnr lnr-user"></i><span>Profile</span></a></li>
 					</ul>
 				<!--sidebar nav end-->
 			</div>
