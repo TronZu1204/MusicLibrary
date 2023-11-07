@@ -193,9 +193,9 @@
                         <div class="music-left">
                             <div class="profile">
                                 <h2>${loggeduser.getName()}</h2>
-                                <h3>${loggeduser.getGmail()}</h3>
+                                <h3>Email: ${loggeduser.getGmail()}</h3>
                                 <h3>${loggeduser.getInfor()}</h3>
-                                <h2>${loggeduser.getImage()}</h2>
+                                <h3>${loggeduser.getImage()}</h3>
                                 <img src="${loggeduser.getImage()}">
                             </div>
                         </div>
