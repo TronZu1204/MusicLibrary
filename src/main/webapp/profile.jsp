@@ -9,9 +9,9 @@
               Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
         <!-- Custom CSS -->
-        <link href="css/style.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
         <!-- Graph CSS -->
         <link href="css/font-awesome.css" rel="stylesheet"> 
         <!-- jQuery -->
@@ -192,11 +192,15 @@
                         <!--//music-left-->
                         <div class="music-left">
                             <div class="profile">
+<!--                                <div class="">
+                                <img src="${loggeduser.getImage()}" 
+                                     class="img-circle img-responsive profile-img" 
+                                     alt="profile picture">
                                 <h2>${loggeduser.getName()}</h2>
+                                </div>
                                 <h3>Email: ${loggeduser.getGmail()}</h3>
-                                <h3>${loggeduser.getInfor()}</h3>
-                                <h3>${loggeduser.getImage()}</h3>
-                                <img src="${loggeduser.getImage()}">
+                                <h3>${loggeduser.getInfor()}</h3>-->
+                                
                             </div>
                         </div>
                         <!--//music-left-->

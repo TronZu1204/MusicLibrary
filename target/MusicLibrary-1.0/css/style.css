@@ -1281,7 +1281,11 @@ a.top-sign {
 }
 
 .profile {
-    padding: 4em 0 0 0;
+    padding: 0 0 0 0;
+}
+
+.profile-img{
+    width: 33%
 }
 
 .content-grid img {
