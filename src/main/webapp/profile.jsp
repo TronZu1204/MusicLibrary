@@ -4,25 +4,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Cache-control" content="no-cache">
         <title>Profile</title>
         <meta name="keywords" content="Mosaic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
               Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <!-- Bootstrap Core CSS -->
-        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
         <!-- Custom CSS -->
-        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <link href="css/style.css" rel='stylesheet' type='text/css' />
         <!-- Graph CSS -->
         <link href="css/font-awesome.css" rel="stylesheet"> 
         <!-- jQuery -->
         <!-- lined-icons -->
         <link rel="stylesheet" href="css/icon-font.css" type='text/css' />
         <!-- //lined-icons -->
+        
+        <link rel="stylesheet" href="css/profile-style.css" type ='text/css'/>
+        
         <!-- Meters graphs -->
         <script src="js/jquery-2.1.4.js"></script>
     </head>
     <body class="sticky-header left-side-collapsed"  onload="initMap()">
-        <section>
+        <main>
             <div class="left-side sticky-left-side">
 
                 <!--logo and iconic logo start-->
@@ -187,277 +191,69 @@
                     <div class="clearfix"></div>
                 </div>
 
+
+
+
+
                 <div id="page-wrapper">
-                    <div class="inner-content">
-                        <!--//music-left-->
-                        <div class="music-left">
-                            <div class="profile">
-<!--                                <div class="">
-                                <img src="${loggeduser.getImage()}" 
-                                     class="img-circle img-responsive profile-img" 
-                                     alt="profile picture">
-                                <h2>${loggeduser.getName()}</h2>
-                                </div>
-                                <h3>Email: ${loggeduser.getGmail()}</h3>
-                                <h3>${loggeduser.getInfor()}</h3>-->
+                    <section class="container-fluid" id="user-deatails-MW">
+                        <!--user profile-->
+                        <div class="row justify-content-center user-bg user-row">
+
+                            
+                            <!--user img-->
+                            <div class="col-xs-5 col-sm-4 col-md-4 col-lg-3 user-details">
+                                <img src="${loggeduser.getImage()}" alt="profile picture" 
+                                     class = "img-rounded img-responsive"/>
+                            </div>
+                            <div class="col-xs-7 col-sm-8 col-md-7 col-lg-6 user-details">
+                                <h2 class="user-name">${loggeduser.getName()}</h2>
+
+                                <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
+                                <p class="user-email">Email: ${loggeduser.getGmail()}</p>
+
+                                <p class="user-infor">${loggeduser.getInfor()}</p>
                                 
-                            </div>
-                        </div>
-                        <!--//music-left-->
-                        <!--/music-right-->
-                        <div class="music-right">
-                            <!--/video-main-->
-                            <div class="video-main">
-                                <div class="video-record-list">
-                                    <div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
-                                        <div class="jp-type-playlist">
-                                            <div id="jquery_jplayer_1" class="jp-jplayer" style="width: 480px; height: 270px;"><img id="jp_poster_0" src="video/play1.png" style="width: 480px; height: 270px; display: inline;"><video id="jp_video_0" preload="metadata" src="http://192.168.30.9/vijayaa/2015/Dec/mosaic/web/video/Ellie-Goulding.webm" title="1. Ellie-Goulding" style="width: 0px; height: 0px;"></video></div>
-                                            <div class="jp-gui">
-                                                <div class="jp-video-play" style="display: block;">
-                                                    <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-                                                </div>
-                                                <div class="jp-interface">
-                                                    <div class="jp-progress">
-                                                        <div class="jp-seek-bar" style="width: 100%;">
-                                                            <div class="jp-play-bar" style="width: 0%;"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="jp-current-time" role="timer" aria-label="time">00:00</div>
-                                                    <div class="jp-duration" role="timer" aria-label="duration">00:18</div>
-                                                    <div class="jp-controls-holder">
-                                                        <div class="jp-controls">
-                                                            <button class="jp-previous" role="button" tabindex="0">previous</button>
-                                                            <button class="jp-play" role="button" tabindex="0">play</button>
-                                                        </div>
-                                                        <div class="jp-volume-controls">
-                                                            <button class="jp-mute" role="button" tabindex="0">mute</button>
-                                                            <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-                                                            <div class="jp-volume-bar">
-                                                                <div class="jp-volume-bar-value" style="width: 100%;"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="jp-toggles">
+                                <div class="liked-song">
+                                    <span class="user-records">Liked songs: 44</span>
+                                    <span class="lnr lnr-heart vector-symbol"></span>
+                                </div>
 
-                                                            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="jp-details" style="display: none;">
-                                                        <div class="jp-title" aria-label="title">1. Ellie-Goulding</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="jp-playlist">
-                                                <ul style="display: block;"><li class="jp-playlist-current"><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item jp-playlist-current" tabindex="0">1. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">2. Mark-Ronson-Uptown <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">3. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">4. Maroon-Sugar <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">5. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">6. Ellie-Goulding <span class="jp-artist">by Pixar</span></a></div></li><li><div><a href="javascript:;" class="jp-playlist-item-remove" style="display: none;">×</a><a href="javascript:;" class="jp-playlist-item" tabindex="0">7. Pharrell-Williams <span class="jp-artist">by Pixar</span></a></div></li></ul>
-                                            </div>
-                                            <div class="jp-no-solution" style="display: none;">
-                                                <span>Update Required</span>
-                                                To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="uploaded-song">
+                                    <span class="user-records">Uploaded songs: 3</span>
+                                    <span class="lnr lnr-music-note vector-symbol"></span>
                                 </div>
                             </div>
-                            <!-- script for play-list -->
-                            <link href="css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css">
-                            <script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
-                            <script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
-                            <script type="text/javascript">
-                                    //<![CDATA[
-                                    $(document).ready(function () {
-
-                                        new jPlayerPlaylist({
-                                            jPlayer: "#jquery_jplayer_1",
-                                            cssSelectorAncestor: "#jp_container_1"
-                                        }, [
-
-                                            {
-                                                title: "1. Ellie-Goulding",
-                                                artist: "",
-                                                mp4: "video/Ellie-Goulding.mp4",
-                                                ogv: "video/Ellie-Goulding.ogv",
-                                                webmv: "video/Ellie-Goulding.webm",
-                                                poster: "video/play1.png"
-                                            },
-                                            {
-                                                title: "2. Mark-Ronson-Uptown",
-                                                artist: "",
-                                                mp4: "video/Mark-Ronson-Uptown.mp4",
-                                                ogv: "video/Mark-Ronson-Uptown.ogv",
-                                                webmv: "video/Mark-Ronson-Uptown.webm",
-                                                poster: "video/play2.png"
-                                            },
-                                            {
-                                                title: "3. Ellie-Goulding",
-                                                artist: "",
-                                                mp4: "video/Ellie-Goulding.mp4",
-                                                ogv: "video/Ellie-Goulding.ogv",
-                                                webmv: "video/Ellie-Goulding.webm",
-                                                poster: "video/play1.png"
-                                            },
-                                            {
-                                                title: "4. Maroon-Sugar",
-                                                artist: "",
-                                                mp4: "video/Maroon-Sugar.mp4",
-                                                ogv: "video/Maroon-Sugar.ogv",
-                                                webmv: "video/Maroon-Sugar.webm",
-                                                poster: "video/play4.png"
-                                            },
-                                            {
-                                                title: "5. Pharrell-Williams",
-                                                artist: "",
-                                                mp4: "video/Pharrell-Williams.mp4",
-                                                ogv: "video/Pharrell-Williams.ogv",
-                                                webmv: "video/Pharrell-Williams.webm",
-                                                poster: "video/play5.png"
-                                            },
-                                            {
-                                                title: "6. Ellie-Goulding",
-                                                artist: "",
-                                                mp4: "video/Ellie-Goulding.mp4",
-                                                ogv: "video/Ellie-Goulding.ogv",
-                                                webmv: "video/Ellie-Goulding.webm",
-                                                poster: "video/play1.png"
-                                            },
-                                            {
-                                                title: "7. Pharrell-Williams",
-                                                artist: "",
-                                                mp4: "video/Pharrell-Williams.mp4",
-                                                ogv: "video/Pharrell-Williams.ogv",
-                                                webmv: "video/Pharrell-Williams.webm",
-                                                poster: "video/play5.png"
-                                            }
-                                        ], {
-                                            swfPath: "../../dist/jplayer",
-                                            supplied: "webmv,ogv,mp4",
-                                            useStateClassSkin: true,
-                                            autoBlur: false,
-                                            smoothPlayBar: true,
-                                            keyEnabled: true
-                                        });
-
-                                    });
-                                    //]]>
-                            </script>
-                            <!-- //script for play-list -->
-                            <!--//video-main-->
+                            
                         </div>
-                    </div>
-                    <!--//music-right-->
+                        <!--End user profile-->  
+                        
+                        
+                        <div class="row justify-content-center bg-success recent-play-song-row">
+                            <div class="col-xs-12 ">
+                                <h2>Recent played songs</h2>
+                            </div>                          
+                        </div>
+                        
+                        <div class="row justify-content-center bg-info playlist-row">
+                            <div class="col-xs-12 ">
+                                <h2>Playlists</h2>
+                            </div>                          
+                        </div>
+                    </section>
+
                     <div class="clearfix"></div>
-                    <!-- /w3l-agile-its -->
+                    <!--body wrapper end-->		
                 </div>
-                <!--body wrapper start-->
 
-                <div class="review-slider">
-                    <div class="tittle-head">
-                        <h3 class="tittle">Featured Albums <span class="new"> New</span></h3>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <ul id="flexiselDemo1">
-                        <li>
-                            <a href="single.html"><img src="images/v1.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Adele21 </div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v2.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Adele21</h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v3.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Shomlock</h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v4.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Stuck on a feeling</h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v5.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Ricky Martine </h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v6.jpg" alt=""/></a>
-                            <div class="slide-title"><h4>Ellie Goluding </h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="single.html"><img src="images/v6.jpeg" alt=""/></a>
-                            <div class="slide-title"><h4>Fifty Shades </h4></div>
-                            <div class="date-city">
-                                <h5>Jan-02-16</h5>
-                                <div class="buy-tickets">
-                                    <a href="single.html">READ MORE</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <script type="text/javascript">
-                        $(window).load(function () {
 
-                            $("#flexiselDemo1").flexisel({
-                                visibleItems: 5,
-                                animationSpeed: 1000,
-                                autoPlay: true,
-                                autoPlaySpeed: 3000,
-                                pauseOnHover: false,
-                                enableResponsiveBreakpoints: true,
-                                responsiveBreakpoints: {
-                                    portrait: {
-                                        changePoint: 480,
-                                        visibleItems: 2
-                                    },
-                                    landscape: {
-                                        changePoint: 640,
-                                        visibleItems: 3
-                                    },
-                                    tablet: {
-                                        changePoint: 800,
-                                        visibleItems: 4
-                                    }
-                                }
-                            });
-                        });
-                    </script>
-                    <script type="text/javascript" src="js/jquery.flexisel.js"></script>	
-                </div>
+
+
+
+
+
             </div>
-            <div class="clearfix"></div>
-            <!--body wrapper end-->
-        </section>
+        </main>
 
         <script src="js/jquery.nicescroll.js"></script>
         <script src="js/scripts.js"></script>
