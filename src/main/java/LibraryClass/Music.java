@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Entity
 public class Music implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long musicID;
     private String name;
     @ManyToOne

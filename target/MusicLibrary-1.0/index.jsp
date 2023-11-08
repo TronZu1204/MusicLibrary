@@ -262,8 +262,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                                                                         </fieldset>
                                                                                                                         <input type="submit" name ="action" id="setting" value="Setting">
 															<input type="submit" name="action" value="Log out" id="login">
-                                                                                                                        
+                                                                                                                        <input type="submit" name="action" value="playlist" id="login"> 
 														 </form>
+                                                                                                      
 													</div>
 												</div>
                                                                                                 </c:otherwise>

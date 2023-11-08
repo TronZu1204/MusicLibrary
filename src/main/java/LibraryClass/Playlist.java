@@ -15,12 +15,13 @@ import javax.persistence.*;
 @Entity
 public class Playlist implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long playlistID;
     private String name;
     @Temporal(TemporalType.DATE)
     private Date created;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
     private User user;
     @ManyToMany
     private Set<Music> Songs;
