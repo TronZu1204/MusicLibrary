@@ -59,6 +59,9 @@ public class UserServlet extends HttpServlet {
             request.removeAttribute("loggeduser");  
             url ="/index.jsp";
         }
+        else if(action.equals("My profile")){
+            url="/profile.jsp";
+        }
         else if(action.equals("Setting")){
             url= "/user.jsp";
         }
@@ -82,7 +85,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("getAlert", "Yes");
             url = ("/index.jsp");
         }
-        else if(action.equals("playlist")){
+        else if(action.equals("Playlist")){
             url= "/playlist";
         }
          getServletContext()

@@ -222,29 +222,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											 </ul>	
 											</div>
 											<div class="col-md-4 login-pop">
-												<div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-														<div id="loginBox">  
-												<form action="login" method="post" id="loginForm">
-                                                                                                    
-                                                                                                   
-																	<fieldset id="body">
-																		<fieldset>
-																			  <label>Username = ${loggeduser.getName()}</label>
-																			  <input type="hidden" name="userID" value="${loggeduser.getUserID()}">
-																		</fieldset>
-																		<fieldset>
-                                                                                                                                                            <label>Email = ${loggeduser.getGmail()}</label>
-																				
-																		 </fieldset>
-																		
-                                                                                                                                        </fieldset>
-                                                                                                                        <input type="submit" name ="action" id="setting" value="Setting">
-															<input type="submit" name="action" value="Log out" id="login">
-                                                                                                                        <input type="submit" name="action" value="playlist" id="login"> 
-														 </form>
-                                                                                                      
-													</div>
-												</div>
+												 <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                            <div id="loginBox">  
+                                                <form action="login" method="post" id="loginForm">
+
+
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label>Username = ${loggeduser.getName()}</label>
+
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label>Email = ${loggeduser.getGmail()}</label>
+
+                                                        </fieldset>
+
+                                                    </fieldset>
+                                                    <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
+                                                    <input type="submit" name ="action" id="setting" value="Setting">
+                                                    <input type="submit" name="action" value="Log out" id="login">
+                                                    
+                                                </form>
+
+                                            </div>
+                                        </div>
 
 											</div>
 										<div class="clearfix"> </div>
