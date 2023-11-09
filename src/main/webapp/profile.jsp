@@ -19,9 +19,9 @@
         <!-- lined-icons -->
         <link rel="stylesheet" href="css/icon-font.css" type='text/css' />
         <!-- //lined-icons -->
-        
+
         <link rel="stylesheet" href="css/profile-style.css" type ='text/css'/>
-        
+
         <!-- Meters graphs -->
         <script src="js/jquery-2.1.4.js"></script>
     </head>
@@ -198,43 +198,61 @@
                 <div id="page-wrapper">
                     <section class="container-fluid" id="user-deatails-MW">
                         <!--user profile-->
-                        <div class="row justify-content-center user-bg user-row">
+                        <div class="">
+                            <table width="100%" class="table table-bordered">
+                                <tr>
+                                    <td class="col-xs-4 user-img  " rowspan="4">
+                                        <c:choose>
+                                            <c:when test="${loggeduser.getImage() != null}">
+                                                <img src="${loggeduser.getImage()}" alt="profile picture" 
+                                                     class = "img-rounded img-responsive"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="images/users_img/default-profile.jpg" alt="profile picture" 
+                                                     class = "img-rounded img-responsive"/>
+                                            </c:otherwise>    
+                                        </c:choose>
+                                    </td>
+                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                        <h2 class="user-name">${loggeduser.getName()}</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                        <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
+                                        <p class="user-email">Email: ${loggeduser.getGmail()}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                        <p class="user-infor">${loggeduser.getInfor()}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                        <div class="liked-song">
+                                            <span class="user-records">Liked songs: 44</span>
+                                            <span class="lnr lnr-heart vector-symbol"></span>
+                                        </div>
 
-                            
-                            <!--user img-->
-                            <div class="col-xs-5 col-sm-4 col-md-4 col-lg-3 user-details">
-                                <img src="${loggeduser.getImage()}" alt="profile picture" 
-                                     class = "img-rounded img-responsive"/>
-                            </div>
-                            <div class="col-xs-7 col-sm-8 col-md-7 col-lg-6 user-details">
-                                <h2 class="user-name">${loggeduser.getName()}</h2>
+                                        <div class="uploaded-song">
+                                            <span class="user-records">Uploaded songs: 3</span>
+                                            <span class="lnr lnr-music-note vector-symbol"></span>
+                                        </div>
+                                    </td>
+                                </tr>
 
-                                <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
-                                <p class="user-email">Email: ${loggeduser.getGmail()}</p>
-
-                                <p class="user-infor">${loggeduser.getInfor()}</p>
-                                
-                                <div class="liked-song">
-                                    <span class="user-records">Liked songs: 44</span>
-                                    <span class="lnr lnr-heart vector-symbol"></span>
-                                </div>
-
-                                <div class="uploaded-song">
-                                    <span class="user-records">Uploaded songs: 3</span>
-                                    <span class="lnr lnr-music-note vector-symbol"></span>
-                                </div>
-                            </div>
-                            
+                            </table>
                         </div>
                         <!--End user profile-->  
-                        
-                        
+
+
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
                                 <h2>Recent played songs</h2>
                             </div>                          
                         </div>
-                        
+
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
