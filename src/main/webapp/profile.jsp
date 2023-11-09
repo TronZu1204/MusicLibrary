@@ -201,7 +201,7 @@
                         <div class="">
                             <table width="100%" class="table table-bordered">
                                 <tr>
-                                    <td class="col-xs-4 user-img  " rowspan="4">
+                                    <td class="col-xs-4 user-img" rowspan="4">
                                         <c:choose>
                                             <c:when test="${loggeduser.getImage() != null}">
                                                 <img src="${loggeduser.getImage()}" alt="profile picture" 
@@ -213,23 +213,23 @@
                                             </c:otherwise>    
                                         </c:choose>
                                     </td>
-                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8">
                                         <h2 class="user-name">${loggeduser.getName()}</h2>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8">
                                         <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
                                         <p class="user-email">Email: ${loggeduser.getGmail()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8 borderless-top borderless-bottom">
                                         <p class="user-infor">${loggeduser.getInfor()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8">
                                         <div class="liked-song">
                                             <span class="user-records">Liked songs: 44</span>
                                             <span class="lnr lnr-heart vector-symbol"></span>

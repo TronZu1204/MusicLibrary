@@ -17,7 +17,7 @@
 
 .user-img img{
     width: 100%;
-    
+
 }
 
 .col-4 {
@@ -28,12 +28,10 @@
     width: 67%;
 }
 
-.borderless-top td{
-    border-top: none !important;
-}
+#info-row{
+    border-top: none;
+    border-bottom: none;
 
-.borderless-bottom td{
-    border-bottom: none !important;
 }
 
 .user-details{
