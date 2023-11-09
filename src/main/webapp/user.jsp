@@ -248,28 +248,31 @@ else
 												</div>
                                                                                                 </c:when>
                                                                                                 <c:otherwise>
-                                                                                                    <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-														<div id="loginBox">  
-												<form action="login" method="post" id="loginForm">
-                                                                                                    
-                                                                                                   
-																	<fieldset id="body">
-																		<fieldset>
-																			  <label>Username = ${loggeduser.getName()}</label>
-																			  
-																		</fieldset>
-																		<fieldset>
-																				<label>Email = ${loggeduser.getGmail()}</label>
-																				
-																		 </fieldset>
-																		
-                                                                                                                                        </fieldset>
-                                                                                                                        <input type="submit" name ="action" id="setting" value="Setting">
-															<input type="submit" name="action" value="Log out" id="login">
-                                                                                                                        
-														 </form>
-													</div>
-												</div>
+                                                                                                     <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                            <div id="loginBox">  
+                                                <form action="login" method="post" id="loginForm">
+
+
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label>Username = ${loggeduser.getName()}</label>
+
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label>Email = ${loggeduser.getGmail()}</label>
+
+                                                        </fieldset>
+
+                                                    </fieldset>
+                                                    <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
+                                                    <input type="submit" name ="action" id="setting" value="Setting">
+                                                    <input type="submit" name="action" value="Log out" id="login">
+                                                    
+                                                </form>
+
+                                            </div>
+                                        </div>
                                                                                                 </c:otherwise>
                                                                                             </c:choose>
 

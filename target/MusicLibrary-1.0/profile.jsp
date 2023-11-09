@@ -175,10 +175,13 @@
                                                         </fieldset>
 
                                                     </fieldset>
+                                                    <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
                                                     <input type="submit" name="action" value="Log out" id="login">
-
+                                                    
                                                 </form>
+
                                             </div>
                                         </div>
                                     </c:otherwise>

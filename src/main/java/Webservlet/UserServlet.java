@@ -85,7 +85,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("getAlert", "Yes");
             url = ("/index.jsp");
         }
-        else if(action.equals("playlist")){
+        else if(action.equals("Playlist")){
             url= "/playlist";
         }
          getServletContext()

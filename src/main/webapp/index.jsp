@@ -257,11 +257,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                         </fieldset>
 
                                                     </fieldset>
+                                                    <input type="submit" name="action" value="Playlist" > 
                                                     <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
-
                                                     <input type="submit" name="action" value="Log out" id="login">
-                                                    <input type="submit" name="action" value="playlist" id="login"> 
+                                                    
                                                 </form>
 
                                             </div>
@@ -281,83 +281,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!-- //header-ends -->
                 <div id="page-wrapper">
                     <div class="inner-content">
-
-                        <div class="music-left">
-                            <!--banner-section-->
-                            <div class="banner-section">
-                                <div class="banner">
-                                    <div class="callbacks_container">
-                                        <ul class="rslides callbacks callbacks1" id="slider4">
-                                            <li>
-                                                <div class="banner-img">
-                                                    <img src="images/11.jpg" class="img-responsive" alt="">
-                                                </div>
-                                                <div class="banner-info">
-                                                    <a class="trend" href="single.html">TRENDING</a>
-                                                    <h3>Let Your Home</h3>
-                                                    <p>Album by <span>Rock star</span></p>
-                                                </div>
-
-                                        </ul>	
-                                    </div>
-                                    <div class="col-md-4 login-pop">
-                                        <c:choose>
-                                            <c:when test="${loggeduser == null}">
-                                                <div id="loginpop"> <a href="#" id="loginButton"><span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><i class="fa fa-sign-in"></i></a>
-                                                    <div id="loginBox">  
-                                                        <form action="login" method="post" id="loginForm">
-                                                            <p>${message}</p>
-                                                            <input type="hidden" name="action" value="loginUser">
-
-                                                            <fieldset id="body">
-                                                                <fieldset>
-                                                                    <label for="email">Email Address</label>
-                                                                    <input type="text" name="loginEmail" id="email">
-                                                                </fieldset>
-                                                                <fieldset>
-                                                                    <label for="password">Password</label>
-                                                                    <input type="password" name="loginPass" id="password">
-                                                                </fieldset>
-                                                                <input type="submit" id="login" value="Sign in">
-                                                                <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-                                                            </fieldset>
-                                                            <span><a href="#">Forgot your password?</a></span>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-                                                    <div id="loginBox">  
-                                                        <form action="login" method="post" id="loginForm">
-
-
-                                                            <fieldset id="body">
-                                                                <fieldset>
-                                                                    <label>Username = ${loggeduser.getName()}</label>
-
-                                                                </fieldset>
-                                                                <fieldset>
-                                                                    <label>Email = ${loggeduser.getGmail()}</label>
-
-                                                                </fieldset>
-
-                                                            </fieldset>
-                                                            <input type="submit" name ="action" id="setting" value="Setting">
-                                                            <input type="submit" name="action" value="Log out" id="login">
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                    <div class="clearfix"> </div>
-                                </div>
-                                <!-------->
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         <!--notification menu end -->
                         <!-- //header-ends -->
                         <!-- /w3l-agileits -->
