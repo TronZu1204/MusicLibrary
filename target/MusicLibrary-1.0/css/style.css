@@ -36,6 +36,26 @@ body a{
     -o-transition:0.5s all;
     -ms-transition:0.5s all;
 }
+.setting-button {
+           position: absolute;
+            top:0;
+            background-color: lightgray;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+.setting {
+           position: relative;
+            background-color: lightgray;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+        .browse-grid:hover .setting-button{
+            display: block;
+        }
 a:focus, a:active, a:hover {
     outline: none;
     -webkit-transition: all 0.3s;
