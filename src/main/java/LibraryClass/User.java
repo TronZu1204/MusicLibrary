@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class User implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long userID;
      private String name;
      private String pass;
@@ -29,7 +29,11 @@ public class User implements Serializable {
      @Temporal(TemporalType.DATE)
      private Date created;
      @OneToMany
+     (mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
      private Set<Playlist> playlist;
+      @OneToMany
+     (mappedBy = "author",cascade = CascadeType.ALL, orphanRemoval = true)
+     private Set<Music> Songs;
 
      public User(){
          
@@ -45,6 +49,15 @@ public class User implements Serializable {
         this.created = created;
         this.playlist = playlist;
     }
+
+    public Set<Music> getSongs() {
+        return Songs;
+    }
+
+    public void setSongs(Set<Music> Songs) {
+        this.Songs = Songs;
+    }
+    
     public long getUserID() {
         return userID;
     }
@@ -116,5 +129,8 @@ public class User implements Serializable {
     public void setPlaylist(Set<Playlist> playlist) {
         this.playlist = playlist;
     }
-     
+    public void addPlaylist(Playlist playlist){
+        
+        
+    }
 }

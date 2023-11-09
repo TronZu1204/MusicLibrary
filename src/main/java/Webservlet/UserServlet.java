@@ -65,12 +65,13 @@ public class UserServlet extends HttpServlet {
         else if(action.equals("save")){
             String message = updateUser(request,response);
             
-            if(message == "Account updated succesfully"){
+            if(message.equals("Account updated succesfully")){
             request.getSession().invalidate();
             List<User> u = loginUser(request,response);
             User user = u.get(0);
             request.getSession().setAttribute("loggeduser", user);
             }
+            
             request.setAttribute("message", message);
             url="/user.jsp";
         }
@@ -80,6 +81,9 @@ public class UserServlet extends HttpServlet {
             request.getSession().invalidate();
             request.setAttribute("getAlert", "Yes");
             url = ("/index.jsp");
+        }
+        else if(action.equals("playlist")){
+            url= "/playlist";
         }
          getServletContext()
                 .getRequestDispatcher(url)
