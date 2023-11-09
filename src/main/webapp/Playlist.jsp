@@ -2,16 +2,9 @@
 <%@page import="java.util.List"%>
 <%@page import="LibraryClass.Playlist"%>
 <%@page import="LibraryClass.User"%>
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
           <%
-    
         List<Playlist> playlist = (List<Playlist>) request.getAttribute("playlist");
     %>
 <head>
@@ -38,7 +31,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
              document.location = document.location.href;
         }
     </script>
+<script>
+  function showButtons(playlistID) {
+        var changeButton = document.getElementById('changeButton' + playlistID);
+        var deleteButton = document.getElementById('deleteButton' + playlistID);
 
+        if (changeButton.style.display === 'none') {
+            changeButton.style.display = 'inline';
+            deleteButton.style.display = 'inline';
+        } else {
+            changeButton.style.display = 'none';
+            deleteButton.style.display = 'none';
+        }
+    }
+  function passIDToModal(ID) {
+        var inputElement = document.getElementById('PlaylistID');
+        inputElement.value = ID;
+        inputElement.setAttribute('value', ID);
+    }
+</script>
 </head> 
     	 <!-- /w3layouts-agile -->
  <body class="sticky-header left-side-collapsed"  onload="initMap()">
@@ -146,6 +157,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
 			</div>
+               
 			<!-- //signup -->
  	 <!-- /agileits -->
 		<!-- main content start-->
@@ -280,11 +292,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                          <% for(int i = 0; i < playlist.size(); i++) {
                                                                                       Playlist showplaylist = new Playlist();
                                                                                            showplaylist = playlist.get(i); %>
+                                                                                             
 								<div class="col-md-3 browse-grid">
-									<a  href="single.html"><img src="images/v11.jpg" title=<%=showplaylist.getName()%></a>
+									<a  href="single.html"><img src="images/v11.jpg" title=<%=showplaylist.getName()%>></a>
 									 <a href="single.html"><i class="glyphicon glyphicon-play-circle"></i></a>
 									<a class="sing" href="single.html"><%=showplaylist.getName()%></a>
+                                                                        <button class="setting-button" onclick="showButtons('<%=showplaylist.getPlaylistID()%>')"><i class="fa fa-gear" style="font-size:24px"></i></button>
+                                                                        <form action="playlist" method="post">
+                                                                        <input type="hidden" name="playlistID" value="<%=showplaylist.getPlaylistID()%>">
+                                                                        <button class="setting"  id="changeButton<%=showplaylist.getPlaylistID()%>" style="display: none;" ><a href="#" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passIDToModal(<%=showplaylist.getPlaylistID()%>)">Rename playlist</a></button>
+                                                                        <br>
+                                                                        <button type="submit" class="setting" id="deleteButton<%=showplaylist.getPlaylistID()%>" style="display: none;" name="action" value="deletePlaylist">
+                                                                           Delete Playlist
+                                                                        </button>
+                                                                        </form>
+                                                                        <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body modal-spa">
+							<div class="sign-grids">
+								<div class="sign">
+									<div class="sign-right" style="width:85%">
+										<form action="playlist" method="post">
+                                                                                        <input id="PlaylistID" type="hidden" name="playlistID">
+                                                                                        <input type="hidden" name="action" value="renamePlaylist">
+                                                                                        <label>Playlist's new name:</label>
+											<input type="text" name="renamePlaylist" value="">
+											<input  type="submit" value="Rename playlist" >
+										</form>
+									</div>
+									<div class="clearfix"></div>								
 								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								</div>
+                                                                          
                                                                            <%
             };
             %>

@@ -9,7 +9,7 @@ import javax.persistence.EntityTransaction;
 import LibraryClass.Playlist;
 import LibraryClass.User;
 import java.util.List;
-import javax.persistence.NoResultException;
+import javax.persistence.NoResultException; 
 import javax.persistence.TypedQuery;
 /**
  *
@@ -52,5 +52,35 @@ public class PlaylistDB {
         em.close();
     }  
     }
-    
+    public static void deletePlaylist(long playlistID){
+        EntityManager em = DButil.getFactory().createEntityManager();
+        Playlist removeplaylist = em.find(Playlist.class, playlistID);
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try{
+            em.remove(em.merge(removeplaylist));
+            trans.commit();
+        }
+        catch(Exception e){
+            System.out.println(e);
+            trans.rollback();     
+        }
+        em.close();
+    }
+    public static void updatePlaylist(Playlist newPlaylist){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        Playlist oldPlaylist = em.find(Playlist.class, newPlaylist.getPlaylistID());
+        try{
+            oldPlaylist.setName(newPlaylist.getName());
+             em.merge(oldPlaylist);
+            trans.commit();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            trans.rollback();
+        }
+        em.close();
+    }
 }

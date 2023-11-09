@@ -43,6 +43,7 @@ public class PlaylistServlet extends HttpServlet {
         String url ="/Playlist.jsp";
        request.setAttribute("playlist", playlist);
        String action = request.getParameter("action");
+        System.out.println(action);
        if(action.equals("addPlaylist")){
            createPlaylist(request,response,ID);
            String message ="Playlist added";
@@ -51,6 +52,22 @@ public class PlaylistServlet extends HttpServlet {
            request.setAttribute("playlist", playlist);
            url ="/Playlist.jsp";
        }
+       if(action.equals("deletePlaylist")){
+           deletePlaylist(request,response);
+           String message ="Playlist deleted";
+           request.setAttribute("message", message);
+           playlist = PlaylistDB.selectPlaylist(user);
+           request.setAttribute("playlist", playlist);
+           url ="/Playlist.jsp";
+       }
+        if(action.equals("renamePlaylist")){
+            updatePlaylist(request,response);
+              String message ="Playlist renamed";
+           request.setAttribute("message", message);
+           playlist = PlaylistDB.selectPlaylist(user);
+           request.setAttribute("playlist", playlist);
+           url ="/Playlist.jsp";
+        }
           getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);
@@ -65,5 +82,19 @@ public class PlaylistServlet extends HttpServlet {
            playlist.setName(playlistName);
            playlist.setCreated(date);
            PlaylistDB.addPlaylist(playlist, ID);
+    }
+    private void deletePlaylist(HttpServletRequest request, HttpServletResponse response){
+           String ID = request.getParameter("playlistID");
+           long playlistID = Long.parseLong(ID);
+           PlaylistDB.deletePlaylist(playlistID);
+    }
+    private void updatePlaylist(HttpServletRequest request, HttpServletResponse response){
+        String ID = request.getParameter("playlistID");
+        long playlistID = Long.parseLong(ID);
+        String Name = request.getParameter("renamePlaylist");
+        Playlist playlist = new Playlist();
+        playlist.setName(Name);
+        playlist.setPlaylistID(playlistID);
+        PlaylistDB.updatePlaylist(playlist);
     }
 }
