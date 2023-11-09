@@ -28,11 +28,11 @@
     width: 67%;
 }
 
-.borderless-top{
+.borderless-top td{
     border-top: none !important;
 }
 
-.borderless-bottom{
+.borderless-bottom td{
     border-bottom: none !important;
 }
 
