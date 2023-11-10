@@ -10,11 +10,15 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 import LibraryClass.Music;
+import LibraryClass.User;
 
 public class MusicDB {
-    public static void insertMusic(Music music) {
+    public static void insertMusic(Music music, long authorID) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
+        //get author based on authorID
+        User author = em.find(User.class, authorID);
+        music.setAuthor(author);
         trans.begin();
         try{
             em.persist(music);
