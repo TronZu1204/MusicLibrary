@@ -29,9 +29,7 @@
 }
 
 #info-row{
-    border-top: none;
-    border-bottom: none;
-
+    border: none;
 }
 
 .user-details{
@@ -86,7 +84,7 @@
 
 .uploaded-song{
     display: inline-block;
-    float: right;
+    float: left;
     align-content: end;
 }
 

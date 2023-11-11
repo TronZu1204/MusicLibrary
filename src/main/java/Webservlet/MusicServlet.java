@@ -20,7 +20,7 @@ import LibraryClass.User;
  *
  * @author Johnny
  */
-@WebServlet(name = "MusicServlet", urlPatterns = {"/MusicServlet"})
+@WebServlet(name = "MusicServlet", urlPatterns = {"/music"})
 public class MusicServlet extends HttpServlet {
 
     @Override
@@ -63,6 +63,10 @@ public class MusicServlet extends HttpServlet {
             //should change this to a playlist url that is dedicated for uploaded songs
             url = "/profile.jsp";
         }
+        
+        getServletContext()
+                .getRequestDispatcher(url)
+                .forward(request, response);
     }
 
     @Override
