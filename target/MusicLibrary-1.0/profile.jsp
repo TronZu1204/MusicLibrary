@@ -222,7 +222,10 @@
                                     </td>
 
                                     <td id="info-row" class="col-xs-4" colspan="1">
-                                        <a href="addMusic.jsp" class=""><button type="button" class="btn btn-light">Upload new song</button></a>
+                                        <form method="post" action="login">
+                                            <button type="submit" name="action" value="start_create_newMusic" class="btn btn-light">Upload new song</button>
+                                            <p>${message}</p>  
+                                        </form>
                                     </td>
                                 </tr>
                                 <tr >
@@ -253,15 +256,26 @@
 
                             </table>
                         </div>
-                        <!--End user profile-->  
-
-
+                    </section>
+                    <!--End user profile--> 
+                    
+                    <section class="container-fluid">
+                        <div class="row justify-content-center bg-danger recent-play-song-row">
+                            <div class="col-xs-12 ">
+                                <h2>Uploaded songs</h2>
+                                
+                            </div>                          
+                        </div>
+                    </section>
+                    
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
                                 <h2>Recent played songs</h2>
                             </div>                          
                         </div>
-
+                    </section>
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>

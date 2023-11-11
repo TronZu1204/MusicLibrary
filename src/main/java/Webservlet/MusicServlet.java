@@ -20,7 +20,7 @@ import LibraryClass.User;
  *
  * @author Johnny
  */
-@WebServlet(name = "MusicServlet", urlPatterns = {"/music"})
+@WebServlet(name = "MusicServlet", urlPatterns = {"/musicServlet"})
 public class MusicServlet extends HttpServlet {
 
     @Override
@@ -32,38 +32,44 @@ public class MusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //default return path
-        String url = "/index.jsp";
+        String url = "/profile.jsp";
         //get action
         String action = request.getParameter("action");
 
         //get current logged in User info
         User user = (User) request.getSession().getAttribute("loggeduser");
-        long authorID = user.getUserID();
 
         //get all uploaded music by this user
         //List<Music> userUploadedMusicList = MusicDB.selectMusicbyUserID(authorID));
-        
         //upload a song, author is set to current logged in user
         if (action.equals("createMusic")) {
             String message;
-            try {
-                createMusic(request, response);
-                message = "Uploaded song successfully!";
-                //add this new song to the userUploadedMusicList
-                //List<Music> userUploadedMusicList = MusicDB.selectMusicbyUserID(authorID));
-                //request.setAttribute("userUploadedMusicList", userUploadedMusicList);
-            }
-            catch (Exception e) {
-                message = "Failed to upload song!";
-                System.out.println("Failed to upload song!");
+            javax.servlet.http.HttpSession session = request.getSession();
+            if (session.getAttribute("insertMusicflag") == null) {
+
+                try {
+                    createMusic(request, response, user);
+                    message = "Uploaded song successfully!";
+                    //add this new song to the userUploadedMusicList
+                    //List<Music> userUploadedMusicList = MusicDB.selectMusicbyUserID(authorID));
+                    //request.setAttribute("userUploadedMusicList", userUploadedMusicList);
+                } catch (Exception e) {
+                    message = "Failed to upload song!";
+                    System.out.println("Failed to upload song!");
+                }
+                //set insertFlag so user has to create a new form to upload a song
+                session.setAttribute("insertMusicflag", true);
+            } else {
+                //doesn't reupload the song and return a warning message
+                message = "Please fill a new form to upload song!";
             }
             
-            request.setAttribute("message", message);
             //return back to profile.jsp after uploading a song (new song is displayed there)
             //should change this to a playlist url that is dedicated for uploaded songs
             url = "/profile.jsp";
+            request.setAttribute("message", message);
         }
-        
+
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
@@ -74,22 +80,21 @@ public class MusicServlet extends HttpServlet {
         return "Short description";
     }
 
-    private void createMusic(HttpServletRequest request, HttpServletResponse response) {
+    private void createMusic(HttpServletRequest request, HttpServletResponse response, User author) {
         String name = request.getParameter("musicName");
         String category = request.getParameter("musicCategory");
         int liked = 0;
         int listen = 0;
 
-        String placeholder = request.getParameter("musicAuthor");
-        long authorID = Long.parseLong(placeholder);
-
+//        String placeholder = request.getParameter("musicAuthor");
+//        long authorID = Long.parseLong(placeholder);
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
 
         //default image_path to empty
-        String image = "";
+        String image = request.getParameter("imagePath");
 
-        Music music = new Music(name, category, liked, listen, image, date);
-        MusicDB.insertMusic(music, authorID);
+        Music music = new Music(name, author, category, liked, listen, image, date);
+        MusicDB.insertMusic(music);
     }
 }

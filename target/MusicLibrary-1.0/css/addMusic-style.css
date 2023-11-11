@@ -107,8 +107,18 @@
 /*End play list*/
 
 
+/*input*/
 
+input::file-selector-button {
+    display: none;
+}
 
+/*input:required:valid {
+  border-color: green;
+}*/
+input:invalid {
+  border-color: red;
+}
 
 
 /*(481px  and up) */

@@ -40,8 +40,9 @@ public class Music implements Serializable {
         this.created = created;
     }
     
-    public Music(String name, String category, int like, int listen, String image, Date created) {
+    public Music(String name, User author, String category, int like, int listen, String image, Date created) {
         this.name = name;
+        this.author = author;
         this.category = category;
         this.liked = like;
         this.listen = listen;

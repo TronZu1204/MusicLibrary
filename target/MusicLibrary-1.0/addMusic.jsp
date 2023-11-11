@@ -201,27 +201,31 @@
                 <div id="page-wrapper">
                     <section class="container-fluid" id="user-deatails-MW">
                         <!--user profile-->
-                        <form method="post" action="music">
+                        <form method="post" action="musicServlet">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="musicName">Song's name</label>
-                                    <input type="text" class="form-control" id="musicName" placeholder="Name">
+                                    <label for="name" >Song's name</label>
+                                    <input type="text" class="form-control" name="musicName"
+                                           id="name" placeholder="Name">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="author">Author</label>
                                     <input type="text" class="form-control" id="author" 
-                                           value="${loggeduser.getName()}" disabled>
+                                           name="musicAuthor" value="${loggeduser.getName()}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-8">
-                                    <label for="image">Cover image</label>
-                                    <input type="text" class="form-control" id="image">
+                                <div class="form-group col-md-6">
+                                    <label for="image" class="custom-file-upload">Cover image</label>
+                                    <input type="file" name= "imagePath"
+                                           class="form-control" id="image">                              
                                 </div>
-                                <div class="form-group col-md-4">
+
+
+                                <div class="form-group col-md-6">
                                     <label for="category">Category</label>
-                                    <select id="category" class="form-control">
+                                    <select name="musicCategory" id="category" class="form-control">
                                         <option selected>UK-Pop</option>
                                         <option>V-Pop</option>
                                         <option>J-Pop</option>
@@ -240,22 +244,31 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label for="musicFile">Song's file</label>
-                                    <input type="text" class="form-control" id="musicFile">
+                                    <input type="file" name="musicFile"
+                                           class="form-control" id="musicFile">
                                 </div>    
                             </div>
-                            <button type="submit" class="btn btn-primary">Upload</button>
+                            <div class="form-row">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" name="action" value="createMusic" class="btn btn-primary">Upload</button>
+
+                                </div>
+                            </div>
                         </form>
-                        <!--End user profile-->  
+                    </section>
+                    <!--End user profile-->  
 
-
-                        <div class="row justify-content-center bg-success recent-play-song-row">
+                    <section class="container-fluid">
+                        <div class="row  bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
                                 <h2>Recent played songs</h2>
                             </div>                          
                         </div>
+                    </section>
 
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>

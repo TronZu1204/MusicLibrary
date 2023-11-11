@@ -88,6 +88,14 @@ public class UserServlet extends HttpServlet {
         else if(action.equals("Playlist")){
             url= "/playlist";
         }
+        //send user to addMusic.jsp and delete insertMusicflag to start new insertion
+        else if(action.equals("start_create_newMusic")) {
+            javax.servlet.http.HttpSession session = request.getSession();
+            if(session.getAttribute("insertMusicflag") != null) {
+                session.removeAttribute("insertMusicflag");
+            }
+            url = "/addMusic.jsp";
+        }
          getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);

@@ -13,12 +13,9 @@ import LibraryClass.Music;
 import LibraryClass.User;
 
 public class MusicDB {
-    public static void insertMusic(Music music, long authorID) {
+    public static void insertMusic(Music music) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        //get author based on authorID
-        User author = em.find(User.class, authorID);
-        music.setAuthor(author);
         trans.begin();
         try{
             em.persist(music);
