@@ -65,7 +65,9 @@ public class PlaylistDB {
             System.out.println(e);
             trans.rollback();     
         }
-        em.close();
+        finally {
+            em.close();
+        }
     }
     public static void updatePlaylist(Playlist newPlaylist){
          EntityManager em = DButil.getFactory().createEntityManager();

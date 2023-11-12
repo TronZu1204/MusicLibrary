@@ -179,7 +179,7 @@
                                                     <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
                                                     <input type="submit" name="action" value="Log out" id="login">
-                                                    
+
                                                 </form>
 
                                             </div>
@@ -216,29 +216,38 @@
                                             </c:otherwise>    
                                         </c:choose>
                                     </td>
-                                    <td id="info-row" class="col-xs-8">
+
+                                    <td id="info-row" class="col-xs-4" colspan="1">
                                         <h2 class="user-name">${loggeduser.getName()}</h2>
                                     </td>
+
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <form method="post" action="login">
+                                            <button type="submit" name="action" value="start_create_newMusic" class="btn btn-light">Upload new song</button>
+                                            <p>${message}</p>  
+                                        </form>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td id="info-row" class="col-xs-8">
+                                <tr >
+                                    <td id="info-row" class="col-xs-8" colspan="2">
                                         <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
                                         <p class="user-email">Email: ${loggeduser.getGmail()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td id="info-row" class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8 borderless-top borderless-bottom" colspan="2">
                                         <p class="user-infor">${loggeduser.getInfor()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td id="info-row" class="col-xs-8">
-                                        <div class="liked-song">
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <div class="">
                                             <span class="user-records">Liked songs: 44</span>
                                             <span class="lnr lnr-heart vector-symbol"></span>
                                         </div>
-
-                                        <div class="uploaded-song">
+                                    </td>
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <div class="">
                                             <span class="user-records">Uploaded songs: 3</span>
                                             <span class="lnr lnr-music-note vector-symbol"></span>
                                         </div>
@@ -247,15 +256,26 @@
 
                             </table>
                         </div>
-                        <!--End user profile-->  
-
-
+                    </section>
+                    <!--End user profile--> 
+                    
+                    <section class="container-fluid">
+                        <div class="row justify-content-center bg-danger recent-play-song-row">
+                            <div class="col-xs-12 ">
+                                <h2>Uploaded songs</h2>
+                                
+                            </div>                          
+                        </div>
+                    </section>
+                    
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
                                 <h2>Recent played songs</h2>
                             </div>                          
                         </div>
-
+                    </section>
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
