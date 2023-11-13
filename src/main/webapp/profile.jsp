@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -258,16 +259,83 @@
                         </div>
                     </section>
                     <!--End user profile--> 
-                    
-                    <section class="container-fluid">
-                        <div class="row justify-content-center bg-danger recent-play-song-row">
-                            <div class="col-xs-12 ">
-                                <h2>Uploaded songs</h2>
-                                
-                            </div>                          
+
+                    <section class="container-fluid" id="user-uploaded-music">
+                        <div class="row justify-content-center bg-danger">
+
+                            <div class="container-fluid">
+                                <div class="col-xs-6 no-padding">
+                                    <h2>Uploaded songs</h2>
+                                </div>
+                                <div class="col-xs-6">
+                                    <c:if test="${userUploadedSongs.size() > 6}">
+                                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#footwear" aria-expanded="false" aria-controls="footwear">
+                                            See all
+                                        </button>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center bg-danger equal-height">
+                            <c:forEach items="${userUploadedSongs}" begin="0" end="5" var="uploadedSong">
+                                <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                    <div class="thumbnail">
+                                        <c:choose>
+                                            <c:when test="${uploadedSong.getImage() == null || uploadedSong.getImage() == ''}">
+                                                <img src="images/songs_img/default-song.png" alt="${uploadedSong.getName()} image"
+                                                     class="img-rounded img-responsive">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="images/songs_img/${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                                     class="img-rounded img-responsive">
+                                            </c:otherwise>    
+                                        </c:choose>
+
+                                        <div class="caption music-info">
+                                            <p class="text-primary">${uploadedSong.getName()}</p>
+                                            <p>Category: ${uploadedSong.getCategory()}</p>
+                                            <p>Uploaded: <fmt:formatDate type = "date" value = "${uploadedSong.getCreated()}" /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                        <div class="row justify-content-center bg-danger">
+                            <c:if test="${userUploadedSongs.size() > 6}">
+                                <div class="collapse" id="footwear">
+                                    <div class="equal-height">
+                                        <c:forEach items="${userUploadedSongs}" begin="6" var="uploadedSong">
+                                            <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                                <div class="thumbnail">
+
+                                                    <c:choose>
+                                                        <c:when test="${uploadedSong.getImage() == null || uploadedSong.getImage() == ''}">
+                                                            <img src="images/songs_img/default-song.png" alt="${uploadedSong.getName()} image"
+                                                                 class="img-rounded img-responsive">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="images/songs_img/${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                                                 class="img-rounded img-responsive">
+                                                        </c:otherwise>    
+                                                    </c:choose>
+
+                                                    <div class="caption music-info">
+                                                        <p class="text-primary">${uploadedSong.getName()}</p>
+                                                        <p>Category: ${uploadedSong.getCategory()}</p>
+                                                        <p>Uploaded: <fmt:formatDate type = "date" value = "${uploadedSong.getCreated()}" /></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                            </c:if>
                         </div>
                     </section>
-                    
+
                     <section class="container-fluid">
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">

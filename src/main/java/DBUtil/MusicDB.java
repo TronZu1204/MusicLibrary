@@ -49,6 +49,25 @@ public class MusicDB {
         }
     }
     
+    public static List<Music> selectMusicbyUserID(User userID) {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "SELECT u FROM Music u " + "WHERE u.author = :id";
+        TypedQuery<Music> q = em.createQuery(qString, Music.class);
+        q.setParameter("id", userID);
+        List<Music> music = null;
+        
+        try {
+            music = q.getResultList();
+            return music;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+        finally {
+            em.close();
+        }
+    }
+    
     public static boolean musicExist(long MusicID) {
         List<Music> u = selectMusicByMusicID(MusicID);
         return !u.isEmpty();

@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;  
 
 import LibraryClass.User;
+import LibraryClass.Music;
 import DBUtil.*;
 import java.util.Set;
 
@@ -60,6 +61,11 @@ public class UserServlet extends HttpServlet {
             url ="/index.jsp";
         }
         else if(action.equals("My profile")){
+            //get user's uploaded songs
+            User user = (User)request.getSession().getAttribute("loggeduser");
+            //long userID = user.getUserID();
+            List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
+            request.setAttribute("userUploadedSongs", userUploadedSongs);
             url="/profile.jsp";
         }
         else if(action.equals("Setting")){
