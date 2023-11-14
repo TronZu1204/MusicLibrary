@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import LibraryClass.Music;
 import DBUtil.MusicDB;
 import LibraryClass.User;
+import java.util.List;
 
 /**
  *
@@ -38,21 +39,21 @@ public class MusicServlet extends HttpServlet {
 
         //get current logged in User info
         User user = (User) request.getSession().getAttribute("loggeduser");
-
-        //get all uploaded music by this user
-        //List<Music> userUploadedMusicList = MusicDB.selectMusicbyUserID(authorID));
+        List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
+        request.setAttribute("userUploadedSongs", userUploadedSongs);
         //upload a song, author is set to current logged in user
         if (action.equals("createMusic")) {
             String message;
             javax.servlet.http.HttpSession session = request.getSession();
+
             if (session.getAttribute("insertMusicflag") == null) {
 
                 try {
                     createMusic(request, response, user);
                     message = "Uploaded song successfully!";
                     //add this new song to the userUploadedMusicList
-                    //List<Music> userUploadedMusicList = MusicDB.selectMusicbyUserID(authorID));
-                    //request.setAttribute("userUploadedMusicList", userUploadedMusicList);
+                    userUploadedSongs = MusicDB.selectMusicbyUserID(user);
+                    request.setAttribute("userUploadedSongs", userUploadedSongs);
                 } catch (Exception e) {
                     message = "Failed to upload song!";
                     System.out.println("Failed to upload song!");
@@ -63,7 +64,7 @@ public class MusicServlet extends HttpServlet {
                 //doesn't reupload the song and return a warning message
                 message = "Please fill a new form to upload song!";
             }
-            
+
             //return back to profile.jsp after uploading a song (new song is displayed there)
             //should change this to a playlist url that is dedicated for uploaded songs
             url = "/profile.jsp";
@@ -93,7 +94,9 @@ public class MusicServlet extends HttpServlet {
 
         //default image_path to empty
         String image = request.getParameter("imagePath");
-
+        if (image.isEmpty()) {
+            image = "default-song.png";
+        }
         Music music = new Music(name, author, category, liked, listen, image, date);
         MusicDB.insertMusic(music);
     }

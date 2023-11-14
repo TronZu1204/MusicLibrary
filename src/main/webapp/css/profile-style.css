@@ -5,6 +5,10 @@
     font-size: 4px;
 }
 
+#user-uploaded-music {
+    font-size: 4px;
+}
+
 .user-row {
     height: fit-content;
     width:fit-content;
@@ -104,14 +108,54 @@
 }
 /*End play list*/
 
+.no-padding{
+    padding:0;
+}
+
+.padding-bottom {
+    padding-bottom: 1em;
+}
 
 
+.img-container{
+    height: 70%;
+}
 
+.img-caption{
+    height: 30%;
+}
 
+.equal-height{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.music-info {
+    height: 40%;
+    font-size: 1.4em !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div .thumbnail {
+    height: 100%;
+}
+
+.thumbnail img {
+    height: 60%;
+}
+
+.collapse {
+    width: 100%;
+}
 
 /*(481px  and up) */
 @media only screen and (min-width: 481px) {
     #user-deatails-MW {
+        font-size: 5px;
+    }
+    
+    #user-uploaded-music {
         font-size: 5px;
     }
 }
@@ -119,6 +163,10 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     #user-deatails-MW {
+        font-size: 7px;
+    }
+
+    #user-uploaded-music {
         font-size: 7px;
     }
 }
@@ -129,6 +177,10 @@
     #user-deatails-MW {
         font-size: 10px;
     }
+
+    #user-uploaded-music {
+        font-size: 10px;
+    }
 }
 
 
@@ -136,6 +188,10 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     #user-deatails-MW {
+        font-size: 12px;
+    }
+
+    #user-uploaded-music {
         font-size: 12px;
     }
 }
