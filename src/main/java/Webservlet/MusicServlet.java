@@ -33,6 +33,7 @@ public class MusicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //default return path
+        request.setCharacterEncoding("UTF-8");
         String url = "/profile.jsp";
         //get action
         String action = request.getParameter("action");

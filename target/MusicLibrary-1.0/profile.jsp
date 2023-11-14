@@ -168,7 +168,6 @@
                                                     <fieldset id="body">
                                                         <fieldset>
                                                             <label>Username = ${loggeduser.getName()}</label>
-
                                                         </fieldset>
                                                         <fieldset>
                                                             <label>Email = ${loggeduser.getGmail()}</label>
