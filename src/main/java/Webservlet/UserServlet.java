@@ -166,7 +166,11 @@ public class UserServlet extends HttpServlet {
             if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
             {
              String rename = "user" + logged.getUserID();
-             imgPath = "images/users_img/" + rename;  
+             if(type.equals("image/jpeg"))
+                     rename += ".jpg";
+             if(type.equals("image/png"))
+                     rename += ".png";
+                imgPath = "images/users_img/" + rename;  
                  String absolutePath = request.getServletContext().getRealPath(imgPath);
                  userfile.write(absolutePath);
             }
