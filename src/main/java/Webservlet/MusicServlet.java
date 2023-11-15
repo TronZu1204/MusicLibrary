@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
 
 import LibraryClass.Music;
 import DBUtil.MusicDB;
@@ -22,6 +24,11 @@ import java.util.List;
  * @author Johnny
  */
 @WebServlet(name = "MusicServlet", urlPatterns = {"/musicServlet"})
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
+  maxFileSize = 1024 * 1024 * 100,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 1000   // 100 MB
+)
 public class MusicServlet extends HttpServlet {
 
     @Override
@@ -93,12 +100,18 @@ public class MusicServlet extends HttpServlet {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
 
-        //default image_path to empty
-        String image = request.getParameter("imagePath");
-        if (image.isEmpty()) {
-            image = "default-song.png";
+        String imgPath;
+        try {
+            Part songImg = request.getPart("imageFile");
+            String fileName = songImg.getSubmittedFileName();
+            imgPath = "images/songs_img/" + fileName;
+            String absolutePath = request.getServletContext().getRealPath(imgPath);
+            songImg.write(absolutePath);
+        } catch (IOException | ServletException ex) {
+            imgPath = "images/songs_img/default-song.png";
         }
-        Music music = new Music(name, author, category, liked, listen, image, date);
+
+        Music music = new Music(name, author, category, liked, listen, imgPath, date);
         MusicDB.insertMusic(music);
     }
 }

@@ -248,7 +248,7 @@
                                     </td>
                                     <td id="info-row" class="col-xs-4" colspan="1">
                                         <div class="">
-                                            <span class="user-records">Uploaded songs: 3</span>
+                                            <span class="user-records">Uploaded songs: ${userUploadedSongs.size()}</span>
                                             <span class="lnr lnr-music-note vector-symbol"></span>
                                         </div>
                                     </td>
@@ -279,17 +279,9 @@
                         <div class="row justify-content-center bg-danger equal-height">
                             <c:forEach items="${userUploadedSongs}" begin="0" end="5" var="uploadedSong">
                                 <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
-                                    <div class="thumbnail">
-                                        <c:choose>
-                                            <c:when test="${uploadedSong.getImage() == null || uploadedSong.getImage() == ''}">
-                                                <img src="images/songs_img/default-song.png" alt="${uploadedSong.getName()} image"
-                                                     class="img-rounded img-responsive">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="images/songs_img/${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
-                                                     class="img-rounded img-responsive">
-                                            </c:otherwise>    
-                                        </c:choose>
+                                    <div class="thumbnail">     
+                                        <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                             class="img-rounded img-responsive">
 
                                         <div class="caption music-info">
                                             <p class="text-primary">${uploadedSong.getName()}</p>
@@ -308,17 +300,8 @@
                                         <c:forEach items="${userUploadedSongs}" begin="6" var="uploadedSong">
                                             <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
                                                 <div class="thumbnail">
-
-                                                    <c:choose>
-                                                        <c:when test="${uploadedSong.getImage() == null || uploadedSong.getImage() == ''}">
-                                                            <img src="images/songs_img/default-song.png" alt="${uploadedSong.getName()} image"
-                                                                 class="img-rounded img-responsive">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <img src="images/songs_img/${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
-                                                                 class="img-rounded img-responsive">
-                                                        </c:otherwise>    
-                                                    </c:choose>
+                                                    <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                                         class="img-rounded img-responsive">
 
                                                     <div class="caption music-info">
                                                         <p class="text-primary">${uploadedSong.getName()}</p>

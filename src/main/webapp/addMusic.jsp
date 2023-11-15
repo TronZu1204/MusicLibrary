@@ -201,7 +201,7 @@
                 <div id="page-wrapper">
                     <section class="container-fluid" id="user-deatails-MW">
                         <!--user profile-->
-                        <form method="post" action="musicServlet">
+                        <form method="post" action="musicServlet" enctype="multipart/form-data">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="name" >Song's name</label>
@@ -218,7 +218,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="image" class="custom-file-upload">Cover image</label>
-                                    <input type="file" name= "imagePath"
+                                    <input type="file" name= "imageFile"
                                            class="form-control" id="image">                              
                                 </div>
 
