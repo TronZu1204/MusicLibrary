@@ -160,18 +160,27 @@ public class UserServlet extends HttpServlet {
          User logged = (User) request.getSession().getAttribute("loggeduser");
          String imgPath;
         try {
+            
             Part userfile = request.getPart("userprofile");
+            String type = userfile.getContentType();
+            if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
+            {
              String filename = userfile.getSubmittedFileName();
              imgPath = "images/users_img/" + filename;
                  String absolutePath = request.getServletContext().getRealPath(imgPath);
                  userfile.write(absolutePath);
+            }
+            else {
+                imgPath = logged.getImage();
+                return "Image must be a JPG or PNG";
+            }
         } catch (IOException | ServletException ex) {
             imgPath = logged.getImage();
         }
          User u = new User();
          u.setImage(imgPath);
          long userID = Long.parseLong(ID);
-          u.setUserID(userID);
+         u.setUserID(userID);
          u.setName(changeName);
          long Phone = Long.parseLong(changePhone);
          u.setPhoneNumber(Phone);
