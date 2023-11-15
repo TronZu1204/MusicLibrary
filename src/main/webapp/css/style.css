@@ -54,7 +54,7 @@ body a{
             display: none;
         }
         .browse-grid:hover .setting-button{
-            display: block;
+            display: flex;
         }
 a:focus, a:active, a:hover {
     outline: none;

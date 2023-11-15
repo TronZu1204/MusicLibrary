@@ -52,7 +52,7 @@ public class PlaylistServlet extends HttpServlet {
            request.setAttribute("playlist", playlist);
            url ="/Playlist.jsp";
        }
-       if(action.equals("deletePlaylist")){
+       if(action.equals("Delete playlist")){
            deletePlaylist(request,response);
            String message ="Playlist deleted";
            request.setAttribute("message", message);
@@ -60,7 +60,7 @@ public class PlaylistServlet extends HttpServlet {
            request.setAttribute("playlist", playlist);
            url ="/Playlist.jsp";
        }
-        if(action.equals("renamePlaylist")){
+        if(action.equals("Rename playlist")){
             updatePlaylist(request,response);
               String message ="Playlist renamed";
            request.setAttribute("message", message);
