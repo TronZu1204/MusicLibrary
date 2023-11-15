@@ -31,9 +31,9 @@ import javax.servlet.http.Part;
  */
 @WebServlet(name = "UserServlet", urlPatterns = {"/UserServlet"})
 @MultipartConfig(
-  fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
-  maxFileSize = 1024 * 1024 * 100,      // 10 MB
-  maxRequestSize = 1024 * 1024 * 1000   // 100 MB
+  fileSizeThreshold = 1024 * 1024 * 1, // 10 MB
+  maxFileSize = 1024 * 1024 * 10,      // 100 MB
+  maxRequestSize = 1024 * 1024 * 100   // 1000 MB
 )
 public class UserServlet extends HttpServlet {
 
@@ -165,11 +165,7 @@ public class UserServlet extends HttpServlet {
             String type = userfile.getContentType();
             if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
             {
-             String rename = "user" + logged.getUserID();
-             if(type.equals("image/jpeg"))
-                     rename += ".jpg";
-             if(type.equals("image/png"))
-                     rename += ".png";
+             String rename = "user" + logged.getUserID() + ".jpg";
                 imgPath = "images/users_img/" + rename;  
                  String absolutePath = request.getServletContext().getRealPath(imgPath);
                  userfile.write(absolutePath);
