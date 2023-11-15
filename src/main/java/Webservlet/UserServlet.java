@@ -18,13 +18,23 @@ import java.util.Date;
 import LibraryClass.User;
 import LibraryClass.Music;
 import DBUtil.*;
+import java.io.File;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author GIGABYTE
  */
 @WebServlet(name = "UserServlet", urlPatterns = {"/UserServlet"})
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
+  maxFileSize = 1024 * 1024 * 100,      // 10 MB
+  maxRequestSize = 1024 * 1024 * 1000   // 100 MB
+)
 public class UserServlet extends HttpServlet {
 
     @Override
@@ -116,6 +126,7 @@ public class UserServlet extends HttpServlet {
         long millis=System.currentTimeMillis();  
         java.sql.Date date=new java.sql.Date(millis);  
         User user = new User();
+        user.setImage("images/users_img/default-profile.jpg");
         user.setCreated(date);
         user.setName(name);
         user.setGmail(email);
@@ -146,8 +157,19 @@ public class UserServlet extends HttpServlet {
          String changePass = request.getParameter("loginPass");
          String changeInfor = request.getParameter("changeInfor"); 
          String ID = request.getParameter("userID");
-         String created = request.getParameter("Created");
+         User logged = (User) request.getSession().getAttribute("loggeduser");
+         String imgPath;
+        try {
+            Part userfile = request.getPart("userprofile");
+             String filename = userfile.getSubmittedFileName();
+             imgPath = "images/users_img/" + filename;
+                 String absolutePath = request.getServletContext().getRealPath(imgPath);
+                 userfile.write(absolutePath);
+        } catch (IOException | ServletException ex) {
+            imgPath = logged.getImage();
+        }
          User u = new User();
+         u.setImage(imgPath);
          long userID = Long.parseLong(ID);
           u.setUserID(userID);
          u.setName(changeName);

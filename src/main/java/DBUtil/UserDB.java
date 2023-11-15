@@ -66,6 +66,7 @@ public static boolean updateUser(User user){
             updated.setName(user.getName());
             updated.setPhoneNumber(user.getPhoneNumber());
             updated.setInfor(user.getInfor());
+            updated.setImage(user.getImage());
             em.merge(updated);
             trans.commit();
         }

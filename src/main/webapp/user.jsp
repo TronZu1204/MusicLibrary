@@ -251,8 +251,7 @@ else
                                                                                                      <div id="loginpop"> <a href="#" id="loginButton"><span>Signed in</span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
                                             <div id="loginBox">  
                                                 <form action="login" method="post" id="loginForm">
-
-
+                                                    <input type="hidden" name="imgPath" value = "${loggeduser.getImage()}" />
                                                     <fieldset id="body">
                                                         <fieldset>
                                                             <label>Username = ${loggeduser.getName()}</label>
@@ -298,10 +297,9 @@ else
       Account change
      </h2>
     
-     <form id="accountForm" method="post" action="login">
+     <form id="accountForm" method="post" action="login" enctype="multipart/form-data">
      <input type="hidden" name="loginEmail" value="${loggeduser.getGmail()}"/>
      <input type="hidden" name="userID" value="${loggeduser.getUserID()}"/>
-     <input type="hidden" name="Created" value="${loggeduser.getCreated()}"/>
       <div class="form-group">
        <label for="name">
         Name:
@@ -331,7 +329,7 @@ else
        <label for="profilePhoto">
         Profile Photo:
        </label>
-       <input class="form-control-file" id="profilePhoto" type="file"/>
+       <input class="form-control-file" id="profilePhoto" type="file" name="userprofile" />
       </div>
                <p><i>${message}</i></p>
       <button class="btn btn-primary" type="submit" name="action" value="save" >
