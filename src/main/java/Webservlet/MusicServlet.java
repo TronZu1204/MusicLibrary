@@ -89,10 +89,10 @@ public class MusicServlet extends HttpServlet {
 
     private String createMusic(HttpServletRequest request, HttpServletResponse response, User author) {
         String name = request.getParameter("musicName");
-        if(name.isEmpty()){
+        if (name.isEmpty()) {
             return "Song name can't be empty!";
         }
-        
+
         String category = request.getParameter("musicCategory");
         int liked = 0;
         int listen = 0;
@@ -106,6 +106,38 @@ public class MusicServlet extends HttpServlet {
 
         Music music = new Music(name, author, category, liked, listen, imgPath, date);
         if (MusicDB.insertMusic(music)) {
+            //get song file
+            //if song file is not in the correct format, return error message
+            //and delete the inserted music in database
+            try {
+                Part songFile = request.getPart("musicFile");
+                String type = songFile.getContentType();
+                //mpeg is mp3
+                if (type != null) {
+                    String rename;
+                    if (type.equals("audio/mpeg")) {
+                        rename = "song" + music.getMusicID() + ".mp3";
+                    } else if (type.equals("audio/wav")) {
+                        rename = "song" + music.getMusicID() + ".wav";
+                    } else {
+                        MusicDB.deleteMusic(music.getMusicID());
+                        return "Song File is not in the correct format!";
+                    }
+                    
+                    String songPath = "songs/" + rename;
+                    String absolutePath = request.getServletContext().getRealPath(songPath);
+                    songFile.write(absolutePath);
+                } 
+                else {
+                    MusicDB.deleteMusic(music.getMusicID());
+                    return "Song file is empty!";
+                }
+            } catch (IOException | ServletException ex) {
+                MusicDB.deleteMusic(music.getMusicID());
+                return "Failed to read Song File! Error: " + ex.toString();
+            }
+
+            //get image file
             try {
 
                 Part imageFile = request.getPart("imageFile");
@@ -121,7 +153,7 @@ public class MusicServlet extends HttpServlet {
             } catch (IOException | ServletException ex) {
                 return "Song Uploaded but Failed to upload Song Image! Error: " + ex.toString();
             }
-            
+
             music.setImage(imgPath);
             MusicDB.updateMusic(music);
             return "Upload song succesfully!";

@@ -217,7 +217,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="image" class="custom-file-upload">Cover image</label>
+                                    <label for="image" class="custom-file-upload">Cover image - accepts jpg/png only</label>
                                     <input type="file" name= "imageFile"
                                            class="form-control" id="image">                              
                                 </div>
@@ -245,7 +245,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="musicFile">Song's file</label>
+                                    <label for="musicFile">Song's file - accepts mp3/wav only</label>
                                     <input type="file" name="musicFile"
                                            class="form-control" id="musicFile">
                                 </div>    
