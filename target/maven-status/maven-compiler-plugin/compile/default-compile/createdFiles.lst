@@ -1,6 +1,7 @@
 Webservlet\MusicServlet.class
 LibraryClass\Playlist_.class
 Webservlet\PlaylistServlet.class
+Webservlet\adminServlet.class
 LibraryClass\Music_.class
 com\mycompany\musiclibrary\JakartaRestConfiguration.class
 LibraryClass\Music.class

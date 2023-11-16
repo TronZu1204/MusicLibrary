@@ -61,12 +61,7 @@ public class UserServlet extends HttpServlet {
             }
             else{
                 User user = u.get(0);
-                if(user.getUserID() == 1){
-                    String message = "Admin account signed in";
-                    request.getSession().setAttribute("loggeduser", user);
-                    request.getSession().setAttribute("message", message);
-                }
-                else request.getSession().setAttribute("loggeduser", user);
+                request.getSession().setAttribute("loggeduser", user);
                 url="/index.jsp";
             }
         }
@@ -87,7 +82,7 @@ public class UserServlet extends HttpServlet {
             url= "/user.jsp";
         }
          else if(action.equals("Account Manager")){
-            url= "/Admin.jsp";
+            url= "/admin";
         }
         else if(action.equals("save")){
             String message = updateUser(request,response);
