@@ -241,6 +241,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         </div>
                                     </c:when>
                                     <c:otherwise>
+                                        <c:if test="${loggeduser.getUserID()!=1}">
                                         <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
                                             <div id="loginBox">  
                                                 <form action="login" method="post" id="loginForm">
@@ -257,9 +258,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                      <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
                                                     </fieldset>   
                                                 </form>
+                                            </div>
+                                        </div>
+                                        </c:if>
+                                        <c:if test="${loggeduser.getUserID() ==1}" >
+                                              <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                            <div id="loginBox">  
+                                                <form action="login" method="post" id="loginForm">
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label>Username = ${loggeduser.getName()}</label>
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label>Email = ${loggeduser.getGmail()}</label>
+                                                        </fieldset>
+                                                    <input type="submit" name ="action" value="Account Manager">
+                                                    <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
+                                                    <input type="submit" name ="action" id="setting" value="Setting">
+                                                     <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
+                                                    </fieldset>   
+                                                </form>
 
                                             </div>
                                         </div>
+                                        </c:if>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
