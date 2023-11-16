@@ -235,7 +235,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                         <input type="submit" id="login" value="Sign in">
                                                         <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
                                                     </fieldset>
-                                                    <span><a href="#">Forgot your password?</a></span>
+                                                    <span>
+                                                    
+                                                    
+                                                        <a href="fyp.jsp">Forgot your password?</a>
+                                                    
+                                                        
+                                                    </span>
+                                                    
                                                 </form>
                                             </div>
                                         </div>
