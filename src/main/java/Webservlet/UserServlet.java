@@ -16,14 +16,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;  
 
 import LibraryClass.User;
+import LibraryClass.Music;
 import DBUtil.*;
+import java.io.File;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author GIGABYTE
  */
 @WebServlet(name = "UserServlet", urlPatterns = {"/UserServlet"})
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 10 MB
+  maxFileSize = 1024 * 1024 * 10,      // 100 MB
+  maxRequestSize = 1024 * 1024 * 100   // 1000 MB
+)
 public class UserServlet extends HttpServlet {
 
     @Override
@@ -60,6 +71,11 @@ public class UserServlet extends HttpServlet {
             url ="/index.jsp";
         }
         else if(action.equals("My profile")){
+            //get user's uploaded songs
+            User user = (User)request.getSession().getAttribute("loggeduser");
+            //long userID = user.getUserID();
+            List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
+            request.setAttribute("userUploadedSongs", userUploadedSongs);
             url="/profile.jsp";
         }
         else if(action.equals("Setting")){
@@ -88,6 +104,14 @@ public class UserServlet extends HttpServlet {
         else if(action.equals("Playlist")){
             url= "/playlist";
         }
+        //send user to addMusic.jsp and delete insertMusicflag to start new insertion
+        else if(action.equals("start_create_newMusic")) {
+            javax.servlet.http.HttpSession session = request.getSession();
+            if(session.getAttribute("insertMusicflag") != null) {
+                session.removeAttribute("insertMusicflag");
+            }
+            url = "/addMusic.jsp";
+        }
          getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);
@@ -102,6 +126,7 @@ public class UserServlet extends HttpServlet {
         long millis=System.currentTimeMillis();  
         java.sql.Date date=new java.sql.Date(millis);  
         User user = new User();
+        user.setImage("images/users_img/default-profile.jpg");
         user.setCreated(date);
         user.setName(name);
         user.setGmail(email);
@@ -132,10 +157,30 @@ public class UserServlet extends HttpServlet {
          String changePass = request.getParameter("loginPass");
          String changeInfor = request.getParameter("changeInfor"); 
          String ID = request.getParameter("userID");
-         String created = request.getParameter("Created");
+         User logged = (User) request.getSession().getAttribute("loggeduser");
+         String imgPath;
+        try {
+            
+            Part userfile = request.getPart("userprofile");
+            String type = userfile.getContentType();
+            if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
+            {
+             String rename = "user" + logged.getUserID() + ".jpg";
+                imgPath = "images/users_img/" + rename;  
+                 String absolutePath = request.getServletContext().getRealPath(imgPath);
+                 userfile.write(absolutePath);
+            }
+            else {
+                imgPath = logged.getImage();
+                return "Image must be a JPG or PNG";
+            }
+        } catch (IOException | ServletException ex) {
+            imgPath = logged.getImage();
+        }
          User u = new User();
+         u.setImage(imgPath);
          long userID = Long.parseLong(ID);
-          u.setUserID(userID);
+         u.setUserID(userID);
          u.setName(changeName);
          long Phone = Long.parseLong(changePhone);
          u.setPhoneNumber(Phone);

@@ -28,6 +28,7 @@ public class Music implements Serializable {
     
     public Music(){    
         }
+    
     public Music(long musicID, String name, User author, String category, int like, int listen, String image, Date created) {
         this.musicID = musicID;
         this.name = name;
@@ -39,6 +40,15 @@ public class Music implements Serializable {
         this.created = created;
     }
     
+    public Music(String name, User author, String category, int like, int listen, String image, Date created) {
+        this.name = name;
+        this.author = author;
+        this.category = category;
+        this.liked = like;
+        this.listen = listen;
+        this.image = image;
+        this.created = created;
+    }
     
 
     public long getMusicID() {

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -167,7 +168,6 @@
                                                     <fieldset id="body">
                                                         <fieldset>
                                                             <label>Username = ${loggeduser.getName()}</label>
-
                                                         </fieldset>
                                                         <fieldset>
                                                             <label>Email = ${loggeduser.getGmail()}</label>
@@ -179,7 +179,7 @@
                                                     <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
                                                     <input type="submit" name="action" value="Log out" id="login">
-                                                    
+
                                                 </form>
 
                                             </div>
@@ -216,30 +216,39 @@
                                             </c:otherwise>    
                                         </c:choose>
                                     </td>
-                                    <td id="info-row" class="col-xs-8">
+
+                                    <td id="info-row" class="col-xs-4" colspan="1">
                                         <h2 class="user-name">${loggeduser.getName()}</h2>
                                     </td>
+
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <form method="post" action="login">
+                                            <button type="submit" name="action" value="start_create_newMusic" class="btn btn-light">Upload new song</button>
+                                            <p>${message}</p>  
+                                        </form>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td id="info-row" class="col-xs-8">
+                                <tr >
+                                    <td id="info-row" class="col-xs-8" colspan="2">
                                         <p class="user-id h3">User ID: ${loggeduser.getUserID()}</p>
                                         <p class="user-email">Email: ${loggeduser.getGmail()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td id="info-row" class="col-xs-8 borderless-top borderless-bottom">
+                                    <td id="info-row" class="col-xs-8 borderless-top borderless-bottom" colspan="2">
                                         <p class="user-infor">${loggeduser.getInfor()}</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td id="info-row" class="col-xs-8">
-                                        <div class="liked-song">
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <div class="">
                                             <span class="user-records">Liked songs: 44</span>
                                             <span class="lnr lnr-heart vector-symbol"></span>
                                         </div>
-
-                                        <div class="uploaded-song">
-                                            <span class="user-records">Uploaded songs: 3</span>
+                                    </td>
+                                    <td id="info-row" class="col-xs-4" colspan="1">
+                                        <div class="">
+                                            <span class="user-records">Uploaded songs: ${userUploadedSongs.size()}</span>
                                             <span class="lnr lnr-music-note vector-symbol"></span>
                                         </div>
                                     </td>
@@ -247,15 +256,76 @@
 
                             </table>
                         </div>
-                        <!--End user profile-->  
+                    </section>
+                    <!--End user profile--> 
 
+                    <section class="container-fluid" id="user-uploaded-music">
+                        <div class="row justify-content-center bg-danger">
 
+                            <div class="container-fluid">
+                                <div class="col-xs-6 no-padding">
+                                    <h2>Uploaded songs</h2>
+                                </div>
+                                <div class="col-xs-6">
+                                    <c:if test="${userUploadedSongs.size() > 6}">
+                                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#footwear" aria-expanded="false" aria-controls="footwear">
+                                            See all
+                                        </button>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center bg-danger equal-height">
+                            <c:forEach items="${userUploadedSongs}" begin="0" end="5" var="uploadedSong">
+                                <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                    <div class="thumbnail">     
+                                        <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                             class="img-rounded img-responsive">
+
+                                        <div class="caption music-info">
+                                            <p class="text-primary">${uploadedSong.getName()}</p>
+                                            <p>Category: ${uploadedSong.getCategory()}</p>
+                                            <p>Uploaded: <fmt:formatDate type = "date" value = "${uploadedSong.getCreated()}" /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                        <div class="row justify-content-center bg-danger">
+                            <c:if test="${userUploadedSongs.size() > 6}">
+                                <div class="collapse" id="footwear">
+                                    <div class="equal-height">
+                                        <c:forEach items="${userUploadedSongs}" begin="6" var="uploadedSong">
+                                            <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                                <div class="thumbnail">
+                                                    <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
+                                                         class="img-rounded img-responsive">
+
+                                                    <div class="caption music-info">
+                                                        <p class="text-primary">${uploadedSong.getName()}</p>
+                                                        <p>Category: ${uploadedSong.getCategory()}</p>
+                                                        <p>Uploaded: <fmt:formatDate type = "date" value = "${uploadedSong.getCreated()}" /></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                            </c:if>
+                        </div>
+                    </section>
+
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
                                 <h2>Recent played songs</h2>
                             </div>                          
                         </div>
-
+                    </section>
+                    <section class="container-fluid">
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
