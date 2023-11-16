@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
 
 import LibraryClass.Music;
 import DBUtil.MusicDB;
@@ -22,6 +24,11 @@ import java.util.List;
  * @author Johnny
  */
 @WebServlet(name = "MusicServlet", urlPatterns = {"/musicServlet"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 10, // 1 MB
+        maxFileSize = 1024 * 1024 * 100, // 10 MB
+        maxRequestSize = 1024 * 1024 * 1000 // 100 MB
+)
 public class MusicServlet extends HttpServlet {
 
     @Override
@@ -50,9 +57,7 @@ public class MusicServlet extends HttpServlet {
             if (session.getAttribute("insertMusicflag") == null) {
 
                 try {
-                    createMusic(request, response, user);
-                    message = "Uploaded song successfully!";
-                    //add this new song to the userUploadedMusicList
+                    message = createMusic(request, response, user);
                     userUploadedSongs = MusicDB.selectMusicbyUserID(user);
                     request.setAttribute("userUploadedSongs", userUploadedSongs);
                 } catch (Exception e) {
@@ -82,8 +87,12 @@ public class MusicServlet extends HttpServlet {
         return "Short description";
     }
 
-    private void createMusic(HttpServletRequest request, HttpServletResponse response, User author) {
+    private String createMusic(HttpServletRequest request, HttpServletResponse response, User author) {
         String name = request.getParameter("musicName");
+        if (name.isEmpty()) {
+            return "Song name can't be empty!";
+        }
+
         String category = request.getParameter("musicCategory");
         int liked = 0;
         int listen = 0;
@@ -93,12 +102,64 @@ public class MusicServlet extends HttpServlet {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
 
-        //default image_path to empty
-        String image = request.getParameter("imagePath");
-        if (image.isEmpty()) {
-            image = "default-song.png";
+        String imgPath = "images/songs_img/default-song.png";
+
+        Music music = new Music(name, author, category, liked, listen, imgPath, date);
+        if (MusicDB.insertMusic(music)) {
+            //get song file
+            //if song file is not in the correct format, return error message
+            //and delete the inserted music in database
+            try {
+                Part songFile = request.getPart("musicFile");
+                String type = songFile.getContentType();
+                //mpeg is mp3
+                if (type != null) {
+                    String rename;
+                    if (type.equals("audio/mpeg")) {
+                        rename = "song" + music.getMusicID() + ".mp3";
+                    } else if (type.equals("audio/wav")) {
+                        rename = "song" + music.getMusicID() + ".wav";
+                    } else {
+                        MusicDB.deleteMusic(music.getMusicID());
+                        return "Song File is not in the correct format!";
+                    }
+                    
+                    String songPath = "songs/" + rename;
+                    String absolutePath = request.getServletContext().getRealPath(songPath);
+                    songFile.write(absolutePath);
+                } 
+                else {
+                    MusicDB.deleteMusic(music.getMusicID());
+                    return "Song file is empty!";
+                }
+            } catch (IOException | ServletException ex) {
+                MusicDB.deleteMusic(music.getMusicID());
+                return "Failed to read Song File! Error: " + ex.toString();
+            }
+
+            //get image file
+            try {
+
+                Part imageFile = request.getPart("imageFile");
+                String type = imageFile.getContentType();
+                if (type != null && (type.equals("image/jpeg") || type.equals("image/png"))) {
+                    String rename = "song" + music.getMusicID() + ".jpg";
+                    imgPath = "images/songs_img/" + rename;
+                    String absolutePath = request.getServletContext().getRealPath(imgPath);
+                    imageFile.write(absolutePath);
+                } else {
+                    return "Song Uploaded but Image must be a JPG or PNG";
+                }
+            } catch (IOException | ServletException ex) {
+                return "Song Uploaded but Failed to upload Song Image! Error: " + ex.toString();
+            }
+
+            music.setImage(imgPath);
+            MusicDB.updateMusic(music);
+            return "Upload song succesfully!";
         }
-        Music music = new Music(name, author, category, liked, listen, image, date);
-        MusicDB.insertMusic(music);
+
+        return "Failed to upload song!";
+
     }
 }

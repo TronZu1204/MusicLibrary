@@ -13,13 +13,15 @@ import LibraryClass.Music;
 import LibraryClass.User;
 
 public class MusicDB {
-    public static void insertMusic(Music music) {
+    public static boolean insertMusic(Music music) {
+        boolean insertSuccess = false;
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         try{
             em.persist(music);
             trans.commit();
+            insertSuccess = true;
         }
         catch (Exception e) {
             System.out.println(e);
@@ -27,6 +29,7 @@ public class MusicDB {
         }
         finally {
             em.close();
+            return insertSuccess;
         }
     }
     
