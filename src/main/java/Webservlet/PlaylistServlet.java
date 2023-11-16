@@ -19,10 +19,17 @@ import LibraryClass.User;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 /**
  *
  * @author GIGABYTE
  */
+@MultipartConfig(
+  fileSizeThreshold = 1024 * 1024 * 1, // 10 MB
+  maxFileSize = 1024 * 1024 * 10,      // 100 MB
+  maxRequestSize = 1024 * 1024 * 100   // 1000 MB
+)
 public class PlaylistServlet extends HttpServlet {
 
 
@@ -49,6 +56,14 @@ public class PlaylistServlet extends HttpServlet {
            String message ="Playlist added";
            request.setAttribute("message", message);
            playlist = PlaylistDB.selectPlaylist(user);
+           request.setAttribute("playlist", playlist);
+           url ="/Playlist.jsp";
+       }
+       if(action.equals("Change cover")){
+           updateCover(request,response, user);
+           String message ="Cover changed";
+           request.setAttribute("message", message);
+            playlist = PlaylistDB.selectPlaylist(user);
            request.setAttribute("playlist", playlist);
            url ="/Playlist.jsp";
        }
@@ -79,6 +94,7 @@ public class PlaylistServlet extends HttpServlet {
             java.sql.Date date=new java.sql.Date(millis);  
            Playlist playlist = new Playlist();
            playlist.setCreated(date);
+           playlist.setCover("images/cover/default-cover.jpg");
            playlist.setName(playlistName);
            playlist.setCreated(date);
            PlaylistDB.addPlaylist(playlist, ID);
@@ -97,4 +113,31 @@ public class PlaylistServlet extends HttpServlet {
         playlist.setPlaylistID(playlistID);
         PlaylistDB.updatePlaylist(playlist);
     }
+     private void updateCover(HttpServletRequest request, HttpServletResponse response, User user){
+        String ID = request.getParameter("playlistID");
+        long playlistID = Long.parseLong(ID);
+        String imgPath = PlaylistDB.selectPlaylistImage(playlistID);
+        try {
+            
+            Part coverfile = request.getPart("cover");
+            String type = coverfile.getContentType();
+            if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
+            {
+             String rename = user.getUserID() + "playlist" + ID + ".jpg";
+                imgPath = "images/cover/" + rename;  
+                 String absolutePath = request.getServletContext().getRealPath(imgPath);
+                 coverfile.write(absolutePath);
+            }
+            else {
+                imgPath = PlaylistDB.selectPlaylistImage(playlistID);
+            }
+        } catch (IOException | ServletException ex) {
+            imgPath = PlaylistDB.selectPlaylistImage(playlistID);
+                return;
+        }
+        Playlist playlist = new Playlist();
+        playlist.setCover(imgPath);
+        playlist.setPlaylistID(playlistID);
+        PlaylistDB.updatePlaylistCover(playlist);
+     }
 }

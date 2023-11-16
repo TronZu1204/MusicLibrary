@@ -52,6 +52,11 @@ public class PlaylistDB {
         em.close();
     }  
     }
+     public static String selectPlaylistImage(long playlistID){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        Playlist playlist = em.find(Playlist.class, playlistID);
+        return playlist.getCover();
+    }
     public static void deletePlaylist(long playlistID){
         EntityManager em = DButil.getFactory().createEntityManager();
         Playlist removeplaylist = em.find(Playlist.class, playlistID);
@@ -76,6 +81,22 @@ public class PlaylistDB {
         Playlist oldPlaylist = em.find(Playlist.class, newPlaylist.getPlaylistID());
         try{
             oldPlaylist.setName(newPlaylist.getName());
+             em.merge(oldPlaylist);
+            trans.commit();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            trans.rollback();
+        }
+        em.close();
+    }
+    public static void updatePlaylistCover(Playlist newPlaylist){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        Playlist oldPlaylist = em.find(Playlist.class, newPlaylist.getPlaylistID());
+        try{
+            oldPlaylist.setCover(newPlaylist.getCover());
              em.merge(oldPlaylist);
             trans.commit();
         }
