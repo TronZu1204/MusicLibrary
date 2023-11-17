@@ -4,6 +4,7 @@
  */
 package Webservlet;
 
+import DBUtil.MusicDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -97,13 +98,19 @@ public class PlaylistServlet extends HttpServlet {
             request.setAttribute("playlist", playlist);
             url = "/Playlist.jsp";
         }
-        if (action.equals("Add songs to playlist")){
+        if (action.equals("Add Song to Playlist")){
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
             Long songID = Long.parseLong(request.getParameter("songID"));
             addSongToPlaylist(playlistID, songID);
             String message = "Added song to playlist!";
             request.setAttribute("message", message);
-            url = "/profile.jsp";
+            url = request.getParameter("currentURL");
+            //get user's uploaded songs
+            List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
+            request.setAttribute("userUploadedSongs", userUploadedSongs);
+            //get user's playlists
+            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            request.setAttribute("userPlaylists", userPlaylists);
         }
         
         getServletContext()
