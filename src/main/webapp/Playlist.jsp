@@ -284,7 +284,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                            showplaylist = playlist.get(i); %>
                                                                                              
 								<div class="col-md-3 browse-grid">
-									<a  href="single.html"><img src="images/v11.jpg" title=<%=showplaylist.getName()%>></a>
+									<a  href="single.html"><img src="<%=showplaylist.getCover()%>" style="width:195px;height:195px" ></a>
 									 <a href="single.html"><i class="glyphicon glyphicon-play-circle"></i></a>
 									<a class="sing" href="single.html"><%=showplaylist.getName()%></a>
                                                                         <button class="setting-button"><a href="#" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passIDToModal(<%=showplaylist.getPlaylistID()%>)"><i class="fa fa-gear" style="font-size:24px"></i></a></button>
@@ -298,12 +298,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="sign-grids">
 								<div class="sign">
 									<div class="sign-right" style="width:85%">
-										<form action="playlist" method="post">
+										<form action="playlist" method="post" enctype="multipart/form-data">
                                                                                         <input id="PlaylistID" type="hidden" name="playlistID">
-                                                                                        <h3>Setting</h3>
+                                                                                        <h3>Playlist Setting</h3>
+                                                                                        <input type="file" name="cover">
                                                                                         <label>Playlist's new name:</label>
                                                                                         <input type="text" name="renamePlaylist" value="" >
 											<input  type="submit" name="action" value="Rename playlist" >
+                                                                                        <input  type="submit" name="action" value="Change cover" >
                                                                                         <input type="submit" name="action" value="Delete playlist">
 										</form>
 									</div>

@@ -55,24 +55,12 @@ public class PlaylistDB {
         }
         em.close();
     }
-
-    public static List<Playlist> selectPlaylist(User userID) {
-        EntityManager em = DButil.getFactory().createEntityManager();
-        String qString = "Select u FROM Playlist u " + "WHERE u.user = :id";
-        TypedQuery<Playlist> q = em.createQuery(qString, Playlist.class);
-        q.setParameter("id", userID);
-        List<Playlist> playlist = null;
-        try {
-            playlist = q.getResultList();
-            return playlist;
-        } catch (NoResultException e) {
-            return null;
-        } finally {
-            em.close();
-        }
+     public static String selectPlaylistImage(long playlistID){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        Playlist playlist = em.find(Playlist.class, playlistID);
+        return playlist.getCover();
     }
-
-    public static void deletePlaylist(long playlistID) {
+    public static void deletePlaylist(long playlistID){
         EntityManager em = DButil.getFactory().createEntityManager();
         Playlist removeplaylist = em.find(Playlist.class, playlistID);
         EntityTransaction trans = em.getTransaction();
@@ -98,6 +86,22 @@ public class PlaylistDB {
             em.merge(oldPlaylist);
             trans.commit();
         } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        }
+        em.close();
+    }
+    public static void updatePlaylistCover(Playlist newPlaylist){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        Playlist oldPlaylist = em.find(Playlist.class, newPlaylist.getPlaylistID());
+        try{
+            oldPlaylist.setCover(newPlaylist.getCover());
+             em.merge(oldPlaylist);
+            trans.commit();
+        }
+        catch (Exception e){
             System.out.println(e);
             trans.rollback();
         }
