@@ -98,7 +98,12 @@ public class PlaylistServlet extends HttpServlet {
             url = "/Playlist.jsp";
         }
         if (action.equals("Add songs to playlist")){
-            
+            Long playlistID = Long.parseLong(request.getParameter("playlistID"));
+            Long songID = Long.parseLong(request.getParameter("songID"));
+            addSongToPlaylist(playlistID, songID);
+            String message = "Added song to playlist!";
+            request.setAttribute("message", message);
+            url = "/profile.jsp";
         }
         
         getServletContext()
@@ -134,18 +139,15 @@ public class PlaylistServlet extends HttpServlet {
         PlaylistDB.updatePlaylist(playlist);
     }
 
-    private void addSongsToPlaylist(long playlistID, Set<Long> songIDs) {
+    private void addSongToPlaylist(long playlistID, Long songID) {
         Playlist playlist = new Playlist();
         playlist.setPlaylistID(playlistID);
 
-        Set<Music> songs = new HashSet<Music>();
-
-        for (Long songID : songIDs) {
-            Music song = new Music();
-            song.setMusicID(songID);
-            songs.add(song);
-        }
-
+        Set<Music> songs = new HashSet<>();
+        Music song = new Music();
+        song.setMusicID(songID);
+        songs.add(song);
+        
         PlaylistDB.addSongsToPlaylist(playlist, songs);
     }
 

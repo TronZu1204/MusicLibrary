@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.annotation.MultipartConfig;
 
+import java.util.HashSet;
+import java.util.Set;
 import LibraryClass.Music;
+import LibraryClass.Playlist;
 import DBUtil.MusicDB;
+import DBUtil.PlaylistDB;
 import LibraryClass.User;
 import java.util.List;
 
@@ -156,6 +160,11 @@ public class MusicServlet extends HttpServlet {
 
             music.setImage(imgPath);
             MusicDB.updateMusic(music);
+//            Playlist playlistID = new Playlist();
+//            playlistID.setPlaylistID(3);
+//            Set<Music> addedSongs = new HashSet<Music>();
+//            addedSongs.add(music);
+//            PlaylistDB.addSongsToPlaylist(playlistID, addedSongs);
             return "Upload song succesfully!";
         }
 

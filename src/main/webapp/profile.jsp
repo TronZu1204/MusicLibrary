@@ -279,9 +279,15 @@
                         <div class="row justify-content-center bg-danger equal-height">
                             <c:forEach items="${userUploadedSongs}" begin="0" end="5" var="uploadedSong">
                                 <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
-                                    <div class="thumbnail">     
+                                    <div class="thumbnail">
+
                                         <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
                                              class="img-rounded img-responsive">
+                                        <div class="center-items">
+                                        <a href="#" class="btn btn-default button-appear-onHover add-btn"><i class="fa fa-plus"></i></a>
+                                        <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
+                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
+                                         </div>       
 
                                         <div class="caption music-info">
                                             <p class="text-primary">${uploadedSong.getName()}</p>
