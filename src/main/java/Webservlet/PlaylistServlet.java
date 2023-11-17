@@ -67,7 +67,9 @@ public class PlaylistServlet extends HttpServlet {
             request.setAttribute("playlist", playlist);
             url = "/Playlist.jsp";
         }
-        if (action.equals("Add songs to playlist"))
+        if (action.equals("Add songs to playlist")){
+            
+        }
         
         getServletContext()
                 .getRequestDispatcher(url)
