@@ -62,8 +62,12 @@ public class MusicServlet extends HttpServlet {
 
                 try {
                     message = createMusic(request, response, user);
+                    
                     userUploadedSongs = MusicDB.selectMusicbyUserID(user);
                     request.setAttribute("userUploadedSongs", userUploadedSongs);
+                    //get user's playlists
+                    List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+                    request.setAttribute("userPlaylists", userPlaylists);
                 } catch (Exception e) {
                     message = "Failed to upload song!";
                     System.out.println("Failed to upload song!");
@@ -127,12 +131,11 @@ public class MusicServlet extends HttpServlet {
                         MusicDB.deleteMusic(music.getMusicID());
                         return "Song File is not in the correct format!";
                     }
-                    
+
                     String songPath = "songs/" + rename;
                     String absolutePath = request.getServletContext().getRealPath(songPath);
                     songFile.write(absolutePath);
-                } 
-                else {
+                } else {
                     MusicDB.deleteMusic(music.getMusicID());
                     return "Song file is empty!";
                 }
