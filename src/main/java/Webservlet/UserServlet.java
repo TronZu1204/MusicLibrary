@@ -17,6 +17,7 @@ import java.util.Date;
 
 import LibraryClass.User;
 import LibraryClass.Music;
+import LibraryClass.Playlist;
 import DBUtil.*;
 import java.io.File;
 import java.util.Set;
@@ -73,9 +74,11 @@ public class UserServlet extends HttpServlet {
         else if(action.equals("My profile")){
             //get user's uploaded songs
             User user = (User)request.getSession().getAttribute("loggeduser");
-            //long userID = user.getUserID();
             List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
             request.setAttribute("userUploadedSongs", userUploadedSongs);
+            //get user's playlists
+            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            request.setAttribute("userPlaylists", userPlaylists);
             url="/profile.jsp";
         }
         else if(action.equals("Setting")){
