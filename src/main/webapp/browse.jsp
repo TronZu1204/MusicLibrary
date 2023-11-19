@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -154,13 +155,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="menu-right">
 					<div class="profile_details">		
 						  <div class="col-md-4 serch-part">
-								<div id="sb-search" class="sb-search">
-									<form>
-										<input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-										<input class="sb-search-submit" type="submit" value="">
-										<span class="sb-icon-search"> </span>
-									</form>
-								</div>
+								 <div id="sb-search" class="sb-search">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
+                                        <span class="sb-icon-search"> </span>
+                                    </form>
+                                </div>
 							</div>
 							  <!-- search-scripts -->
 									<script src="js/classie.js"></script>
@@ -205,26 +206,76 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											 </ul>	
 											</div>
 											<div class="col-md-4 login-pop">
-												<div id="loginpop"><a href="#" id="loginButton"><span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><i class="fa fa-sign-in"></i></a>
-														<div id="loginBox">                
-														<form action="#" method="post" id="loginForm">
-																	<fieldset id="body">
-																		<fieldset>
-																			  <label for="email">Email Address</label>
-																			  <input type="text" name="email" id="email">
-																		</fieldset>
-																		<fieldset>
-																				<label for="password">Password</label>
-																				<input type="password" name="password" id="password">
-																		 </fieldset>
-																		<input type="submit" id="login" value="Sign in">
-																		<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-																	</fieldset>
-																<span><a href="#">Forgot your password?</a></span>
-														 </form>
-													</div>
-												</div>
+												  <c:choose>
+                                    <c:when test="${loggeduser == null}">
+                                        <div id="loginpop"> <a href="#" id="loginButton"><span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><i class="fa fa-sign-in"></i></a>
+                                            <div id="loginBox">  
+                                                <form action="login" method="post" id="loginForm">
+                                                    <p>${message}</p>
+                                                    <input type="hidden" name="action" value="loginUser">
 
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label for="email">Email Address</label>
+                                                            <input type="text" name="loginEmail" id="email">
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label for="password">Password</label>
+                                                            <input type="password" name="loginPass" id="password">
+                                                        </fieldset>
+                                                        <input type="submit" id="login" value="Sign in">
+                                                        <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
+                                                    </fieldset>
+                                                    <span><a href="#">Forgot your password?</a></span>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:if test="${loggeduser.getUserID()!=1}">
+                                        <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                            <div id="loginBox" style="margin-top:10px">  
+                                                <form action="login" method="post" id="loginForm">
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label>Username = ${loggeduser.getName()}</label>
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label>Email = ${loggeduser.getGmail()}</label>
+                                                        </fieldset>
+                                                         <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
+                                                    <input type="submit" name ="action" id="setting" value="Setting">
+                                                     <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
+                                                    </fieldset>   
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </c:if>
+                                        <c:if test="${loggeduser.getUserID() ==1}" >
+                                              <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                            <div id="loginBox">  
+                                                <form action="login" method="post" id="loginForm">
+                                                    <fieldset id="body">
+                                                        <fieldset>
+                                                            <label>Username = ${loggeduser.getName()}</label>
+                                                        </fieldset>
+                                                        <fieldset>
+                                                            <label>Email = ${loggeduser.getGmail()}</label>
+                                                        </fieldset>
+                                                    <input type="submit" name ="action" value="Account Manager">
+                                                    <input type="submit" name="action" value="Playlist" > 
+                                                    <input type="submit" name ="action" id="My profile" value="My profile">
+                                                    <input type="submit" name ="action" id="setting" value="Setting">
+                                                     <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
+                                                    </fieldset>   
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        </c:if>
+                                    </c:otherwise>
+                                </c:choose>
 											</div>
 										<div class="clearfix"> </div>
 								</div>

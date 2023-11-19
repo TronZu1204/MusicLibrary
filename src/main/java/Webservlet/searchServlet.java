@@ -8,6 +8,10 @@ import DBUtil.MusicDB;
 import LibraryClass.Music;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +67,6 @@ public class searchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                request.setCharacterEncoding("UTF-8");
         String url = "/browse.jsp";
         String action = request.getParameter("action");
         if(action.equals("search")){
@@ -73,8 +76,10 @@ public class searchServlet extends HttpServlet {
                 .getRequestDispatcher(url)
                 .forward(request,response);
     }
-    private static void SearchMusic(HttpServletRequest request, HttpServletResponse response){
+    private static void SearchMusic(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
         String pattern = request.getParameter("songSearch");
+        pattern = URLEncoder.encode( pattern, "ISO-8859-1" );
+        pattern = URLDecoder.decode( pattern, "UTF-8" );
         List<Music> result = MusicDB.findMusic(pattern);
         int test = result.size();
         System.out.println("Result found: " + test);

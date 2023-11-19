@@ -10,7 +10,11 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 import LibraryClass.Music;
+import LibraryClass.Playlist;
 import LibraryClass.User;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import javax.persistence.Query;
 
 public class MusicDB {
@@ -119,9 +123,12 @@ public class MusicDB {
         }
     }
     
-    public static List<Music> findMusic (String find){
+    public static List<Music> findMusic (String find) throws UnsupportedEncodingException{
+        String decodedFind = URLDecoder.decode(find, StandardCharsets.UTF_8.toString());
         EntityManager em = DButil.getFactory().createEntityManager();
-        Query query = em.createNativeQuery("SELECT * FROM MUSIC WHERE NAME COLLATE utf8mb4_general_ci LIKE '%" + find +"%' COLLATE utf8mb4_general_ci;", Music.class);
+         String queryString = "SELECT u FROM Music u WHERE u.name LIKE :search";
+          TypedQuery<Music> query = em.createQuery(queryString, Music.class);
+          query.setParameter("search","%" + decodedFind + "%" );
         List<Music> result = query.getResultList();
         return result;
     }
