@@ -159,13 +159,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="menu-right">
 					<div class="profile_details">		
 						  <div class="col-md-4 serch-part">
-								<div id="sb-search" class="sb-search">
-									<form>
-										<input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-										<input class="sb-search-submit" type="submit" value="">
-										<span class="sb-icon-search"> </span>
-									</form>
-								</div>
+								 <div id="sb-search" class="sb-search">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
+                                        <span class="sb-icon-search"> </span>
+                                    </form>
+                                </div>
 							</div>
 							  <!-- search-scripts -->
 									<script src="js/classie.js"></script>
@@ -284,8 +284,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                            showplaylist = playlist.get(i); %>
                                                                                              
 								<div class="col-md-3 browse-grid">
-									<a  href="single.html"><img src="<%=showplaylist.getCover()%>" style="width:195px;height:195px" ></a>
-									 <a href="single.html"><i class="glyphicon glyphicon-play-circle"></i></a>
+									<a  href="single.html"><img src="<%=showplaylist.getCover()%>" style="width:215px;height:215px" ></a>
 									<a class="sing" href="single.html"><%=showplaylist.getName()%></a>
                                                                         <button class="setting-button"><a href="#" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passIDToModal(<%=showplaylist.getPlaylistID()%>)"><i class="fa fa-gear" style="font-size:24px"></i></a></button>
                                                                         <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

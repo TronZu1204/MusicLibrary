@@ -171,13 +171,13 @@ else
 				<div class="menu-right">
 					<div class="profile_details">		
 						  <div class="col-md-4 serch-part">
-								<div id="sb-search" class="sb-search">
-									<form action="#" method="post">
-										<input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-										<input class="sb-search-submit" type="submit" value="">
-										<span class="sb-icon-search"> </span>
-									</form>
-								</div>
+								 <div id="sb-search" class="sb-search">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
+                                        <span class="sb-icon-search"> </span>
+                                    </form>
+                                </div>
 							</div>
 							  <!-- search-scripts -->
 									<script src="js/classie.js"></script>

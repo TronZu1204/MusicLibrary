@@ -11,6 +11,7 @@ import java.util.List;
 
 import LibraryClass.Music;
 import LibraryClass.User;
+import javax.persistence.Query;
 
 public class MusicDB {
     public static boolean insertMusic(Music music) {
@@ -116,5 +117,12 @@ public class MusicDB {
         finally {
             em.close();
         }
+    }
+    
+    public static List<Music> findMusic (String find){
+        EntityManager em = DButil.getFactory().createEntityManager();
+        Query query = em.createNativeQuery("SELECT * FROM MUSIC WHERE NAME COLLATE utf8mb4_general_ci LIKE '%" + find +"%' COLLATE utf8mb4_general_ci;", Music.class);
+        List<Music> result = query.getResultList();
+        return result;
     }
 }

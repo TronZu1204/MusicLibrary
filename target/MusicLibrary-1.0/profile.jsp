@@ -82,11 +82,10 @@
                     <div class="menu-right">
                         <div class="profile_details">		
                             <div class="col-md-4 serch-part">
-                                <div id="sb-search" class="sb-search">
-                                    <form action="#" method="post">
-
-                                        <input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-                                        <input class="sb-search-submit" type="submit" value="">
+                                 <div id="sb-search" class="sb-search">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
                                         <span class="sb-icon-search"> </span>
                                     </form>
                                 </div>
@@ -198,6 +197,8 @@
 
 
 
+
+
                 <div id="page-wrapper">
                     <section class="container-fluid" id="user-deatails-MW">
                         <!--user profile-->
@@ -259,6 +260,18 @@
                     </section>
                     <!--End user profile--> 
 
+
+
+                    <script>
+                                    function passIDToModal(ID) {
+                                        var inputElement = document.getElementById('songID');
+                                        inputElement.value = ID;
+                                        inputElement.setAttribute('value', ID);
+                                    }
+                    </script>
+
+
+
                     <section class="container-fluid" id="user-uploaded-music">
                         <div class="row justify-content-center bg-danger">
 
@@ -284,10 +297,11 @@
                                         <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
                                              class="img-rounded img-responsive">
                                         <div class="center-items">
-                                        <a href="#" class="btn btn-default button-appear-onHover add-btn"><i class="fa fa-plus"></i></a>
-                                        <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
-                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
-                                         </div>       
+                                            <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})"
+                                               data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
+                                            <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
+                                            <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
+                                        </div>       
 
                                         <div class="caption music-info">
                                             <p class="text-primary">${uploadedSong.getName()}</p>
@@ -308,6 +322,12 @@
                                                 <div class="thumbnail">
                                                     <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
                                                          class="img-rounded img-responsive">
+                                                    <div class="center-items">
+                                                        <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})"
+                                                           data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
+                                                        <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
+                                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
+                                                    </div> 
 
                                                     <div class="caption music-info">
                                                         <p class="text-primary">${uploadedSong.getName()}</p>
@@ -324,6 +344,41 @@
                         </div>
                     </section>
 
+
+                    <!-- The add music to playlist modal -->
+                    <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="modalLabelLarge">Add song to playlist:</h4>
+                                </div>
+                                <form method="post" action="playlist">
+                                    <div class="modal-body">
+
+                                        <select class="form-control input-lg" name="playlistID">
+                                            <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                <option value="${userPlaylist.getPlaylistID()}">${userPlaylist.getName()} playlist</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" id="songID" name="songID">
+                                        <input type="hidden" name="currentURL" value="/profile.jsp">
+                                        <input type="submit" name="action" value="Add Song to Playlist" class="btn btn-secondary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
                     <section class="container-fluid">
                         <div class="row justify-content-center bg-success recent-play-song-row">
                             <div class="col-xs-12 ">
@@ -335,6 +390,22 @@
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
+                                 <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                 <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                    <div class="thumbnail">
+
+                                        <img src="${userPlaylist.getCover()}" alt="${userPlaylist.getName()} image"
+                                             class="img-rounded img-responsive">
+                                        <div class="center-items">
+                                        </div>       
+
+                                        <div class="caption music-info">
+                                            <p class="text-primary">${userPlaylist.getName()}</p>
+                                            <p style="font-size: 16px;">Uploaded: <fmt:formatDate type = "date" value = "${userPlaylist.getCreated()}" /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                            </c:forEach>
                             </div>                          
                         </div>
                     </section>
@@ -342,6 +413,10 @@
                     <div class="clearfix"></div>
                     <!--body wrapper end-->		
                 </div>
+
+
+
+
 
 
 

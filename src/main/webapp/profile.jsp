@@ -82,11 +82,10 @@
                     <div class="menu-right">
                         <div class="profile_details">		
                             <div class="col-md-4 serch-part">
-                                <div id="sb-search" class="sb-search">
-                                    <form action="#" method="post">
-
-                                        <input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-                                        <input class="sb-search-submit" type="submit" value="">
+                                 <div id="sb-search" class="sb-search">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
                                         <span class="sb-icon-search"> </span>
                                     </form>
                                 </div>
@@ -391,6 +390,22 @@
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
+                                 <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                 <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                    <div class="thumbnail">
+
+                                        <img src="${userPlaylist.getCover()}" alt="${userPlaylist.getName()} image"
+                                             class="img-rounded img-responsive">
+                                        <div class="center-items">
+                                        </div>       
+
+                                        <div class="caption music-info">
+                                            <p class="text-primary">${userPlaylist.getName()}</p>
+                                            <p style="font-size: 16px;">Uploaded: <fmt:formatDate type = "date" value = "${userPlaylist.getCreated()}" /></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                            </c:forEach>
                             </div>                          
                         </div>
                     </section>

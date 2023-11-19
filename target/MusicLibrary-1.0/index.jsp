@@ -166,10 +166,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="profile_details">		
                             <div class="col-md-4 serch-part">
                                 <div id="sb-search" class="sb-search">
-                                    <form action="#" method="post">
-
-                                        <input class="sb-search-input" placeholder="Search" type="search" name="search" id="search">
-                                        <input class="sb-search-submit" type="submit" value="">
+                                    <form action="search" method="post">
+                                        <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
+                                        <input class="sb-search-submit" type="submit" name="action" value="search">
                                         <span class="sb-icon-search"> </span>
                                     </form>
                                 </div>
@@ -243,7 +242,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <c:otherwise>
                                         <c:if test="${loggeduser.getUserID()!=1}">
                                         <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-                                            <div id="loginBox">  
+                                            <div id="loginBox" style="margin-top:10px">  
                                                 <form action="login" method="post" id="loginForm">
                                                     <fieldset id="body">
                                                         <fieldset>
