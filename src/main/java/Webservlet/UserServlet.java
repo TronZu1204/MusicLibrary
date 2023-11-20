@@ -47,6 +47,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String url ="/blog.html";
         String action = request.getParameter("action");
         if(action.equals("registerUser")){
