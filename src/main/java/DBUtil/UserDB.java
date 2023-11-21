@@ -50,6 +50,24 @@ public class UserDB {
         em.close();
     }  
 } 
+      public static boolean checkUser(String email){
+    EntityManager em = DButil.getFactory().createEntityManager();
+    String qString = "Select u FROM User u " + "WHERE u.gmail = :email";
+    TypedQuery<User> q = em.createQuery(qString, User.class);
+    q.setParameter("email", email);
+    List<User> user;
+    try{
+        user = q.getResultList();
+        return !user.isEmpty();
+    }
+    catch (NoResultException e){
+        System.out.println("Loi exception roi");
+        return false;
+    }
+    finally{
+        em.close();
+    }  
+} 
     public static List<User> selectAllUser(){
     EntityManager em = DButil.getFactory().createEntityManager();
     String qString = "Select u FROM User u ";

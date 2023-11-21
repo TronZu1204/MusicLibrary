@@ -51,14 +51,18 @@ public class UserServlet extends HttpServlet {
         String url ="/blog.html";
         String action = request.getParameter("action");
         if(action.equals("registerUser")){
+        String email = request.getParameter("Email");
+        boolean check = UserDB.checkUser(email);
+        if (check == false)
         registerUser(request, response);
-        url= "/index.jsp";
+        else request.setAttribute("message", "Email is already existed");
+        url ="/index.jsp";
         }
         else if(action.equals("loginUser")){
             List<User> u = loginUser(request,response);
             
             if(u == null){
-                request.setAttribute("message", "Unknown email, please try again");
+                request.setAttribute("message", "Wrong email or password");
                 url="/index.jsp";
             }
             else{
