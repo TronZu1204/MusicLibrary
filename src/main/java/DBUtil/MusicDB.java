@@ -40,7 +40,7 @@ public class MusicDB {
     
     public static List<Music> selectMusicByMusicID(long MusicID) {
         EntityManager em = DButil.getFactory().createEntityManager();
-        String qString = "SELECT u FROM Music u " + "WHERE u.musicid = :MusicID";
+        String qString = "SELECT u FROM Music u " + "WHERE u.musicid = :MusicID" + " AND u.existed = true";
         TypedQuery<Music> q = em.createQuery(qString, Music.class);
         q.setParameter("MusicID", MusicID);
         List<Music> music = null;
@@ -59,7 +59,7 @@ public class MusicDB {
     
     public static List<Music> selectMusicbyUserID(User userID) {
         EntityManager em = DButil.getFactory().createEntityManager();
-        String qString = "SELECT u FROM Music u " + "WHERE u.author = :id";
+        String qString = "SELECT u FROM Music u " + "WHERE u.author = :id" + " AND u.existed = true";
         TypedQuery<Music> q = em.createQuery(qString, Music.class);
         q.setParameter("id", userID);
         List<Music> music = null;
@@ -97,7 +97,9 @@ public class MusicDB {
         }
         catch (Exception e) {
             System.out.println(e);
-            trans.rollback();
+            if (trans.isActive()){
+               trans.rollback(); 
+            }
             return false;
         }
         finally {
@@ -106,17 +108,38 @@ public class MusicDB {
     }
     
     public static void deleteMusic(long MusicID){
+//        EntityManager em = DButil.getFactory().createEntityManager();
+//        Music removedMusic = em.find(Music.class, MusicID);
+//        EntityTransaction trans = em.getTransaction();
+//        trans.begin();
+//        try {
+//            em.remove( em.merge(removedMusic));
+//            trans.commit();
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//            trans.rollback();  
+//        }
+//        finally {
+//            em.close();
+//        }
+    }
+    
+    public static boolean setMusicExistenceFalse(long musicID) {
         EntityManager em = DButil.getFactory().createEntityManager();
-        Music removedMusic = em.find(Music.class, MusicID);
+        Music updatedMusic = em.find(Music.class, musicID);
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         try {
-            em.remove( em.merge(removedMusic));
+            updatedMusic.setExisted(false);
+            em.merge(updatedMusic);
             trans.commit();
+            return true;
         }
         catch (Exception e) {
             System.out.println(e);
             trans.rollback();  
+            return false;
         }
         finally {
             em.close();
