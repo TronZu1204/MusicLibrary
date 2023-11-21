@@ -169,22 +169,17 @@ public class UserServlet extends HttpServlet {
          String changeInfor = request.getParameter("changeInfor"); 
          String ID = request.getParameter("userID");
          User logged = (User) request.getSession().getAttribute("loggeduser");
-         String imgPath;
+         String imgPath = logged.getImage();
         try {
-            
             Part userfile = request.getPart("userprofile");
             String type = userfile.getContentType();
-            if (type != null && (type.equals("image/jpeg") || type.equals("image/png")))
-            {
-             String rename = "user" + logged.getUserID() + ".jpg";
+            if(type.equals("image/jpeg") || type.equals("image/png"))
+                {
+                 String rename = "user" + logged.getUserID() + ".jpg";
                 imgPath = "images/users_img/" + rename;  
                  String absolutePath = request.getServletContext().getRealPath(imgPath);
                  userfile.write(absolutePath);
-            }
-            else {
-                imgPath = logged.getImage();
-                return "Image must be a JPG or PNG";
-            }
+                }
         } catch (IOException | ServletException ex) {
             imgPath = logged.getImage();
         }

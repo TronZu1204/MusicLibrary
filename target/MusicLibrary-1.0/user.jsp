@@ -313,7 +313,7 @@ else
        <label for="profilePhoto">
         Profile Photo:
        </label>
-       <input class="form-control-file" id="profilePhoto" type="file" name="userprofile" />
+       <input class="form-control-file" id="profilePhoto" type="file" name="userprofile" accept="image/png, image/jpeg"/>
       </div>
                <p><i>${message}</i></p>
       <button class="btn btn-primary" type="submit" name="action" value="save" >

@@ -286,9 +286,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                                                         <span class="post-date">Password: <%=u.getPass()%></span><br>
 															<span class="post-date"><%=u.getCreated()%></span>
                                                                                                                         <input type="hidden" name="userID" value="<%=u.getUserID()%>">
-                                                                                                                        <button class="btn" type="submit" name ="action" value="deleteUser">Delete</button>
-                                                                                                                        <button class="btn" type="submit" name ="action" value="configUser">Config</button>
-                                                                                                                        <button class="btn" type="submit" name ="action" value="Addplaylist">Add playlist</button>
+                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="deleteUser">Delete</button>
+                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="configUser">Config</button>
+                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="Addplaylist">Add playlist</button>
                                                                                                                     </form>
 														</li>
 														   <% }; 
