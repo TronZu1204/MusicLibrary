@@ -97,7 +97,9 @@ public class MusicDB {
         }
         catch (Exception e) {
             System.out.println(e);
-            trans.rollback();
+            if (trans.isActive()){
+               trans.rollback(); 
+            }
             return false;
         }
         finally {

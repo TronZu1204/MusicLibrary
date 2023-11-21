@@ -260,6 +260,25 @@
                                     }
                     </script>
 
+                    <script>
+                        function passSongNameAndIDToModal(name, ID) {
+                            var inputElement = document.getElementById('deletingSongID');
+                            inputElement.value = ID;
+                            inputElement.setAttribute('value', ID);
+                            document.getElementById("modelSongName").innerText = "Are you sure you want to delete " + name;
+                        }
+                    </script>
+
+                    <!--                    <script>
+                                            $('#deleteSongButton').click(function () {
+                    
+                                                // getting the value of the input fields
+                                                var name = $('#songName').val();
+                                                var htmlStr = '<p> Are you sure you want to delete ' + name + '</p>';
+                                                // adding the data to the modal
+                                                $('.modal-body').html(htmlStr);
+                                            });
+                                        </script>-->
 
 
                     <section class="container-fluid" id="user-uploaded-music">
@@ -287,10 +306,10 @@
                                         <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
                                              class="img-rounded img-responsive">
                                         <div class="center-items">
-                                            <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})"
-                                               data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
+                                            <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})" data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
                                             <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
-                                            <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
+                                            <input type = "hidden" id = "songName${uploadedSong.getMusicID()}" value="${uploadedSong.getName()}" />
+                                            <a class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
                                         </div>       
 
                                         <div class="caption music-info">
@@ -316,7 +335,9 @@
                                                         <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})"
                                                            data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
                                                         <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
-                                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn"><i class="fa fa-times"></i></a>
+
+                                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" 
+                                                           data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
                                                     </div> 
 
                                                     <div class="caption music-info">
@@ -365,6 +386,37 @@
                             </div>
                         </div>
                     </div>
+
+
+
+
+
+                    <!-- Deleting Song Modal -->
+                    <div class = "modal fade" id = "deleteSongModal" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel"
+                         aria-hidden="true">
+                        <div class = "modal-dialog" role = "document">
+                            <div class = "modal-content">
+                                <form method="post" action="musicServlet">
+                                    <div class = "modal-header">
+                                        <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+                                            <span aria-hidden = "true"> × </span>
+                                        </button>
+                                        <h4 class = "modal-title" id = "exampleModalLabel"> Deleting song </h4>
+
+                                    </div>
+                                    <div class = "modal-body"><span id="modelSongName"></span></div>
+                                    <div class = "modal-footer">
+                                        <input type="hidden" id="deletingSongID" name="deletingSongID">
+                                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal"> Cancel </button>
+                                        <button type = "submit" name="action" value="Delete song" class = "btn btn-primary"> Confirm </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
 
 
 
