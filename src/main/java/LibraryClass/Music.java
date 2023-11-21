@@ -27,7 +27,8 @@ public class Music implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date created;
     
-    public Music(){    
+    public Music(){
+        this.existed = true;
         }
     
     public Music(long musicID, String name, User author, String category, int like, int listen, String image, Date created) {
@@ -65,6 +66,7 @@ public class Music implements Serializable {
         this.listen = listen;
         this.image = image;
         this.created = created;
+        this.existed = true;
     }
     
 

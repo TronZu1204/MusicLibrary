@@ -86,10 +86,13 @@ public class MusicServlet extends HttpServlet {
             request.setAttribute("message", message);
         } else if (action.equals("Delete song")) {
             Long deletingSongID = Long.parseLong(request.getParameter("deletingSongID"));
-            MusicDB.deleteMusic(deletingSongID);
+            MusicDB.setMusicExistenceFalse(deletingSongID);
             url = "/profile.jsp";
             userUploadedSongs = MusicDB.selectMusicbyUserID(user);
             request.setAttribute("userUploadedSongs", userUploadedSongs);
+            //get user's playlists
+            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            request.setAttribute("userPlaylists", userPlaylists);
             message = "Deleted song successfully!";
             request.setAttribute("message", message);
         }
