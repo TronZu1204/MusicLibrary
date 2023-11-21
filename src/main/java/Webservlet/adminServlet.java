@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DBUtil.UserDB;
+import LibraryClass.User;
 import java.util.List;
 
 /**
@@ -71,12 +72,25 @@ public class adminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String url = "/Admin.jsp";
        List allUser = UserDB.selectAllUser();
        request.setAttribute("allUser", allUser);
+       String action = request.getParameter("action");
+       if(action.equals("deleteUser")){
+           deleteUser(request,response);
+           allUser = UserDB.selectAllUser();
+           request.setAttribute("allUser", allUser);
+       }
+       String url = "/Admin.jsp";
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);
     }
-
+    
+private void deleteUser(HttpServletRequest request, HttpServletResponse response){
+        String ID = request.getParameter("userID");
+         User u = new User();
+         long userID = Long.parseLong(ID);
+          u.setUserID(userID);
+          UserDB.deleteUser(u);
+    }
 }

@@ -273,15 +273,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<!-- /music-left -->
 										<div class="music-left">
                                                                                       <div class="widget-side">
-												<h4 class="widget-title">Recent accounts</h4>
+												<h4 class="widget-title">All accounts</h4>
 													<ul>
-                                                                                                             <% for(int i = 0;i < allUser.size(); i++) 
+                                                                                                             <% for(int i = 1;i < allUser.size(); i++) 
                                                                                                                {
                                                                                                                          User u = allUser.get(i);
                                                                                                     %>
 														<li>
+                                                                                                                    <form action="admin" method="post">   
 															<a href="single.html"><%=u.getName()%></a>
+                                                                                                                        <span class="post-date">Email: <%=u.getGmail()%></span><br>
+                                                                                                                        <span class="post-date">Password: <%=u.getPass()%></span><br>
 															<span class="post-date"><%=u.getCreated()%></span>
+                                                                                                                        <input type="hidden" name="userID" value="<%=u.getUserID()%>">
+                                                                                                                        <button class="btn" type="submit" name ="action" value="deleteUser">Delete</button>
+                                                                                                                        <button class="btn" type="submit" name ="action" value="configUser">Config</button>
+                                                                                                                        <button class="btn" type="submit" name ="action" value="Addplaylist">Add playlist</button>
+                                                                                                                    </form>
 														</li>
 														   <% }; 
                                                                                                                 %>

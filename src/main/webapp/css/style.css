@@ -78,6 +78,13 @@ body p{
 h1, h2, h3, h4, h5 {
     font-family: 'MavenPro-Regular';
 }
+.btn {
+        display: none;
+    }
+    /* Show delete button on hover */
+li:hover .btn {
+        display: inline-block;
+    }
 /*Header Stats Start*/
 .header_stats{
     text-align: center;
