@@ -17,6 +17,7 @@ import java.util.Date;
 import LibraryClass.Playlist;
 import LibraryClass.Music;
 import DBUtil.PlaylistDB;
+import DBUtil.UserDB;
 import LibraryClass.User;
 import java.util.HashSet;
 import java.util.List;
@@ -111,6 +112,20 @@ public class PlaylistServlet extends HttpServlet {
             //get user's playlists
             List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
             request.setAttribute("userPlaylists", userPlaylists);
+        }
+        if (action.equals("View playlist")) {
+            Long playlistID = Long.parseLong(request.getParameter("playlistID"));
+            //get the selected playlist
+            Playlist selectedPlaylist = PlaylistDB.selectPlaylistByID(playlistID);
+            request.setAttribute("selectedPlaylist", selectedPlaylist);
+            //get the songs in the playlist
+            Set<Music> selectedPlaylistSongs = MusicDB.selectMusicInPlaylist(playlistID);
+            request.setAttribute("selectedPlaylistSongs", selectedPlaylistSongs);
+            //get playlist owner's name
+            User playlistOwner = selectedPlaylist.getUser();
+            String playlistOwnerName = UserDB.selectUserNameFromID(playlistOwner.getUserID());
+            request.setAttribute("playlistOwnerName", playlistOwnerName);
+            url = "/playlistDetails.jsp";
         }
         
         getServletContext()
