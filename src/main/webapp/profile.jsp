@@ -329,7 +329,8 @@
                                                          class="img-rounded img-responsive">
                                                     <div class="center-items">
                                                         <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})" data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
-                                                        <a class="btn btn-default  button-appear-onHover play-btn" onclick="playSong('songs/song${uploadedSong.getMusicID()}.mp3')"><i class="fa fa-play"></i></a>
+                                                        <a class="btn btn-default  button-appear-onHover play-btn" 
+                                                           onclick="createNewPlaylist(${uploadedSong.getMusicID()}, '${uploadedSong.getName()}', '${uploadedSong.getAuthor().getName()}')"><i class="fa fa-play"></i></a>
                                                         <input type = "hidden" id = "songName${uploadedSong.getMusicID()}" value="${uploadedSong.getName()}" />
                                                         <a class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
                                                     </div> 

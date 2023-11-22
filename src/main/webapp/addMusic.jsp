@@ -261,7 +261,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="musicFile">Song's file - accepts mp3/wav only</label>
+                                    <label for="musicFile">Song's file - accepts mp3 only</label>
                                     <input type="file" name="musicFile"
                                            class="form-control" id="musicFile">
                                 </div>    

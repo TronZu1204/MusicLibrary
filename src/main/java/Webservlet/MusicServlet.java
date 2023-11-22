@@ -140,8 +140,6 @@ public class MusicServlet extends HttpServlet {
                     String rename;
                     if (type.equals("audio/mpeg")) {
                         rename = "song" + music.getMusicID() + ".mp3";
-                    } else if (type.equals("audio/wav")) {
-                        rename = "song" + music.getMusicID() + ".wav";
                     } else {
                         MusicDB.deleteMusic(music.getMusicID());
                         return "Song File is not in the correct format!";

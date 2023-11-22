@@ -432,7 +432,11 @@ ul.nav.nav-pills.nav-stacked.custom-nav li:hover i.camera {
     white-space: nowrap;
 }
 
-@ songNamemedia (max-width:767px){
+.play-pauseBtn {
+    
+}
+
+@media (max-width:767px){
     .hidden-xs{
         display:none!important
     }

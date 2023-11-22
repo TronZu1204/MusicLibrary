@@ -115,21 +115,21 @@ public class MusicDB {
     }
 
     public static void deleteMusic(long MusicID) {
-//        EntityManager em = DButil.getFactory().createEntityManager();
-//        Music removedMusic = em.find(Music.class, MusicID);
-//        EntityTransaction trans = em.getTransaction();
-//        trans.begin();
-//        try {
-//            em.remove( em.merge(removedMusic));
-//            trans.commit();
-//        }
-//        catch (Exception e) {
-//            System.out.println(e);
-//            trans.rollback();  
-//        }
-//        finally {
-//            em.close();
-//        }
+        EntityManager em = DButil.getFactory().createEntityManager();
+        Music removedMusic = em.find(Music.class, MusicID);
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.remove( em.merge(removedMusic));
+            trans.commit();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();  
+        }
+        finally {
+            em.close();
+        }
     }
 
     public static boolean setMusicExistenceFalse(long musicID) {
