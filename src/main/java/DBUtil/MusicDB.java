@@ -160,4 +160,11 @@ public class MusicDB {
         List<Music> result = query.getResultList();
         return result;
     }
+    public static List<Music> selectAllMusic(){
+        EntityManager em = DButil.getFactory().createEntityManager();
+         String queryString = "SELECT u FROM Music u";
+         TypedQuery<Music> query = em.createQuery(queryString, Music.class);
+          List<Music> result = query.getResultList();
+          return result;
+    }
 }
