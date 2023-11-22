@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML>
@@ -33,10 +34,10 @@
 
                 <!--logo and iconic logo start-->
                 <div class="logo">
-                    <h1><a href="index.html">Mosai<span>c</span></a></h1>
+                    <h1><a href="index.jsp">Mosai<span>c</span></a></h1>
                 </div>
                 <div class="logo-icon text-center">
-                    <a href="index.html">M </a>
+                    <a href="index.jsp">M </a>
                 </div>
 
                 <!--logo and iconic logo end-->
@@ -44,28 +45,28 @@
 
                     <!--sidebar nav start-->
                     <ul class="nav nav-pills nav-stacked custom-nav">
-                        <li class="active"><a href="index.html"><i class="lnr lnr-home"></i><span>Home</span></a></li>
+                        <li class="active"><a href="index.jsp"><i class="lnr lnr-home"></i><span>Home</span></a></li>
 
-                        <li><a href="radio.html"><i class="camera"></i> <span>Radio</span></a></li>
+                        <li><a href="#"><i class="camera"></i> <span>Radio</span></a></li>
                         <li><a href="#" data-toggle="modal" data-target="#myModal1"><i class="fa fa-th"></i><span>Apps</span></a></li>
-                        <li><a href="radio.html"><i class="lnr lnr-users"></i> <span>Artists</span></a></li> 
-                        <li><a href="browse.html"><i class="lnr lnr-music-note"></i> <span>Albums</span></a></li>						
+                        <li><a href="#"><i class="lnr lnr-users"></i> <span>Artists</span></a></li> 
+                        <li><a href="#"><i class="lnr lnr-music-note"></i> <span>Albums</span></a></li>						
                         <li class="menu-list"><a href="browse.html"><i class="lnr lnr-indent-increase"></i> <span>Browser</span></a>  
                             <ul class="sub-menu-list">
-                                <li><a href="browse.html">Artists</a> </li>
-                                <li><a href="404.html">Services</a> </li>
+                                <li><a href="#">Artists</a> </li>
+                                <li><a href="#">Services</a> </li>
                             </ul>
                         </li>
-                        <li><a href="blog.html"><i class="lnr lnr-book"></i><span>Blog</span></a></li>
-                        <li><a href="typography.html"><i class="lnr lnr-pencil"></i> <span>Typography</span></a></li>
+                        <li><a href="#"><i class="lnr lnr-book"></i><span>Blog</span></a></li>
+                        <li><a href="#"><i class="lnr lnr-pencil"></i> <span>Typography</span></a></li>
                         <li class="menu-list"><a href="#"><i class="lnr lnr-heart"></i>  <span>My Favourities</span></a> 
                             <ul class="sub-menu-list">
-                                <li><a href="radio.html">All Songs</a></li>
+                                <li><a href="#">All Songs</a></li>
                             </ul>
                         </li>
-                        <li class="menu-list"><a href="contact.html"><i class="fa fa-thumb-tack"></i><span>Contact</span></a>
+                        <li class="menu-list"><a href="#"><i class="fa fa-thumb-tack"></i><span>Contact</span></a>
                             <ul class="sub-menu-list">
-                                <li><a href="contact.html">Location</a> </li>
+                                <li><a href="#">Location</a> </li>
                             </ul>
                         </li>     
                     </ul>
@@ -256,12 +257,12 @@
                             <div class="col-lg-4">
                                 <div class="playlist-details">
                                     <div class="playlist-image">
-                                        <img src="images/songs_img/david_martin.jpg">
+                                        <img src="${selectedPlaylist.getCover()}">
                                     </div>
                                     <div class="playlist-info">
-                                        <h3 class="playlist-title">Playlist Name</h3>
+                                        <h3 class="playlist-title">${selectedPlaylist.getName()}</h3>
                                         <div class="playlist-author">
-                                            <span>Author Name</span>
+                                            <span>${playlistOwnerName}</span>
                                         </div>
                                         <div class="playlist-action">
                                             <button class="btn btn-primary play-btn"><span class="fa fa-play" aria-hidden="true"></span><span class="padding-left-10">Play</span></button>
@@ -278,33 +279,39 @@
                                             <span class="padding-left-10">Songs</span>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="media-body bg-info">
-                                        <div class="song-item">
-                                            <div class="song-index">
-                                                <span class>1</span>
-                                            </div>
+                                        
+                                        
+                                        <c:forEach items="${selectedPlaylistSongs}" var="playlistSong" varStatus="status">
+                                            <div class="song-item">
+                                                <div class="song-index">
+                                                    <span class>${status.count}</span>
+                                                </div>
 
-                                            <div class="song-thumb">
-                                                <figure class="is40x40">
-                                                    <img src="images/songs_img/frieren.png">
-                                                </figure>
-                                                <div class="song-action">
-                                                    <button>
-                                                        <i class="fa fa-play" aria-hidden="true"></i>
-                                                    </button>
+                                                <div class="song-thumb">
+                                                    <figure class="is40x40">
+                                                        <img src="${playlistSong.getImage()}" alt="${playlistSong.getName()} image">
+                                                    </figure>
+                                                    <div class="song-action">
+                                                        <button>
+                                                            <i class="fa fa-play" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="song-info">
-                                                <div class="song-name">
-                                                    Song Name
-                                                </div>
-                                                <div class="song-author">
-                                                    Song Author
+                                                <div class="song-info">
+                                                    <div class="song-name">
+                                                        ${playlistSong.getName()}
+                                                    </div>
+                                                    <div class="song-author">
+                                                        ${playlistSong.getAuthor().getName()}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </c:forEach>
+                                        
+                                        
                                     </div>
 
                                     <div class="media-bottom bg-gray">

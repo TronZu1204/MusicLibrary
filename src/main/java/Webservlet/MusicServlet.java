@@ -54,6 +54,9 @@ public class MusicServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("loggeduser");
         List<Music> userUploadedSongs = MusicDB.selectMusicbyUserID(user);
         request.setAttribute("userUploadedSongs", userUploadedSongs);
+        //get user's playlists
+        List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+        request.setAttribute("userPlaylists", userPlaylists);
         //upload a song, author is set to current logged in user
         if (action.equals("createMusic")) {
 
@@ -67,7 +70,7 @@ public class MusicServlet extends HttpServlet {
                     userUploadedSongs = MusicDB.selectMusicbyUserID(user);
                     request.setAttribute("userUploadedSongs", userUploadedSongs);
                     //get user's playlists
-                    List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+                    userPlaylists = PlaylistDB.selectPlaylist(user);
                     request.setAttribute("userPlaylists", userPlaylists);
                 } catch (Exception e) {
                     message = "Failed to upload song!";
@@ -91,7 +94,7 @@ public class MusicServlet extends HttpServlet {
             userUploadedSongs = MusicDB.selectMusicbyUserID(user);
             request.setAttribute("userUploadedSongs", userUploadedSongs);
             //get user's playlists
-            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            userPlaylists = PlaylistDB.selectPlaylist(user);
             request.setAttribute("userPlaylists", userPlaylists);
             message = "Deleted song successfully!";
             request.setAttribute("message", message);

@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import java.util.Set;
 import LibraryClass.Music;
 import LibraryClass.Playlist;
 import LibraryClass.User;
@@ -38,15 +39,10 @@ public class MusicDB {
         }
     }
 
-    public static List<Music> selectMusicByMusicID(long MusicID) {
+    public static Music selectMusicByMusicID(long MusicID) {
         EntityManager em = DButil.getFactory().createEntityManager();
-        String qString = "SELECT u FROM Music u " + "WHERE u.musicid = :MusicID" + " AND u.existed = true";
-        TypedQuery<Music> q = em.createQuery(qString, Music.class);
-        q.setParameter("MusicID", MusicID);
-        List<Music> music = null;
-
         try {
-            music = q.getResultList();
+            Music music = em.find(Music.class, MusicID);
             return music;
         } catch (NoResultException e) {
             return null;
@@ -72,22 +68,19 @@ public class MusicDB {
         }
     }
 
-    public static List<Music> selectMusicInPlaylist(long playlistID) {
+    public static Set<Music> selectMusicInPlaylist(long playlistID) {
         Playlist playlist = PlaylistDB.selectPlaylistByID(playlistID);
-        Set playlistSongIDs = playlist.getSongs();
-        List<Music> playlistSongs = null;
-        for (Long songID : playlistSongIDs) {
-            List<Music> song = MusicDB.selectMusicByMusicID(songID);
-            if (song.isEmpty() == false) {
-                playlistSongs.addAll(song);
-            }
-        }
+        Set<Music> playlistSongs = playlist.getSongs();
         return playlistSongs;
     }
 
     public static boolean musicExist(long MusicID) {
-        List<Music> u = selectMusicByMusicID(MusicID);
-        return !u.isEmpty();
+        Music music = selectMusicByMusicID(MusicID);
+        if (music == null) {
+            return false;
+        }
+        
+        return music.isExisted();
     }
 
     public static boolean updateMusic(Music music) {
