@@ -26,7 +26,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //lined-icons -->
  <!-- Meters graphs -->
 <script src="js/jquery-2.1.4.js"></script>
+<script>
+    function passToModal(userID, name, password) {
 
+    document.getElementById('userName').value = name;
+    document.getElementById('userPass').value = password;
+    document.getElementById('userID').value = userID;
+}
+</script>
 </head> 
    <!-- /w3layouts -->
  <body class="sticky-header left-side-collapsed"  onload="initMap()">
@@ -119,27 +126,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="modal-body modal-spa">
 							<div class="sign-grids">
 								<div class="sign">
-									<div class="sign-left">
-										<ul>
-											<li><a class="fb" href="#"><i></i>Sign in with Facebook</a></li>
-											<li><a class="goog" href="#"><i></i>Sign in with Google</a></li>
-											<li><a class="linkin" href="#"><i></i>Sign in with Linkedin</a></li>
-										</ul>
-									</div>
 									<div class="sign-right">
-										<form action="#" method="post">
-											<h3>Create your account </h3>
-											<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-											<input type="text" value="Mobile number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mobile number';}" required="">
-											<input type="text" value="Email id" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email id';}" required="">	
-											<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">	
-											
-											<input type="submit" value="CREATE ACCOUNT" >
+										<form action="admin" method="post">
+											<h3>Account Configured: </h3>
+                                                                                        <input type="hidden" name="action" value="configUser" >
+                                                                                        <input id="userID" type="hidden" name="userID" >
+                                                                                        <label>Name: </label><input id="userName" type="text" name="userName"  required>
+											<label>Password: </label><input id="userPass" type="password" name="userPass" required>	
+											<input type="submit" value="Accept" >
 										</form>
 									</div>
 									<div class="clearfix"></div>								
 								</div>
-								<p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
 							</div>
 						</div>
 					</div>
@@ -274,6 +272,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<div class="music-left">
                                                                                       <div class="widget-side">
 												<h4 class="widget-title">All accounts</h4>
+                                                                                                <p>${message}</p>
 													<ul>
                                                                                                              <% for(int i = 1;i < allUser.size(); i++) 
                                                                                                                {
@@ -286,9 +285,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                                                         <span class="post-date">Password: <%=u.getPass()%></span><br>
 															<span class="post-date"><%=u.getCreated()%></span>
                                                                                                                         <input type="hidden" name="userID" value="<%=u.getUserID()%>">
-                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="deleteUser">Delete</button>
-                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="configUser">Config</button>
-                                                                                                                        <button class="adminbtn" type="submit" name ="action" value="Addplaylist">Add playlist</button>
+                                                                                                                        <button class="btn adminbtn" type="submit" name ="action" value="deleteUser">Delete</button>
+                                                                                                                        <button class="btn adminbtn"><a href="#" data-toggle="modal" data-target="#myModal5" style="text-decoration:none;" onclick="passToModal(<%=u.getUserID()%>, '<%=u.getName()%>','<%=u.getPass()%>')">Config</a></button>
+                                                                                                                        <button class="btn adminbtn">Add playlist</button>
                                                                                                                     </form>
 														</li>
 														   <% }; 

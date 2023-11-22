@@ -72,14 +72,23 @@ public class adminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
        List allUser = UserDB.selectAllUser();
        request.setAttribute("allUser", allUser);
+       String message = null;
        String action = request.getParameter("action");
        if(action.equals("deleteUser")){
            deleteUser(request,response);
-           allUser = UserDB.selectAllUser();
-           request.setAttribute("allUser", allUser);
        }
+       if(action.equals("configUser")){
+           if(configUser(request,response)){
+               message ="Update account succecfully";
+           }
+           else message ="Failed to update"; 
+       }
+       allUser = UserDB.selectAllUser();
+       request.setAttribute("allUser", allUser);
+       request.setAttribute("message", message);
        String url = "/Admin.jsp";
         getServletContext()
                 .getRequestDispatcher(url)
@@ -93,4 +102,16 @@ private void deleteUser(HttpServletRequest request, HttpServletResponse response
           u.setUserID(userID);
           UserDB.deleteUser(u);
     }
+private boolean configUser(HttpServletRequest request, HttpServletResponse response){
+    String ID = request.getParameter("userID");
+    String name = request.getParameter("userName");
+    String pass = request.getParameter("userPass");
+    long userID = Long.parseLong(ID); 
+    User u = new User();
+    u.setUserID(userID);
+    u.setName(name);
+    u.setPass(pass);
+    boolean i = UserDB.updateUserbyAdmin(u);
+    return i;
+}
 }

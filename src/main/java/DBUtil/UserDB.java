@@ -114,7 +114,28 @@ public static boolean updateUser(User user){
         }
     
 }
-
+public static boolean updateUserbyAdmin(User user){
+         EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        User updated = em.find(User.class, user.getUserID());
+        try {
+            updated.setPass(user.getPass());
+            updated.setName(user.getName());
+            em.merge(updated);
+            trans.commit();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            trans.rollback();
+            return false;
+        }
+        finally {
+            em.close();
+            return true;
+        }
+    
+}
 public static void deleteUser(User user){
          EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
