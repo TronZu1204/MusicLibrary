@@ -82,7 +82,7 @@
                     <div class="menu-right">
                         <div class="profile_details">		
                             <div class="col-md-4 serch-part">
-                                 <div id="sb-search" class="sb-search">
+                                <div id="sb-search" class="sb-search">
                                     <form action="search" method="post">
                                         <input class="sb-search-input" placeholder="Search" type="search" name="songSearch" id="search">
                                         <input class="sb-search-submit" type="submit" name="action" value="search">
@@ -133,48 +133,48 @@
                                 </ul>	
                             </div>
                             <div class="col-md-4 login-pop">
-                                 <c:if test="${loggeduser.getUserID()!=1}">
-                                        <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-                                            <div id="loginBox" style="margin-top:10px">  
-                                                <form action="login" method="post" id="loginForm">
-                                                    <fieldset id="body">
-                                                        <fieldset>
-                                                            <label>Username = ${loggeduser.getName()}</label>
-                                                        </fieldset>
-                                                        <fieldset>
-                                                            <label>Email = ${loggeduser.getGmail()}</label>
-                                                        </fieldset>
-                                                         <input type="submit" name="action" value="Playlist" > 
+                                <c:if test="${loggeduser.getUserID()!=1}">
+                                    <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                        <div id="loginBox" style="margin-top:10px">  
+                                            <form action="login" method="post" id="loginForm">
+                                                <fieldset id="body">
+                                                    <fieldset>
+                                                        <label>Username = ${loggeduser.getName()}</label>
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <label>Email = ${loggeduser.getGmail()}</label>
+                                                    </fieldset>
+                                                    <input type="submit" name="action" value="Playlist" > 
                                                     <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
-                                                     <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
-                                                    </fieldset>   
-                                                </form>
-                                            </div>
+                                                    <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
+                                                </fieldset>   
+                                            </form>
                                         </div>
-                                        </c:if>
-                                        <c:if test="${loggeduser.getUserID() ==1}" >
-                                              <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
-                                            <div id="loginBox">  
-                                                <form action="login" method="post" id="loginForm">
-                                                    <fieldset id="body">
-                                                        <fieldset>
-                                                            <label>Username = ${loggeduser.getName()}</label>
-                                                        </fieldset>
-                                                        <fieldset>
-                                                            <label>Email = ${loggeduser.getGmail()}</label>
-                                                        </fieldset>
+                                    </div>
+                                </c:if>
+                                <c:if test="${loggeduser.getUserID() ==1}" >
+                                    <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
+                                        <div id="loginBox">  
+                                            <form action="login" method="post" id="loginForm">
+                                                <fieldset id="body">
+                                                    <fieldset>
+                                                        <label>Username = ${loggeduser.getName()}</label>
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <label>Email = ${loggeduser.getGmail()}</label>
+                                                    </fieldset>
                                                     <input type="submit" name ="action" value="Account Manager">
                                                     <input type="submit" name="action" value="Playlist" > 
                                                     <input type="submit" name ="action" id="My profile" value="My profile">
                                                     <input type="submit" name ="action" id="setting" value="Setting">
-                                                     <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
-                                                    </fieldset>   
-                                                </form>
+                                                    <input type="submit" name="action" value="Log out" id="login" style="margin-top: 10px">
+                                                </fieldset>   
+                                            </form>
 
-                                            </div>
                                         </div>
-                                        </c:if>
+                                    </div>
+                                </c:if>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
@@ -432,22 +432,29 @@
                         <div class="row justify-content-center bg-info playlist-row">
                             <div class="col-xs-12 ">
                                 <h2>Playlists</h2>
-                                 <c:forEach items="${userPlaylists}" var="userPlaylist">
-                                                 <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
-                                    <div class="thumbnail">
+                                <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                    <form method="post" action="playlist">
+                                        <input type="hidden" value="${userPlaylist.getPlaylistID()}" name="playlistID">
 
-                                        <img src="${userPlaylist.getCover()}" alt="${userPlaylist.getName()} image"
-                                             class="img-rounded img-responsive">
-                                        <div class="center-items">
-                                        </div>       
+                                        <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                            <div class="thumbnail">
+                                                <button name="action" value="View playlist" type="submit"
+                                                        class="view-playlist-btn">
+                                                    <img src="${userPlaylist.getCover()}" alt="${userPlaylist.getName()} image"
+                                                         class="img-rounded img-responsive">
+                                                    <div class="center-items">
+                                                    </div>
+                                                </button>
 
-                                        <div class="caption music-info">
-                                            <p class="text-primary">${userPlaylist.getName()}</p>
-                                            <p style="font-size: 16px;">Uploaded: <fmt:formatDate type = "date" value = "${userPlaylist.getCreated()}" /></p>
+                                                <div class="caption music-info">
+                                                    <p class="text-primary">${userPlaylist.getName()}</p>
+                                                    <p style="font-size: 16px;">Uploaded: <fmt:formatDate type = "date" value = "${userPlaylist.getCreated()}" /></p>
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                            </c:forEach>
+                                    </form>
+                                </c:forEach>
                             </div>                          
                         </div>
                     </section>
