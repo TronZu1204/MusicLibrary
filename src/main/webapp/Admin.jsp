@@ -29,10 +29,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script>
 function passToModal(userID, name, password) {
     document.getElementById('userName').value = name;
+    document.getElementById('userNameforSong').value = name;
     document.getElementById('userPassword').value = password ;
     var inputElement = document.getElementById('userID');
         inputElement.value = userID;
         inputElement.setAttribute('value', userID);
+    var inputElementforSong = document.getElementById('userIDforSong');
+        inputElementforSong.value = userID;
+        inputElementforSong.setAttribute('value', userID);
 }
 </script>
 </head> 
@@ -128,15 +132,92 @@ function passToModal(userID, name, password) {
 							<div class="sign-grids">
 								<div class="sign">
 									<div class="sign-right">
-										<form action="admin" method="post">
+										<form action="admin" method="post" enctype="multipart/form-data">
 											<h3>Account Configured: </h3>
                                                                                         <input type="hidden" name="action" value="configUser" >
                                                                                         <input id="userID" type="hidden" name="userID" >
                                                                                         <label>Name: </label><input id="userName" type="text" name="userName"  required>
 											<label>Password: </label><input id="userPassword" type="password" name="userPass" required>	
+                                                                                         <input class="form-control-file" id="profilePhoto" type="file" name="userprofileforAdmin" accept="image/png, image/jpeg"/>
 											<input type="submit" value="Accept" >
 										</form>
 									</div>
+									<div class="clearfix"></div>								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+                
+                <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body modal-spa">
+							<div class="sign-grids">
+								<div class="sign">
+										 <form method="post" action="admin" enctype="multipart/form-data">
+                            <div class="form-row">
+                                 <input type="hidden" name="userIDforSong"
+                                           id="userIDforSong">
+                                 <input type="hidden" name="action" value="addSongforUser">
+                                <div class="form-group col-md-6">
+                                    <label for="name" >Song's name</label>
+                                    <input type="text" class="form-control" name="musicName"
+                                           id="name" placeholder="Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="author">Author</label>
+                                    <input id="userNameforSong" type="text" class="form-control"
+                                           name="musicAuthor"  disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="image" class="custom-file-upload">Cover image</label>
+                                    <input type="file" name= "imageFile"
+                                           class="form-control" id="image">                              
+                                </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <label for="category">Category</label>
+                                    <select name="musicCategory" id="category" class="form-control">
+                                        <option selected>UK-Pop</option>
+                                        <option>V-Pop</option>
+                                        <option>J-Pop</option>
+                                        <option>K-Pop</option>
+                                        <option>Rock</option>
+                                        <option>Jazz</option>
+                                        <option>Rhythm and blues</option>
+                                        <option>Country</option>
+                                        <option>Funk</option>
+                                        <option>Electronic</option>
+                                        <option>Folk</option>
+                                        <option>Rock and roll</option>
+                                        <option>Rock</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="musicFile">Song's file - accepts mp3/wav only</label>
+                                    <input type="file" name="musicFile"
+                                           class="form-control" id="musicFile">
+                                </div>    
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+
+                                </div>
+                            </div>
+                        </form>
 									<div class="clearfix"></div>								
 								</div>
 							</div>
@@ -273,6 +354,9 @@ function passToModal(userID, name, password) {
 										<div class="music-left">
                                                                                       <div class="widget-side">
 												<h4 class="widget-title">All accounts</h4>
+                                                                                                <form action="admin" method="post"> 
+                                                                                            <button class="btn" type="submit" name="action" value="showAllMusic">All Music</button>
+                                                                                            </form>
                                                                                                 <p>${message}</p>
 													<ul>
                                                                                                              <% for(int i = 1;i < allUser.size(); i++) 
@@ -280,6 +364,10 @@ function passToModal(userID, name, password) {
                                                                                                                          User u = allUser.get(i);
                                                                                                     %>
 														<li>
+                                                                                                                    <div class="song-img">
+															  <a href="single.html"><img src="<%=u.getImage()%>" class="img-responsive" alt="" /></a>
+															</div>
+                                                                                                                    <div class="song-text">
                                                                                                                     <form action="admin" method="post">   
 															<a href="single.html"><%=u.getName()%></a>
                                                                                                                         <span class="post-date">Email: <%=u.getGmail()%></span><br>
@@ -287,28 +375,16 @@ function passToModal(userID, name, password) {
 															<span class="post-date"><%=u.getCreated()%></span>
                                                                                                                         <input type="hidden" name="userID" value="<%=u.getUserID()%>">
                                                                                                                         <button class="btn adminbtn" type="submit" name ="action" value="deleteUser">Delete</button>
-                                                                                                                        <button class="btn adminbtn"><a href="#" data-toggle="modal" data-target="#myModal5" style="text-decoration:none;" onclick="passToModal(<%=u.getUserID()%>, '<%=u.getName()%>','<%=u.getPass()%>')">Config</a></button>
-                                                                                                                        <button class="btn adminbtn">Add playlist</button>
+                                                                                                                        <button class="btn adminbtn"name ="action" value=""><a href="#" data-toggle="modal" data-target="#myModal5" style="text-decoration:none;" onclick="passToModal(<%=u.getUserID()%>, '<%=u.getName()%>','<%=u.getPass()%>')">Config</a></button>
+                                                                                                                        <button class="btn adminbtn"name ="action" value=""><a href="#" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passToModal(<%=u.getUserID()%>, '<%=u.getName()%>','<%=u.getPass()%>')">Add Song</a></button>
                                                                                                                     </form>
+                                                                                                                    </div>
+                                                                                                                    <div class="clearfix"></div>
 														</li>
 														   <% }; 
                                                                                                                 %> 
 													</ul>
 												 </div>
-											<!--start-blog-pagenate-->
-												<div class="blog-pagenat">
-													<ul>
-														<li><a class="frist" href="#">Prev</a></li>
-														<li><a href="#">1</a></li>
-														<li><a href="#">2</a></li>
-														<li><a href="#">3</a></li>
-														<li><a href="#">4</a></li>
-														<li><a href="#">5</a></li>
-														<li><a class="last" href="#">Next</a></li>
-														<div class="clearfix"> </div>
-													</ul>
-												</div>
-												<!--//end-blog-pagenate-->
 
 										</div>
 										<!-- //music-left-->
@@ -316,7 +392,7 @@ function passToModal(userID, name, password) {
 										<div class="music-right">
 											<!-- //widget -->
 											<div class="widget-side second">
-												<h4 class="widget-title">Uploaded Songs</h4>
+                                                                                            <h4 class="widget-title">Uploaded Songs</h4>                                     
 													<ul>
                                                                                                                <% for(int i = 0;i < allUser.size(); i++) 
                                                                                                                {

@@ -136,6 +136,7 @@ public static boolean updateUserbyAdmin(User user){
         try {
             updated.setPass(user.getPass());
             updated.setName(user.getName());
+            updated.setImage(user.getImage());
             em.merge(updated);
             trans.commit();
         }
@@ -167,6 +168,11 @@ public static void deleteUser(User user){
             em.close();
         }
     
+}
+ public static User selectUserforAdmin(long userID){
+    EntityManager em = DButil.getFactory().createEntityManager();
+    User user = em.find(User.class, userID);
+    return user;
 }
 }
 
