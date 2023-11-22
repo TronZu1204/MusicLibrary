@@ -53,7 +53,22 @@ public class PlaylistDB {
             em.close();
         }
     }
-
+    
+    public static Playlist selectPlaylistByID(Long playlistID){
+        EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        trans.begin();
+        try {
+            Playlist playlist = em.find(Playlist.class, playlistID);
+            return playlist;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
     public static void addSongsToPlaylist(Playlist playlistID, Set<Music> addedSongs) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
