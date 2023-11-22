@@ -27,11 +27,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  <!-- Meters graphs -->
 <script src="js/jquery-2.1.4.js"></script>
 <script>
-    function passToModal(userID, name, password) {
-
+function passToModal(userID, name, password) {
     document.getElementById('userName').value = name;
-    document.getElementById('userPass').value = password;
-    document.getElementById('userID').value = userID;
+    document.getElementById('userPassword').value = password ;
+    var inputElement = document.getElementById('userID');
+        inputElement.value = userID;
+        inputElement.setAttribute('value', userID);
 }
 </script>
 </head> 
@@ -132,7 +133,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                         <input type="hidden" name="action" value="configUser" >
                                                                                         <input id="userID" type="hidden" name="userID" >
                                                                                         <label>Name: </label><input id="userName" type="text" name="userName"  required>
-											<label>Password: </label><input id="userPass" type="password" name="userPass" required>	
+											<label>Password: </label><input id="userPassword" type="password" name="userPass" required>	
 											<input type="submit" value="Accept" >
 										</form>
 									</div>
@@ -291,7 +292,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                                                                     </form>
 														</li>
 														   <% }; 
-                                                                                                                %>
+                                                                                                                %> 
 													</ul>
 												 </div>
 											<!--start-blog-pagenate-->

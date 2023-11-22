@@ -82,7 +82,7 @@ public class adminServlet extends HttpServlet {
        }
        if(action.equals("configUser")){
            if(configUser(request,response)){
-               message ="Update account succecfully";
+               message ="Update account successfully";
            }
            else message ="Failed to update"; 
        }
