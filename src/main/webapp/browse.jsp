@@ -1,3 +1,9 @@
+<%@page import="LibraryClass.User"%>
+<%@page import="LibraryClass.User"%>
+<%@page import="DBUtil.PlaylistDB"%>
+<%@page import="java.util.List"%>
+<%@page import="LibraryClass.Playlist"%>
+<%@page import="LibraryClass.Playlist"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
@@ -23,7 +29,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  <!-- Meters graphs -->
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/play_music_script.js"></script>
-
+  <script>
+                                    function passIDToModal(ID) {
+                                        var inputElement = document.getElementById('songID');
+                                        inputElement.value = ID;
+                                        inputElement.setAttribute('value', ID);
+                                    }
+                    </script>
 </head> 
 
     	 <!-- /w3layouts-agile -->
@@ -328,6 +340,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                 <c:forEach items="${songResults}" var="songResult">
 								<div class="col-md-3 browse-grid">
 									<a  href="#"><img src="${songResult.getImage()}" style="width:200px;height:200px" onclick="createNewPlaylist(${songResult.getMusicID()}, '${songResult.getName()}', '${songResult.getAuthor().getName()}')"></a>
+                                                                         <c:if test="${not empty loggeduser}">
+                                                                        <a class="setting-button" data-toggle="modal" data-target="#addToPlaylist" style="text-decoration:none;" onclick="passIDToModal(${songResult.getMusicID()})"><i class="fa fa-plus" style="font-size:24px"></i></a>
+                                                                    </c:if>
 									<a class="sing">${songResult.getName()}</a>
                                                                         </div>	
                                                                 </c:forEach>
@@ -472,6 +487,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<!--body wrapper end-->
  	 <!-- /w3l-agile-info -->
 					</div>
+                                                                          <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="modalLabelLarge">Add song to playlist:</h4>
+                                </div>
+                                <form action="search" method="post">
+                                    <div class="modal-body">
+
+                                        <select class="form-control input-lg" name="addPlaylistID">
+                                            <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                <option value="${userPlaylist.getPlaylistID()}">${userPlaylist.getName()} playlist</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" id="songID" name="songID">
+                                        <input type="hidden" name="songSearch" value ="${pattern}">
+                                        <input type="submit" name="action" value="Add Song to Playlist" class="btn btn-secondary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 			  <!--body wrapper end-->
 			     <div class="footer two">
 				<div class="footer-grid">

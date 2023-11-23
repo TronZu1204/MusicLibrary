@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.ServletException;
@@ -29,35 +30,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class searchServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet searchServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet searchServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
     }
     
     @Override
@@ -65,10 +43,23 @@ public class searchServlet extends HttpServlet {
             throws ServletException, IOException {
         String url = "/browse.jsp";
         String action = request.getParameter("action");
+        User user = (User) request.getSession().getAttribute("loggeduser");
+        if (user != null){
+         List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+        request.setAttribute("userPlaylists", userPlaylists);
+        }
         if(action.equals("search")){
             SearchMusic(request,response);
             SearchPlaylist(request,response);
         }
+           if (action.equals("Add Song to Playlist")){
+            Long playlistID = Long.parseLong(request.getParameter("addPlaylistID"));
+            Long songID = Long.parseLong(request.getParameter("songID"));
+            String research = request.getParameter("research");
+            addSongToPlaylist(playlistID, songID);
+            SearchMusic(request,response);
+            SearchPlaylist(request,response);
+    }
         if (action.equals("View playlist")) {
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
             //get the selected playlist
@@ -101,5 +92,16 @@ public class searchServlet extends HttpServlet {
         pattern = URLDecoder.decode( pattern, "UTF-8" );
         List<Playlist> result = PlaylistDB.findPlaylist(pattern);
         request.setAttribute("playlistResults", result);
+    }
+      private void addSongToPlaylist(long playlistID, Long songID) {
+        Playlist playlist = new Playlist();
+        playlist.setPlaylistID(playlistID);
+
+        Set<Music> songs = new HashSet<>();
+        Music song = new Music();
+        song.setMusicID(songID);
+        songs.add(song);
+        
+        PlaylistDB.addSongsToPlaylist(playlist, songs);
     }
 }
