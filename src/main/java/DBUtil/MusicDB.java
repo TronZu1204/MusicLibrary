@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 import java.util.Set;
+import java.util.HashSet;
 import LibraryClass.Music;
 import LibraryClass.Playlist;
 import LibraryClass.User;
@@ -71,7 +72,13 @@ public class MusicDB {
     public static Set<Music> selectMusicInPlaylist(long playlistID) {
         Playlist playlist = PlaylistDB.selectPlaylistByID(playlistID);
         Set<Music> playlistSongs = playlist.getSongs();
-        return playlistSongs;
+        Set<Music> playlistExistedSongs = new HashSet<Music>();
+        for (Music song: playlistSongs) {
+            if (song.isExisted()) {
+                playlistExistedSongs.add(song);
+            }
+        }
+        return playlistExistedSongs;
     }
 
     public static boolean musicExist(long MusicID) {
@@ -108,21 +115,21 @@ public class MusicDB {
     }
 
     public static void deleteMusic(long MusicID) {
-//        EntityManager em = DButil.getFactory().createEntityManager();
-//        Music removedMusic = em.find(Music.class, MusicID);
-//        EntityTransaction trans = em.getTransaction();
-//        trans.begin();
-//        try {
-//            em.remove( em.merge(removedMusic));
-//            trans.commit();
-//        }
-//        catch (Exception e) {
-//            System.out.println(e);
-//            trans.rollback();  
-//        }
-//        finally {
-//            em.close();
-//        }
+        EntityManager em = DButil.getFactory().createEntityManager();
+        Music removedMusic = em.find(Music.class, MusicID);
+        EntityTransaction trans = em.getTransaction();
+        trans.begin();
+        try {
+            em.remove( em.merge(removedMusic));
+            trans.commit();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();  
+        }
+        finally {
+            em.close();
+        }
     }
 
     public static boolean setMusicExistenceFalse(long musicID) {
