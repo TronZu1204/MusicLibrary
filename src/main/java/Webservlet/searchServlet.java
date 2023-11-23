@@ -55,7 +55,6 @@ public class searchServlet extends HttpServlet {
            if (action.equals("Add Song to Playlist")){
             Long playlistID = Long.parseLong(request.getParameter("addPlaylistID"));
             Long songID = Long.parseLong(request.getParameter("songID"));
-            String research = request.getParameter("research");
             addSongToPlaylist(playlistID, songID);
             SearchMusic(request,response);
             SearchPlaylist(request,response);
