@@ -178,39 +178,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<!-- //search-scripts -->
 											 <!---->
 											  <div class="col-md-4 player">
-													<div class="audio-player">
-														<audio id="audio-player"  controls="controls">
-														<source src="media/Blue Browne.ogg" type="audio/ogg"></source>
-																<source src="media/Blue Browne.mp3" type="audio/mpeg"></source>
-																<source src="media/Georgia.ogg" type="audio/ogg"></source>
-																<source src="media/Georgia.mp3" type="audio/mpeg"></source></audio>
-														</div>
-												<!---->
-												<script type="text/javascript">
-													$(function(){
-													  $('#audio-player').mediaelementplayer({
-														alwaysShowControls: true,
-														features: ['playpause','progress','volume'],
-														audioVolume: 'horizontal',
-														iPadUseNativeControls: true,
-														iPhoneUseNativeControls: true,
-														AndroidUseNativeControls: true
-													});
-												 });
-												</script>
-												<!--audio-->
-													<link rel="stylesheet" type="text/css" media="all" href="css/audio.css">
-													<script type="text/javascript" src="js/mediaelement-and-player.min.js"></script>
-													<!---->
- 	 <!-- /agileits -->
+                                 
+                                <div class="audio-player">
+                                    <audio id="audio-player"  controls="controls">
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source>
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source></audio>
+                                </div>
+                                <!---->
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#audio-player').mediaelementplayer({
+                                            alwaysShowControls: true,
+                                            features: ['playpause', 'progress', 'volume'],
+                                            audioVolume: 'horizontal',
+                                            iPadUseNativeControls: true,
+                                            iPhoneUseNativeControls: true,
+                                            AndroidUseNativeControls: true
+                                        });
+                                    });
+                                </script>
+                                <!--audio-->
+                                <link rel="stylesheet" type="text/css" media="all" href="css/audio.css">
+                                <script type="text/javascript" src="js/mediaelement-and-player.min.js"></script>
+                                <!---->
 
-												<!--//-->
-												<ul class="next-top">
-													<li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
-													<li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></i></a></li>
-														
-											 </ul>	
-											</div>
+
+                                <!--//-->
+                                <ul class="next-top">
+                                    <li><div class="audio-info">
+                                        <span id="songName"></span>
+                                        <span id="songAuthor"></span> 
+                                    </div></li>
+                                    <li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
+                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></a></li>
+                                </ul>	
+                            </div>
 											<div class="col-md-4 login-pop">
 												<c:if test="${loggeduser.getUserID()!=1}">
                                         <div id="loginpop"> <a href="#" id="loginButton"><img class="miniprofile" src="${loggeduser.getImage()}"/></a><a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"></a>
@@ -294,19 +298,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="tittle-head two">
                                                                     <h3 class="tittle">${loggeduser.getName()}'s Playlist</h3> <p><i>${message}</i></p>
                                                                         <a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><button>Create a new playlist</button></a>
-									<a href="browse.html"><h4 class="tittle third">See all</h4></a>
+									<a href="browse.html"><h4 class="tittle third">See all playlist</h4></a>
 									<div class="clearfix"> </div>
                                                                         
 								</div>
                                                                          <% for(int i = 0; i < playlist.size(); i++) {
                                                                                       Playlist showplaylist = new Playlist();
                                                                                            showplaylist = playlist.get(i); %>
-                                                                                             
-								<div class="col-md-3 browse-grid">
-									<a  href="single.html"><img src="<%=showplaylist.getCover()%>" style="width:215px;height:215px" ></a>
+                                                                                           <div class="col-md-3 browse-grid">
+                                                                                           <form action="playlist" method="post"> 
+                                                                                               <input type="hidden" value="<%=showplaylist.getPlaylistID()%>" name="playlistID">
+                                                                    <button name="action" value="View playlist" type="submit">
+                                                                            <img src="<%=showplaylist.getCover()%>" style="width:215px;height:215px" ></button>
 									<a class="sing" href="single.html"><%=showplaylist.getName()%></a>
-                                                                        <button class="setting-button"><a href="#" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passIDToModal(<%=showplaylist.getPlaylistID()%>)"><i class="fa fa-gear" style="font-size:24px"></i></a></button>
+                                                                        <a class="setting-button" data-toggle="modal" data-target="#myModal6" style="text-decoration:none;" onclick="passIDToModal(<%=showplaylist.getPlaylistID()%>)"><i class="fa fa-gear" style="font-size:24px"></i></a>
                                                                         <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                            </form> 
 				<div class="modal-dialog" role="document">
 					<div class="modal-content modal-info">
 						<div class="modal-header">

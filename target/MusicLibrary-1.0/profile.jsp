@@ -25,6 +25,7 @@
 
         <!-- Meters graphs -->
         <script src="js/jquery-2.1.4.js"></script>
+        <script src="js/play_music_script.js"></script>
     </head>
     <body class="sticky-header left-side-collapsed"  onload="initMap()">
         <main>
@@ -98,13 +99,14 @@
                             </script>
                             <!-- //search-scripts -->
                             <!---->
-                            <div class="col-md-4 player">
+                             <div class="col-md-4 player">
+                                 
                                 <div class="audio-player">
                                     <audio id="audio-player"  controls="controls">
-                                        <source src="media/Blue Browne.ogg" type="audio/ogg"></source>
-                                        <source src="media/Blue Browne.mp3" type="audio/mpeg"></source>
-                                        <source src="media/Georgia.ogg" type="audio/ogg"></source>
-                                        <source src="media/Georgia.mp3" type="audio/mpeg"></source></audio>
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source>
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source></audio>
                                 </div>
                                 <!---->
                                 <script type="text/javascript">
@@ -127,9 +129,12 @@
 
                                 <!--//-->
                                 <ul class="next-top">
+                                    <li><div class="audio-info">
+                                        <span id="songName"></span>
+                                        <span id="songAuthor"></span> 
+                                    </div></li>
                                     <li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
-                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></i></a></li>
-
+                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></a></li>
                                 </ul>	
                             </div>
                             <div class="col-md-4 login-pop">
@@ -269,16 +274,6 @@
                         }
                     </script>
 
-                    <!--                    <script>
-                                            $('#deleteSongButton').click(function () {
-                    
-                                                // getting the value of the input fields
-                                                var name = $('#songName').val();
-                                                var htmlStr = '<p> Are you sure you want to delete ' + name + '</p>';
-                                                // adding the data to the modal
-                                                $('.modal-body').html(htmlStr);
-                                            });
-                                        </script>-->
 
 
                     <section class="container-fluid" id="user-uploaded-music">
@@ -307,7 +302,8 @@
                                              class="img-rounded img-responsive">
                                         <div class="center-items">
                                             <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})" data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
-                                            <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
+                                            <a class="btn btn-default  button-appear-onHover play-btn" 
+                                               onclick="createNewPlaylist(${uploadedSong.getMusicID()}, '${uploadedSong.getName()}', '${uploadedSong.getAuthor().getName()}')"><i class="fa fa-play"></i></a>
                                             <input type = "hidden" id = "songName${uploadedSong.getMusicID()}" value="${uploadedSong.getName()}" />
                                             <a class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
                                         </div>       
@@ -332,12 +328,11 @@
                                                     <img src="${uploadedSong.getImage()}" alt="${uploadedSong.getName()} image"
                                                          class="img-rounded img-responsive">
                                                     <div class="center-items">
-                                                        <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})"
-                                                           data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
-                                                        <a href="#" class="btn btn-default  button-appear-onHover play-btn"><i class="fa fa-play"></i></a>
-
-                                                        <a href="#" class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" 
-                                                           data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
+                                                        <a class="btn btn-default button-appear-onHover add-btn" onclick="passIDToModal(${uploadedSong.getMusicID()})" data-toggle="modal" data-target="#addToPlaylist"><i class="fa fa-plus"></i></a>
+                                                        <a class="btn btn-default  button-appear-onHover play-btn" 
+                                                           onclick="createNewPlaylist(${uploadedSong.getMusicID()}, '${uploadedSong.getName()}', '${uploadedSong.getAuthor().getName()}')"><i class="fa fa-play"></i></a>
+                                                        <input type = "hidden" id = "songName${uploadedSong.getMusicID()}" value="${uploadedSong.getName()}" />
+                                                        <a class="btn btn-default  button-appear-onHover delete-btn" onclick="passSongNameAndIDToModal('${uploadedSong.getName()}', ${uploadedSong.getMusicID()})" data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times"></i></a>
                                                     </div> 
 
                                                     <div class="caption music-info">
@@ -435,7 +430,6 @@
                                 <c:forEach items="${userPlaylists}" var="userPlaylist">
                                     <form method="post" action="playlist">
                                         <input type="hidden" value="${userPlaylist.getPlaylistID()}" name="playlistID">
-
                                         <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
                                             <div class="thumbnail">
                                                 <button name="action" value="View playlist" type="submit"
@@ -447,7 +441,7 @@
                                                 </button>
 
                                                 <div class="caption music-info">
-                                                    <p class="text-primary">${userPlaylist.getName()}</p>
+                                                    <p class="text-primary">    ${userPlaylist.getName()}</p>
                                                     <p style="font-size: 16px;">Uploaded: <fmt:formatDate type = "date" value = "${userPlaylist.getCreated()}" /></p>
                                                 </div>
 

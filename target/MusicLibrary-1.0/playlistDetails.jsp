@@ -23,8 +23,7 @@
         <link rel="stylesheet" href="css/playlistDetailsStyle.css" type='text/css' />
         <!-- Meters graphs -->
         <script src="js/jquery-2.1.4.js"></script>
-
-
+        <script src="js/play_music_script.js"></script>
     </head> 
     <!-- /w3layouts-agile -->
     <body class="sticky-header left-side-collapsed"  onload="initMap()">
@@ -183,10 +182,10 @@
                             <div class="col-md-4 player">
                                 <div class="audio-player">
                                     <audio id="audio-player"  controls="controls">
-                                        <source src="media/Blue Browne.ogg" type="audio/ogg"></source>
-                                        <source src="media/Blue Browne.mp3" type="audio/mpeg"></source>
-                                        <source src="media/Georgia.ogg" type="audio/ogg"></source>
-                                        <source src="media/Georgia.mp3" type="audio/mpeg"></source></audio>
+                                        <c:forEach items="${selectedPlaylistSongs}" begin="0" end="0" var="playlistSong" >
+                                            <source src="songs/song${playlistSong.getMusicID()}.mp3" type="audio/mpeg">
+                                        </c:forEach>
+                                    </audio>
                                 </div>
                                 <!---->
                                 <script type="text/javascript">
@@ -209,9 +208,14 @@
                                 <!-- /w3layouts-agile -->
                                 <!--//-->
                                 <ul class="next-top">
-                                    <li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
-                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></i></a></li>
-
+                                    <li><a class="ar" onclick="playPrevious()"> <img src="images/arrow.png" alt=""/></a></li>
+                                    <li><a class="ar2" onclick="playNext()"><img src="images/arrow2.png" alt=""/></i></a></li>
+                                    <div class="audio-info">
+                                        <c:forEach items="${selectedPlaylistSongs}" begin="0" end="0" var="playlistSong" >
+                                            <span id="songName">${playlistSong.getName()}</span>
+                                            <span id="songAuthor">${playlistSong.getAuthor().getName()}</span> 
+                                        </c:forEach>
+                                    </div>
                                 </ul>	
                             </div>
                             <div class="col-md-4 login-pop">
@@ -265,7 +269,7 @@
                                             <span>${playlistOwnerName}</span>
                                         </div>
                                         <div class="playlist-action">
-                                            <button class="btn btn-primary play-btn"><span class="fa fa-play" aria-hidden="true"></span><span class="padding-left-10">Play</span></button>
+                                            <button class="btn btn-primary play-btn" onclick="playChosenSong(0)"><span class="fa fa-play" aria-hidden="true"></span><span class="padding-left-10">Play</span></button>
                                         </div>
                                     </div>
                                 </div>
@@ -281,8 +285,8 @@
                                     </div>
 
                                     <div class="media-body bg-info">
-                                        
-                                        
+
+
                                         <c:forEach items="${selectedPlaylistSongs}" var="playlistSong" varStatus="status">
                                             <div class="song-item">
                                                 <div class="song-index">
@@ -294,7 +298,7 @@
                                                         <img src="${playlistSong.getImage()}" alt="${playlistSong.getName()} image">
                                                     </figure>
                                                     <div class="song-action">
-                                                        <button>
+                                                        <button onclick="playChosenSong(${status.count - 1})">
                                                             <i class="fa fa-play" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
@@ -310,8 +314,8 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
-                                        
-                                        
+
+
                                     </div>
 
                                     <div class="media-bottom bg-gray">
@@ -457,5 +461,12 @@
         <script src="js/scripts.js"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.js"></script>
+        <script>
+        window.onload = function () {
+            <c:forEach items="${selectedPlaylistSongs}" var="playlistSong">
+                addSongToPlaylist(${playlistSong.getMusicID()}, '${playlistSong.getName()}', '${playlistSong.getAuthor().getName()}');
+            </c:forEach>
+            };
+        </script>
     </body>
 </html>

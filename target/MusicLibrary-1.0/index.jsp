@@ -182,13 +182,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </script>
                             <!-- //search-scripts -->
                             <!---->
-                            <div class="col-md-4 player">
+                             <div class="col-md-4 player">
+                                 
                                 <div class="audio-player">
                                     <audio id="audio-player"  controls="controls">
-                                        <source src="media/Blue Browne.ogg" type="audio/ogg"></source>
-                                        <source src="media/Blue Browne.mp3" type="audio/mpeg"></source>
-                                        <source src="media/Georgia.ogg" type="audio/ogg"></source>
-                                        <source src="media/Georgia.mp3" type="audio/mpeg"></source></audio>
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source>
+                                        <source src="" type="audio/ogg"></source>
+                                        <source src="" type="audio/mpeg"></source></audio>
                                 </div>
                                 <!---->
                                 <script type="text/javascript">
@@ -207,11 +208,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <link rel="stylesheet" type="text/css" media="all" href="css/audio.css">
                                 <script type="text/javascript" src="js/mediaelement-and-player.min.js"></script>
                                 <!---->
+
+
                                 <!--//-->
                                 <ul class="next-top">
+                                    <li><div class="audio-info">
+                                        <span id="songName"></span>
+                                        <span id="songAuthor"></span> 
+                                    </div></li>
                                     <li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
-                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></i></a></li>
-
+                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></a></li>
                                 </ul>	
                             </div>
                             <div class="col-md-4 login-pop">
