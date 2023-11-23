@@ -38,7 +38,9 @@ public class PlaylistServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+            showAllPlaylist(request,response);
+            String url = "/allPlaylist.jsp";
+            request.getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
@@ -127,7 +129,6 @@ public class PlaylistServlet extends HttpServlet {
             request.setAttribute("playlistOwnerName", playlistOwnerName);
             url = "/playlistDetails.jsp";
         }
-        
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
@@ -200,4 +201,9 @@ public class PlaylistServlet extends HttpServlet {
         playlist.setPlaylistID(playlistID);
         PlaylistDB.updatePlaylistCover(playlist);
      }
+     
+    private void showAllPlaylist(HttpServletRequest request, HttpServletResponse response){
+        List playlist = PlaylistDB.selectAllPlaylist();
+        request.setAttribute("allPlaylists", playlist);
+    }
 }

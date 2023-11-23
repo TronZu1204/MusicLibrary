@@ -358,8 +358,9 @@ function passToModal(userID, name, password) {
 										<div class="music-left">
                                                                                       <div class="widget-side">
 												<h4 class="widget-title">All accounts</h4>
-                                                                                                <form action="admin" method="post"> 
+                                                                                                <form action="admin"> 
                                                                                             <button class="btn" type="submit" name="action" value="showAllMusic">All Music</button>
+                                                                                            <button class="btn" type="submit" name="action" value="showAllPlaylist">All Playlist</button>
                                                                                             </form>
                                                                                                 <p>${message}</p>
 													<ul>

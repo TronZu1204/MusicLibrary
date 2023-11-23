@@ -318,11 +318,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="tittle-head two">
                                                                     <h3 class="tittle">Searching for: ${pattern}</h3>
 									<div class="clearfix"> </div>
+                                                                        <h3 class="tittle">Songs</h3>
+                                                                        <div class="clearfix"> </div>
 								</div>
+                                                                    <c:if test="${empty songResults}">
+                                                                        <p>No result</p>
+                                                                        <div class="clearfix"> </div>
+                                                                    </c:if>
                                                                 <c:forEach items="${songResults}" var="songResult">
 								<div class="col-md-3 browse-grid">
 									<a  href="#"><img src="${songResult.getImage()}" style="width:200px;height:200px" onclick="createNewPlaylist(${songResult.getMusicID()}, '${songResult.getName()}', '${songResult.getAuthor().getName()}')"></a>
 									<a class="sing">${songResult.getName()}</a>
+                                                                        </div>	
+                                                                </c:forEach>
+                                                </div>
+                                                                        <div class="clearfix"> </div>
+                                                                        <div class="browse">
+								<div class="tittle-head two">
+                                                                    <h3 class="tittle">Playlists</h3>
+									<div class="clearfix"> </div>
+								</div>
+                                                                        <c:if test="${empty playlistResults}">
+                                                                        <p>No result</p>
+                                                                        <div class="clearfix"> </div>
+                                                                    </c:if>
+                                                                <c:forEach items="${playlistResults}" var="playlistResult">
+                                                                        
+								<div class="col-md-3 browse-grid">
+                                                                    <form action="search" method="post"> 
+                                                                        <input type="hidden" value="${playlistResult.getPlaylistID()}" name="playlistID">
+                                                                    <button name="action" value="View playlist" type="submit">
+									<a  href="#"><img src="${playlistResult.getCover()}" style="width:200px;height:200px"></a>
+									<a class="sing">${playlistResult.getName()}</a>
+                                                                    </button>
+                                                                    </form>
                                                                         </div>	
                                                                 </c:forEach>
                                                 </div>

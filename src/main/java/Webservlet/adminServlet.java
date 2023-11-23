@@ -51,7 +51,20 @@ public class adminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        String url = "/Admin.jsp";
+        if(action.equals("showAllMusic")){
+           url="/allMusic.jsp"; 
+       }
+          if(action.equals("deleteSongAdmin")){
+           deleteSongAdmin(request,response);
+           url="/allMusic.jsp"; 
+       }
+           List Music = MusicDB.selectAllMusic();
+           request.setAttribute("allMusic", Music);
+         getServletContext()
+                .getRequestDispatcher(url)
+                .forward(request,response);
     }
 
 
@@ -76,10 +89,8 @@ public class adminServlet extends HttpServlet {
        if(action.equals("addSongforUser")){
            message = addMusicforAdmin(request,response);
        }
-        if(action.equals("showAllMusic")){
-           List Music = MusicDB.selectAllMusic();
-           request.setAttribute("allMusic", Music);
-           url="/allMusic.jsp";
+       if(action.equals("deleteSongAdmin")){
+           deleteSongAdmin(request,response);
        }
        allUser = UserDB.selectAllUser();
        request.setAttribute("allUser", allUser);
@@ -199,4 +210,10 @@ private boolean configUser(HttpServletRequest request, HttpServletResponse respo
         return "Failed to upload song to "  + author.getName();
 
     }
+ 
+ private static void deleteSongAdmin(HttpServletRequest request, HttpServletResponse response){
+     String songId = request.getParameter("deletingSongID");
+     long ID = Long.parseLong(songId);
+     MusicDB.deleteMusic(ID);
+ }
 }

@@ -24,15 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //lined-icons -->
  <!-- Meters graphs -->
 <script src="js/jquery-2.1.4.js"></script>
-<script src="js/play_music_script.js"></script>
-  <script>
-                        function passSongNameAndIDToModal(name, ID) {
-                            var inputElement = document.getElementById('deletingSongID');
-                            inputElement.value = ID;
-                            inputElement.setAttribute('value', ID);
-                            document.getElementById("modelSongName").innerText = "Are you sure you want to delete " + name;
-                        }
-                    </script>
+
 </head> 
 
     	 <!-- /w3layouts-agile -->
@@ -325,14 +317,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!--//pop-up-box -->
 						<div class="browse">
 								<div class="tittle-head two">
-                                                                    <h3 class="tittle">All music</h3>
+                                                                    <h3 class="tittle">All Playlist</h3>
 									<div class="clearfix"> </div>
 								</div>
-                                                                <c:forEach items="${allMusic}" var="songResult">
+                                                                <c:forEach items="${allPlaylists}" var="playlist">
 								<div class="col-md-3 browse-grid">
-									<a><img src="${songResult.getImage()}" style="width:200px;height:200px" onclick="createNewPlaylist(${songResult.getMusicID()}, '${songResult.getName()}', '${songResult.getAuthor().getName()}')"></a>
-                                                                        <a class="setting-button"style="text-decoration:none;" onclick="passSongNameAndIDToModal('${songResult.getName()}', ${songResult.getMusicID()})"  data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times" style="font-size:24px"></i></a>
-									<a class="sing" href="single.html">${songResult.getName()}</a>
+									<a  href="single.html"><img src="${playlist.getCover()}" style="width:200px;height:200px"></a>
+									<a class="sing" href="single.html">${playlist.getName()}</a>
                                                                         </div>	
                                                                 </c:forEach>
                                                 </div>
@@ -345,28 +336,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
 							<div class="clearfix"></div>
 						<!--body wrapper end-->
-                                                <div class = "modal fade" id = "deleteSongModal" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel"
-                         aria-hidden="true">
-                        <div class = "modal-dialog" role = "document">
-                            <div class = "modal-content">
-                                <form action="admin">
-                                    <div class = "modal-header">
-                                        <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
-                                            <span aria-hidden = "true"> × </span>
-                                        </button>
-                                        <h4 class = "modal-title" id = "exampleModalLabel"> Deleting song </h4>
-                                    </div>
-                                    <div class = "modal-body"><span id="modelSongName"></span></div>
-                                    <div class = "modal-footer">
-                                        <input type="hidden" id="deletingSongID" name="deletingSongID">
-                                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal"> Cancel </button>
-                                        <button type = "submit" name="action" value="deleteSongAdmin" class = "btn btn-primary"> Confirm </button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
  	 <!-- /w3l-agile-info -->
 					</div>
 			  <!--body wrapper end-->

@@ -11,6 +11,9 @@ import javax.persistence.EntityTransaction;
 import LibraryClass.Playlist;
 import LibraryClass.User;
 import LibraryClass.Music;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -140,5 +143,29 @@ public class PlaylistDB {
             trans.rollback();
         }
         em.close();
+    }
+     public static List<Playlist> selectAllPlaylist() {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "Select u FROM Playlist u";
+        TypedQuery<Playlist> q = em.createQuery(qString, Playlist.class);
+        List<Playlist> playlist = null;
+        try {
+            playlist = q.getResultList();
+            return playlist;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+     
+         public static List<Playlist> findPlaylist(String find) throws UnsupportedEncodingException {
+        String decodedFind = URLDecoder.decode(find, StandardCharsets.UTF_8.toString());
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String queryString = "SELECT u FROM Playlist u WHERE u.name LIKE :search";
+        TypedQuery<Playlist> query = em.createQuery(queryString, Playlist.class);
+        query.setParameter("search", "%" + decodedFind + "%");
+        List<Playlist> result = query.getResultList();
+        return result;
     }
 }
