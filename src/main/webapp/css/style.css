@@ -432,8 +432,8 @@ ul.nav.nav-pills.nav-stacked.custom-nav li:hover i.camera {
     white-space: nowrap;
 }
 
-.play-pauseBtn {
-    
+.active-song {
+    background-color: #83A2FF;
 }
 
 @media (max-width:767px){

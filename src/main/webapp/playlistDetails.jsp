@@ -288,7 +288,7 @@
 
 
                                         <c:forEach items="${selectedPlaylistSongs}" var="playlistSong" varStatus="status">
-                                            <div class="song-item">
+                                            <div class="song-item" id="song${status.count - 1}">
                                                 <div class="song-index">
                                                     <span class>${status.count}</span>
                                                 </div>
