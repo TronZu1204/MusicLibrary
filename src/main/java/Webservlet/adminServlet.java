@@ -95,6 +95,8 @@ public class adminServlet extends HttpServlet {
        String url = "/Admin.jsp";
        String message = null;
        String action = request.getParameter("action");
+       List<Music> music = MusicDB.select12Songs();
+       request.setAttribute("recentSong", music);
        if(action.equals("deleteUser")){
            deleteUser(request,response);
        }

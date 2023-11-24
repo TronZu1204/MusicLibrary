@@ -29,6 +29,13 @@
         <!-- Meters graphs -->
         <script src="js/jquery-2.1.4.js"></script>
         <script src="js/play_music_script.js"></script>
+         <script>
+                                    function passIDToModal(ID) {
+                                        var inputElement = document.getElementById('songID');
+                                        inputElement.value = ID;
+                                        inputElement.setAttribute('value', ID);
+                                    }
+                    </script>
         <% 
         List<Music> newMusic = MusicDB.select12Songs();
         List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
@@ -44,10 +51,10 @@
 
                 <!--logo and iconic logo start-->
                 <div class="logo">
-                    <h1><a href="index.html">Mosai<span>c</span></a></h1>
+                    <h1><a href="index.jsp">Mosai<span>c</span></a></h1>
                 </div>
                 <div class="logo-icon text-center">
-                    <a href="index.html">M </a>
+                    <a href="index.jsp">M </a>
                 </div>
                 <!-- /w3l-agile -->
                 <!--logo and iconic logo end-->
@@ -55,7 +62,7 @@
 
                     <!--sidebar nav start-->
                     <ul class="nav nav-pills nav-stacked custom-nav">
-                        <li class="active"><a href="index.html"><i class="lnr lnr-home"></i><span>Home</span></a></li>
+                        <li class="active"><a href="index.jsp"><i class="lnr lnr-home"></i><span>Home</span></a></li>
                         <li><a href="admin?action=showAllMusic"><i class="lnr lnr-music-note"></i> <span>Songs</span></a></li>
                         <li><a href="radio.html"><i class="lnr lnr-users"></i> <span>Artists</span></a></li>
                         <li><a href="admin?action=showAllPlaylist"><i class="lnr lnr-text-align-justify"></i> <span>Albums</span></a></li>						
@@ -63,40 +70,6 @@
                     <!--sidebar nav end-->
                 </div>
             </div>
-            <!-- /w3layouts-agile -->
-            <!-- app-->
-            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog facebook" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-                        </div>
-                        <div class="modal-body">
-                            <div class="app-grids">
-                                <div class="app">
-                                    <div class="col-md-5 app-left mpl">
-                                        <h3>Mosaic mobile app on your smartphone!</h3>
-                                        <p>Download and Avail Special Songs Videos and Audios.</p>
-                                        <div class="app-devices">
-                                            <h5>Gets the app from</h5>
-                                            <a href="#"><img src="images/1.png" alt=""></a>
-                                            <a href="#"><img src="images/2.png" alt=""></a>
-                                            <div class="clearfix"> </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 app-image">
-                                        <img src="images/apps.png" alt="">
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //app-->
-            <!-- /w3l-agile -->
-            <!-- signup -->
             <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content modal-info">
@@ -106,13 +79,6 @@
                         <div class="modal-body modal-spa">
                             <div class="sign-grids">
                                 <div class="sign">
-                                    <div class="sign-left">
-                                        <ul>
-                                            <li><a class="fb" href="#"><i></i>Sign in with Facebook</a></li>
-                                            <li><a class="goog" href="#"><i></i>Sign in with Google</a></li>
-                                            <li><a class="linkin" href="#"><i></i>Sign in with Linkedin</a></li>
-                                        </ul>
-                                    </div>
                                     <div class="sign-right">
                                         <form action="login" method="post">
                                             <h3>Create your account </h3>
@@ -395,7 +361,7 @@
                                         <div class="col-md-3 browse-grid">
                                             <a ><img src="<%=music.getImage() %>" onclick="createNewPlaylist(<%=music.getMusicID()%>, '<%=music.getName() %>', '<%=music.getAuthor().getName()%>')" style="width:200px;height:200px"></a>
                                             <c:if test="${not empty loggeduser}">
-                                              <a class="setting-button" data-toggle="modal" data-target="#addToPlaylist" style="text-decoration:none;" onclick="passIDToModal(${songResult.getMusicID()})"><i class="fa fa-plus" style="font-size:24px"></i></a>
+                                              <a class="setting-button" data-toggle="modal" data-target="#addToPlaylist" style="text-decoration:none;" onclick="passIDToModal(<%=music.getMusicID()%>)"><i class="fa fa-plus" style="font-size:24px"></i></a>
                                            </c:if>
                                             <a class="button play-icon popup-with-zoom-anim"><%=music.getName() %></a>
                                         </div>
@@ -407,7 +373,7 @@
                                     <div class="albums second">
                                         <div class="tittle-head">
                                             <h3 class="tittle">Discover playlist: <span class="new">View</span></h3>
-                                            <a href="index.html"><h4 class="tittle two">See all</h4></a>
+                                            <a href="admin?action=showAllPlaylist"><h4 class="tittle two">See all</h4></a>
                                             <div class="clearfix"> </div>
                                         </div>
                                          <% for (Playlist playlist : randPlaylist) { %>
@@ -510,6 +476,34 @@
                                         </div>
                                     </li>
                                 </ul>
+                                 <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="modalLabelLarge">Add song to playlist:</h4>
+                                </div>
+                                <form action="playlist" method="post">
+                                    <div class="modal-body">
+
+                                        <select class="form-control input-lg" name="playlistID">
+                                            <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                <option value="${userPlaylist.getPlaylistID()}">${userPlaylist.getName()} playlist</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" id="songID" name="songID">
+                                        <input type="submit" name="action" value="Add Song to Playlist Index" class="btn btn-secondary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                                 <script type="text/javascript">
                                     $(window).load(function () {
 

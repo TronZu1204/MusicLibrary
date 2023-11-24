@@ -116,6 +116,17 @@ public class PlaylistServlet extends HttpServlet {
             List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
             request.setAttribute("userPlaylists", userPlaylists);
         }
+        if (action.equals("Add Song to Playlist Index")) {
+            Long playlistID = Long.parseLong(request.getParameter("playlistID"));
+            Long songID = Long.parseLong(request.getParameter("songID"));
+            addSongToPlaylist(playlistID, songID);
+            String message = "Added song to playlist!";
+            request.setAttribute("message", message);
+            url = "/index.jsp";
+            //get user's playlists
+            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            request.setAttribute("userPlaylists", userPlaylists);
+        }
         if (action.equals("View playlist")) {
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
             //get the selected playlist

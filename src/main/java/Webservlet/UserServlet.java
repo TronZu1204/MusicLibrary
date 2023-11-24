@@ -60,7 +60,6 @@ public class UserServlet extends HttpServlet {
         }
         else if(action.equals("loginUser")){
             List<User> u = loginUser(request,response);
-            
             if(u == null){
                 request.setAttribute("message", "Wrong email or password");
                 url="/index.jsp";
@@ -68,6 +67,8 @@ public class UserServlet extends HttpServlet {
             else{
                 User user = u.get(0);
                 request.getSession().setAttribute("loggeduser", user);
+            List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+            request.setAttribute("userPlaylists", userPlaylists);
                 url="/index.jsp";
             }
         }
