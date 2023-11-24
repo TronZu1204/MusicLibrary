@@ -5,6 +5,7 @@
 package Webservlet;
 
 import DBUtil.MusicDB;
+import DBUtil.PlaylistDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import DBUtil.UserDB;
 import LibraryClass.Music;
+import LibraryClass.Playlist;
 import LibraryClass.User;
 import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
@@ -53,15 +55,33 @@ public class adminServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String url = "/Admin.jsp";
+                User user = (User) request.getSession().getAttribute("loggeduser");
+        if (user != null){
+         List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
+        request.setAttribute("userPlaylists", userPlaylists);
+        }
         if(action.equals("showAllMusic")){
            url="/allMusic.jsp"; 
+            List<Music> music = MusicDB.selectAllMusic();
+           request.setAttribute("allMusic", music);
+       }
+         if(action.equals("showAllPlaylist")){
+            List<Playlist> playlist = PlaylistDB.selectAllPlaylist();
+           request.setAttribute("allPlaylists", playlist);
+           url="/allPlaylist.jsp"; 
        }
           if(action.equals("deleteSongAdmin")){
            deleteSongAdmin(request,response);
            url="/allMusic.jsp"; 
+             List<Music> music = MusicDB.selectAllMusic();
+           request.setAttribute("allMusic", music);
        }
-           List Music = MusicDB.selectAllMusic();
-           request.setAttribute("allMusic", Music);
+          if(action.equals("deletePlaylistAdmin")){
+           deletePlaylistAdmin(request,response);
+           url="/allPlaylist.jsp"; 
+            List<Playlist> playlist = PlaylistDB.selectAllPlaylist();
+           request.setAttribute("allPlaylists", playlist);
+       }
          getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);
@@ -72,8 +92,6 @@ public class adminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-       List allUser = UserDB.selectAllUser();
-       request.setAttribute("allUser", allUser);
        String url = "/Admin.jsp";
        String message = null;
        String action = request.getParameter("action");
@@ -92,7 +110,7 @@ public class adminServlet extends HttpServlet {
        if(action.equals("deleteSongAdmin")){
            deleteSongAdmin(request,response);
        }
-       allUser = UserDB.selectAllUser();
+       List<User> allUser = UserDB.selectAllUser();
        request.setAttribute("allUser", allUser);
        request.setAttribute("message", message);
        
@@ -215,5 +233,10 @@ private boolean configUser(HttpServletRequest request, HttpServletResponse respo
      String songId = request.getParameter("deletingSongID");
      long ID = Long.parseLong(songId);
      MusicDB.deleteMusic(ID);
+ }
+ private static void deletePlaylistAdmin(HttpServletRequest request, HttpServletResponse response){
+     String playlistID = request.getParameter("playlistID");
+     long ID = Long.parseLong(playlistID);
+     PlaylistDB.deletePlaylist(ID);
  }
 }

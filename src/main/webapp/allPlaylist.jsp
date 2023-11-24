@@ -323,6 +323,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                 <c:forEach items="${allPlaylists}" var="playlist">
 								<div class="col-md-3 browse-grid">
 									<a  href="single.html"><img src="${playlist.getCover()}" style="width:200px;height:200px"></a>
+                                                                         <c:if test="${loggeduser.getUserID()== 1}">
+                                                                         <form action="admin">
+                                                                         <input type="hidden" name="playlistID" value="${playlist.getPlaylistID()}">
+                                                                         <button class="setting-button btn" type="submit" name="action" value="deletePlaylistAdmin"><i class="fa fa-times" style="font-size:24px"></i></button>
+                                                                        </form>
+                                                                        </c:if>
 									<a class="sing" href="single.html">${playlist.getName()}</a>
                                                                         </div>	
                                                                 </c:forEach>

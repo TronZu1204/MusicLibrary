@@ -14,6 +14,7 @@ import LibraryClass.Music;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -189,5 +190,14 @@ public class PlaylistDB {
         query.setParameter("search", "%" + decodedFind + "%");
         List<Playlist> result = query.getResultList();
         return result;
+    }
+           public static List<Playlist> select8Playlist(){
+        EntityManager em = DButil.getFactory().createEntityManager();
+         String queryString = "SELECT u FROM Playlist u";
+         TypedQuery<Playlist> query = em.createQuery(queryString, Playlist.class);
+          List<Playlist> result = query.getResultList();
+          Collections.shuffle(result);
+          int count = Math.min(result.size(), 8);
+          return result.subList(0, count);
     }
 }
