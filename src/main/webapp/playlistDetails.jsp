@@ -182,6 +182,10 @@
                             <div class="col-md-4 player">
                                 <div class="audio-player">
                                     <audio id="audio-player"  controls="controls">
+                                        <c:if test="${selectedPlaylistSongs.size() == 0}">
+                                            <source src="" type="audio/mpeg">
+                                        </c:if>
+                                        
                                         <c:forEach items="${selectedPlaylistSongs}" begin="0" end="0" var="playlistSong" >
                                             <source src="songs/song${playlistSong.getMusicID()}.mp3" type="audio/mpeg">
                                         </c:forEach>
@@ -252,7 +256,14 @@
                 <!-- //header-ends -->
 
 
-
+                <script>
+                    function passSongNameAndIDToModal(name, ID) {
+                        var inputElement = document.getElementById('deletingSongID');
+                        inputElement.value = ID;
+                        inputElement.setAttribute('value', ID);
+                        document.getElementById("modelSongName").innerText = "Are you sure you want to remove '" + name + "' from Playlist?";
+                    }
+                </script>
 
                 <div id="page-wrapper">
 
@@ -266,7 +277,7 @@
                                     <div class="playlist-info">
                                         <h3 class="playlist-title">${selectedPlaylist.getName()}</h3>
                                         <div class="playlist-author">
-                                            <span>${playlistOwnerName}</span>
+                                            <span>${selectedPlaylist.getUser().getName()}</span>
                                         </div>
                                         <div class="playlist-action">
                                             <button class="btn btn-primary play-btn" onclick="playChosenSong(0)"><span class="fa fa-play" aria-hidden="true"></span><span class="padding-left-10">Play</span></button>
@@ -312,6 +323,26 @@
                                                         ${playlistSong.getAuthor().getName()}
                                                     </div>
                                                 </div>
+
+                                                <div class="song-action2">
+                                                    <c:choose>
+                                                        <c:when test="${selectedPlaylist.getUser().getUserID() == loggeduser.getUserID()}">
+                                                            <div class="song-delete-action">
+                                                                <button onclick="passSongNameAndIDToModal('${playlistSong.getName()}', ${playlistSong.getMusicID()})"
+                                                                        data-toggle = "modal" data-target = "#removeSongFromPlaylist">
+                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="song-like-action">
+                                                                <button>
+                                                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                                </button>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
                                             </div>
                                         </c:forEach>
 
@@ -327,6 +358,42 @@
 
                     </div>
                     <!-- /w3l-agileits-->
+
+
+
+
+
+                    <!-- Remove Song from playlist Modal -->
+                    <div class = "modal fade" id = "removeSongFromPlaylist" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel"
+                         aria-hidden="true">
+                        <div class = "modal-dialog" role = "document">
+                            <div class = "modal-content">
+                                <form method="post" action="playlist">
+                                    <div class = "modal-header">
+                                        <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+                                            <span aria-hidden = "true"> × </span>
+                                        </button>
+                                        <h4 class = "modal-title" id = "exampleModalLabel"> Remove from Playlist </h4>
+                                    </div>
+                                    <div class = "modal-body"><span id="modelSongName">...</span></div>
+                                    <div class = "modal-footer">
+                                        <input type="hidden" name="selectedPlaylistID" value="${selectedPlaylist.getPlaylistID()}">
+                                        <input type="hidden" id="deletingSongID" name="deletingSongID">
+                                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal"> Cancel </button>
+                                        <button type = "submit" name="action" value="Remove song from playlist" class = "btn btn-primary"> Confirm </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
                     <!--body wrapper start-->
                     <div class="review-slider">
 
@@ -407,31 +474,31 @@
                             </li>
                         </ul>
                         <script type="text/javascript">
-                                    $(window).load(function () {
+                            $(window).load(function () {
 
-                                        $("#flexiselDemo1").flexisel({
-                                            visibleItems: 5,
-                                            animationSpeed: 1000,
-                                            autoPlay: true,
-                                            autoPlaySpeed: 3000,
-                                            pauseOnHover: false,
-                                            enableResponsiveBreakpoints: true,
-                                            responsiveBreakpoints: {
-                                                portrait: {
-                                                    changePoint: 480,
-                                                    visibleItems: 2
-                                                },
-                                                landscape: {
-                                                    changePoint: 640,
-                                                    visibleItems: 3
-                                                },
-                                                tablet: {
-                                                    changePoint: 800,
-                                                    visibleItems: 4
-                                                }
-                                            }
-                                        });
-                                    });
+                                $("#flexiselDemo1").flexisel({
+                                    visibleItems: 5,
+                                    animationSpeed: 1000,
+                                    autoPlay: true,
+                                    autoPlaySpeed: 3000,
+                                    pauseOnHover: false,
+                                    enableResponsiveBreakpoints: true,
+                                    responsiveBreakpoints: {
+                                        portrait: {
+                                            changePoint: 480,
+                                            visibleItems: 2
+                                        },
+                                        landscape: {
+                                            changePoint: 640,
+                                            visibleItems: 3
+                                        },
+                                        tablet: {
+                                            changePoint: 800,
+                                            visibleItems: 4
+                                        }
+                                    }
+                                });
+                            });
                         </script>
                         <script type="text/javascript" src="js/jquery.flexisel.js"></script>	
                     </div>
@@ -462,11 +529,11 @@
         <!-- Bootstrap Core JavaScript -->
         <script src="js/bootstrap.js"></script>
         <script>
-        window.onload = function () {
+                            window.onload = function () {
             <c:forEach items="${selectedPlaylistSongs}" var="playlistSong">
-                addSongToPlaylist(${playlistSong.getMusicID()}, '${playlistSong.getName()}', '${playlistSong.getAuthor().getName()}');
+                                addSongToPlaylist(${playlistSong.getMusicID()}, '${playlistSong.getName()}', '${playlistSong.getAuthor().getName()}');
             </c:forEach>
-            };
+                            };
         </script>
     </body>
 </html>

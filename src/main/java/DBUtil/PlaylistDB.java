@@ -56,11 +56,11 @@ public class PlaylistDB {
             em.close();
         }
     }
-    
-    public static Playlist selectPlaylistByID(Long playlistID){
+
+    public static Playlist selectPlaylistByID(Long playlistID) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        
+
         trans.begin();
         try {
             Playlist playlist = em.find(Playlist.class, playlistID);
@@ -71,7 +71,7 @@ public class PlaylistDB {
             em.close();
         }
     }
-    
+
     public static void addSongsToPlaylist(Playlist playlistID, Set<Music> addedSongs) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -87,8 +87,29 @@ public class PlaylistDB {
         } catch (Exception e) {
             System.out.println(e);
             trans.rollback();
+        } finally {
+            em.close();
         }
-        em.close();
+    }
+
+    public static void removeSongFromPlaylist(long playlistID, long musicID) {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        Playlist playlist = em.find(Playlist.class, playlistID);
+        Music removedSong = em.find(Music.class, musicID);
+        trans.begin();
+        try {
+            Set<Music> newSongList = playlist.getSongs();
+            newSongList.remove(removedSong);
+            playlist.setSongs(newSongList);
+            em.merge(playlist);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
     }
 
     public static String selectPlaylistImage(long playlistID) {
@@ -144,7 +165,8 @@ public class PlaylistDB {
         }
         em.close();
     }
-     public static List<Playlist> selectAllPlaylist() {
+
+    public static List<Playlist> selectAllPlaylist() {
         EntityManager em = DButil.getFactory().createEntityManager();
         String qString = "Select u FROM Playlist u";
         TypedQuery<Playlist> q = em.createQuery(qString, Playlist.class);
@@ -158,8 +180,8 @@ public class PlaylistDB {
             em.close();
         }
     }
-     
-         public static List<Playlist> findPlaylist(String find) throws UnsupportedEncodingException {
+
+    public static List<Playlist> findPlaylist(String find) throws UnsupportedEncodingException {
         String decodedFind = URLDecoder.decode(find, StandardCharsets.UTF_8.toString());
         EntityManager em = DButil.getFactory().createEntityManager();
         String queryString = "SELECT u FROM Playlist u WHERE u.name LIKE :search";
