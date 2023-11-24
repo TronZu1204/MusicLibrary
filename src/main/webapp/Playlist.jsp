@@ -298,7 +298,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="tittle-head two">
                                                                     <h3 class="tittle">${loggeduser.getName()}'s Playlist</h3> <p><i>${message}</i></p>
                                                                         <a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><button class="btn">Create a new playlist</button></a>
-                                                                        <a class="top-sign" ><form action="playlist"><button type="submit" value="viewAllPlaylist" class="btn">See all playlist</button></form></a>
+                                                                        <a class="top-sign" href="admin?action=showAllPlaylist"><button class="btn">See all playlist</button></a>
 									<div class="clearfix"> </div>
                                                                         
 								</div>

@@ -167,4 +167,12 @@ public class MusicDB {
           List<Music> result = query.getResultList();
           return result;
     }
+     public static List<Music> select12Songs(){
+        EntityManager em = DButil.getFactory().createEntityManager();
+         String queryString = "SELECT u FROM Music u ORDER BY u.musicID DESC";
+         TypedQuery<Music> query = em.createQuery(queryString, Music.class);
+         query.setMaxResults(12);
+          List<Music> result = query.getResultList();
+          return result;
+    }
 }

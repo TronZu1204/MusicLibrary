@@ -33,6 +33,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             document.getElementById("modelSongName").innerText = "Are you sure you want to delete " + name;
                         }
                     </script>
+                      <script>
+                                    function passIDToModal(ID) {
+                                        var inputElement = document.getElementById('songID');
+                                        inputElement.value = ID;
+                                        inputElement.setAttribute('value', ID);
+                                    }
+                    </script>
 </head> 
 
     	 <!-- /w3layouts-agile -->
@@ -296,6 +303,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					<div class="clearfix"></div>
 				</div>
+                         <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="modalLabelLarge">Add song to playlist:</h4>
+                                </div>
+                                <form action="search" method="post">
+                                    <div class="modal-body">
+
+                                        <select class="form-control input-lg" name="addPlaylistID">
+                                            <c:forEach items="${userPlaylists}" var="userPlaylist">
+                                                <option value="${userPlaylist.getPlaylistID()}">${userPlaylist.getName()} playlist</option>
+                                            </c:forEach>
+                                        </select>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" id="songID" name="songID">
+                                        <input type="hidden" name="songSearch" value ="${pattern}">
+                                        <input type="submit" name="action" value="Add Song to Playlist" class="btn btn-secondary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 			<!--notification menu end -->
 			<!-- //header-ends -->
  	 <!-- /agileinfo -->
@@ -331,8 +367,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                 <c:forEach items="${allMusic}" var="songResult">
 								<div class="col-md-3 browse-grid">
 									<a><img src="${songResult.getImage()}" style="width:200px;height:200px" onclick="createNewPlaylist(${songResult.getMusicID()}, '${songResult.getName()}', '${songResult.getAuthor().getName()}')"></a>
-                                                                        <a class="setting-button"style="text-decoration:none;" onclick="passSongNameAndIDToModal('${songResult.getName()}', ${songResult.getMusicID()})"  data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times" style="font-size:24px"></i></a>
-									<a class="sing" href="single.html">${songResult.getName()}</a>
+                                                                        <c:if test="${not empty loggeduser}">
+                                                                        <c:if test="${loggeduser.getUserID()==1}">
+                                                                        <a style="text-decoration:none;" onclick="passSongNameAndIDToModal('${songResult.getName()}', ${songResult.getMusicID()})"  data-toggle = "modal" data-target = "#deleteSongModal"><i class="fa fa-times" style="font-size:24px"></i></a>
+                                                                        </c:if>
+                                                                        <a class="setting-button" data-toggle="modal" data-target="#addToPlaylist" style="text-decoration:none;" onclick="passIDToModal(${songResult.getMusicID()})"><i class="fa fa-plus" style="font-size:24px"></i></a>
+                                                                        </c:if>
+									<a class="sing">${songResult.getName()}</a>
                                                                         </div>	
                                                                 </c:forEach>
                                                 </div>

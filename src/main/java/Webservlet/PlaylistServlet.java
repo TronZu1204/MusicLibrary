@@ -38,9 +38,6 @@ public class PlaylistServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            showAllPlaylist(request,response);
-            String url = "/allPlaylist.jsp";
-            request.getRequestDispatcher(url).forward(request, response);
     }
 
     @Override
