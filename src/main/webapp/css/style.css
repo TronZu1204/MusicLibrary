@@ -410,6 +410,7 @@ ul.nav.nav-pills.nav-stacked.custom-nav li:hover i.camera {
     width: 100%;
     height: 100%;
 }
+
 #songName{
     position: absolute;
     font-size: 0.8em;
@@ -432,8 +433,8 @@ ul.nav.nav-pills.nav-stacked.custom-nav li:hover i.camera {
     white-space: nowrap;
 }
 
-.play-pauseBtn {
-    
+.active-song {
+    background-color: #83A2FF;
 }
 
 @media (max-width:767px){

@@ -33,14 +33,16 @@ function loadSong() {
     document.getElementById("audio-player").setAttribute('src', cur_song_file);
     document.getElementById("audio-player").load();
     document.getElementById("audio-player").play();
+    document.getElementById(`song${audio_index}`).classList.add("active-song");
     document.getElementById("songName").innerText = `${playlist[audio_index].name}`;
     document.getElementById("songAuthor").innerText = `${playlist[audio_index].author}`;
-    document.getElementById("audio-player").onended = function() {
+    document.getElementById("audio-player").onended = function () {
         playNext();
     };
 }
 
 function playNext() {
+    document.getElementById(`song${audio_index}`).classList.remove("active-song");
     if (n_songs > 1) {
         if (audio_index + 1 === n_songs) {
             audio_index = 0;
@@ -52,6 +54,7 @@ function playNext() {
 }
 
 function playPrevious() {
+    document.getElementById(`song${audio_index}`).classList.remove("active-song");
     if (n_songs > 1) {
         if (audio_index === 0) {
             audio_index = n_songs - 1;
@@ -62,7 +65,8 @@ function playPrevious() {
     loadSong();
 }
 
-function playChosenSong(songIndex){
+function playChosenSong(songIndex) {
+    document.getElementById(`song${audio_index}`).classList.remove("active-song");
     audio_index = songIndex;
     loadSong();
 }
