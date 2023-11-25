@@ -438,6 +438,28 @@ ul.nav.nav-pills.nav-stacked.custom-nav li:hover i.camera {
     background-color: #83A2FF;
 }
 
+span.art {
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 400;
+    display: block;
+    padding: 14px 0;
+    font-family: 'MavenPro-Regular';
+    background: #444;
+    border: 1px solid #CECDCD;
+    border-radius: 0px 0px 4px 4px;
+    -o-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+}
+
+#toArtistSubmitBtn:hover {
+    cursor: pointer;
+}
+
+.inline-object {
+    display: inline;
+}
 @media (max-width:767px){
     .hidden-xs{
         display:none!important
