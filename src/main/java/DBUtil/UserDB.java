@@ -194,11 +194,4 @@ public class UserDB {
         return result;
     }
 
-    
-
-    public static User selectUserforAdmin(long userID) {
-        EntityManager em = DButil.getFactory().createEntityManager();
-        User user = em.find(User.class, userID);
-        return user;
-    }
 }
