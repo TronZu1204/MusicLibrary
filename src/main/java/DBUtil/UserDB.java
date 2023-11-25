@@ -63,6 +63,18 @@ public class UserDB {
             em.close();
         }
     }
+    
+    public static User selectUserFromID(long userID) {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        try {
+            User user = em.find(User.class, userID);
+            return user;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 
     public static boolean checkUser(String email) {
         EntityManager em = DButil.getFactory().createEntityManager();

@@ -39,6 +39,16 @@
                 var inputElement = document.getElementById('songID');
                 inputElement.value = ID;
                 inputElement.setAttribute('value', ID);
+                document.getElementById('my_form').submit()
+            }
+        </script>
+
+        <script>
+            function setToArtistID_SubmitForm(ID) {
+                var inputElement = document.getElementById('toArtistID');
+                inputElement.value = ID;
+                inputElement.setAttribute('value', ID);
+                document.getElementById('toArtistProfileForm').submit();
             }
         </script>
     </head>
@@ -179,8 +189,8 @@
                                             <span id="songName"></span>
                                             <span id="songAuthor"></span> 
                                         </div></li>
-                                    <li><a class="ar" href="#"> <img src="images/arrow.png" alt=""/></a></li>
-                                    <li><a class="ar2" href="#"><img src="images/arrow2.png" alt=""/></a></li>
+                                    <li><a class="ar" onclick="playPrevious()"> <img src="images/arrow.png" alt=""/></a></li>
+                                    <li><a class="ar2" onclick="playNext()"><img src="images/arrow2.png" alt=""/></a></li>
                                 </ul>	
                             </div>
                             <div class="col-md-4 login-pop">
@@ -324,29 +334,36 @@
                                 </div>
 
                                 <div id="myTabContent" class="tab-content">
-                                    <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
-                                        <%--<c:forEach items="${allArtists}" begin="0" step="6" var="artist" varStatus="status">--%>
-                                        <div class="browse-inner">
-                                            <div class="row justify-content-center equal-height">
-                                                <c:forEach items="${allArtists}" var="artist" >
-                                                    <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
-                                                        <div class="thumbnail artist-thumbnail">
+                                    <form method="post" action="login" id="toArtistProfileForm">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                                            <%--<c:forEach items="${allArtists}" begin="0" step="6" var="artist" varStatus="status">--%>
+                                            <div class="browse-inner">
+                                                <div class="row justify-content-center equal-height">
 
-                                                            <img src="${artist.getImage()}" alt="${artist.getName()} image"
-                                                                 class="img-rounded img-responsive"       
+                                                    <c:forEach items="${allArtists}" var="artist" >
+                                                        <div class="col-xs-4 col-lg-2 max-height-col padding-bottom">
+                                                            <a id="toArtistSubmitBtn"   onclick="setToArtistID_SubmitForm(${artist.getUserID()})">
+                                                                <div class="thumbnail artist-thumbnail">
 
-                                                                 <div class="caption music-info">
-                                                                <div class="artist-info">
-                                                                    <a class="art" href="#">${artist.getName()}</a>
-                                                                </div>
-                                                            </div>
+                                                                    <img src="${artist.getImage()}" alt="${artist.getName()} image"
+                                                                         class="img-rounded img-responsive"       
+
+                                                                         <div class="caption music-info">
+                                                                        <div class="artist-info">
+                                                                            <span class="art" href="#">${artist.getName()}</span>
+                                                                        </div>
+                                                                    </div>
+                                                            </a>
                                                         </div>
 
                                                     </c:forEach>
+                                                    <input type="hidden" name="toArtistID" id="toArtistID">
+                                                    <input type="hidden" name="action" value="toArtistProfile">
 
                                                 </div>
 
                                             </div>
+
                                             <!-- /agileits -->
                                             <%--<c:forEach items="${allArtists}" begin="${(status.count - 1) * 6}" end="${(status.count - 1) * 6 + 6}" var="artist" >--%>
 
@@ -368,111 +385,112 @@
                                             <%--</c:forEach>--%>
                                             <div class="clearfix"> </div>
                                         </div>
-                                    </div>
-
+                                    </form>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"> </div>              
-                        <!--//discover-view-->
-                        <!--//music-left-->
-
-                        <!--body wrapper start-->
-                    </div>
-                    <div class="clearfix"></div>
-                    <!--body wrapper end-->
-                    <div class = "modal fade" id = "deleteSongModal" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel"
-                         aria-hidden="true">
-                        <div class = "modal-dialog" role = "document">
-                            <div class = "modal-content">
-                                <form action="admin">
-                                    <div class = "modal-header">
-                                        <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
-                                            <span aria-hidden = "true"> × </span>
-                                        </button>
-                                        <h4 class = "modal-title" id = "exampleModalLabel"> Deleting song </h4>
-                                    </div>
-                                    <div class = "modal-body"><span id="modelSongName"></span></div>
-                                    <div class = "modal-footer">
-                                        <input type="hidden" id="deletingSongID" name="deletingSongID">
-                                        <button type = "button" class = "btn btn-secondary" data-dismiss = "modal"> Cancel </button>
-                                        <button type = "submit" name="action" value="deleteSongAdmin" class = "btn btn-primary"> Confirm </button>
-                                    </div>
-                                </form>
 
                             </div>
                         </div>
                     </div>
-                    <!-- /w3l-agile-info -->
+                    <div class="clearfix"> </div>              
+                    <!--//discover-view-->
+                    <!--//music-left-->
+
+                    <!--body wrapper start-->
                 </div>
+                <div class="clearfix"></div>
                 <!--body wrapper end-->
-                <div class="footer two">
-                    <div class="footer-grid">
-                        <h3>Navigation</h3>
-                        <ul class="list1">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="radio.html">All Songs</a></li>
-                            <li><a href="browse.html">Albums</a></li>
-                            <li><a href="radio.html">New Collections</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>Our Account</h3>
-                        <ul class="list1">
-                            <li><a href="#" data-toggle="modal" data-target="#myModal5">Your Account</a></li>
-                            <li><a href="#">Personal information</a></li>
-                            <li><a href="#">Addresses</a></li>
-                            <li><a href="#">Discount</a></li>
-                            <li><a href="#">Orders history</a></li>
-                            <li><a href="#">Addresses</a></li>
-                            <li><a href="#">Search Terms</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>Our Support</h3>
-                        <ul class="list1">
-                            <li><a href="contact.html">Site Map</a></li>
-                            <li><a href="#">Search Terms</a></li>
-                            <li><a href="#">Advanced Search</a></li>
-                            <li><a href="#">Mobile</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="#">Mobile</a></li>
-                            <li><a href="#">Addresses</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>Newsletter</h3>
-                        <p class="footer_desc">Nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
-                        <div class="search_footer">
-                            <form>
-                                <input type="text" placeholder="Email...." required="">
-                                <input type="submit" value="Submit">
+                <div class = "modal fade" id = "deleteSongModal" tabindex = "-1" role = "dialog" aria-labelledby = "exampleModalLabel"
+                     aria-hidden="true">
+                    <div class = "modal-dialog" role = "document">
+                        <div class = "modal-content">
+                            <form action="admin">
+                                <div class = "modal-header">
+                                    <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close">
+                                        <span aria-hidden = "true"> × </span>
+                                    </button>
+                                    <h4 class = "modal-title" id = "exampleModalLabel"> Deleting song </h4>
+                                </div>
+                                <div class = "modal-body"><span id="modelSongName"></span></div>
+                                <div class = "modal-footer">
+                                    <input type="hidden" id="deletingSongID" name="deletingSongID">
+                                    <button type = "button" class = "btn btn-secondary" data-dismiss = "modal"> Cancel </button>
+                                    <button type = "submit" name="action" value="deleteSongAdmin" class = "btn btn-primary"> Confirm </button>
+                                </div>
                             </form>
+
                         </div>
                     </div>
-                    <div class="footer-grid footer-grid_last">
-                        <h3>About Us</h3>
-                        <p class="footer_desc">Diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat enim ad minim veniam,.</p>
-                        <p class="f_text">Phone:  &nbsp;&nbsp;&nbsp;00-250-2131</p>
-                        <p class="email">Email : &nbsp;<span><a href="mailto:mail@example.com">info(at)mailing.com</a></span></p>	
-                    </div>
-                    <div class="clearfix"> </div>
                 </div>
+                <!-- /w3l-agile-info -->
             </div>
-            <!--footer section start-->
-            <footer>
-                <p>&copy 2016 Mosaic. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts.</a></p>
-            </footer>
-            <!--footer section end-->
-            <!-- /wthree-agile -->
-            <!-- main content end-->
-        </section>
+            <!--body wrapper end-->
+            <div class="footer two">
+                <div class="footer-grid">
+                    <h3>Navigation</h3>
+                    <ul class="list1">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="radio.html">All Songs</a></li>
+                        <li><a href="browse.html">Albums</a></li>
+                        <li><a href="radio.html">New Collections</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-grid">
+                    <h3>Our Account</h3>
+                    <ul class="list1">
+                        <li><a href="#" data-toggle="modal" data-target="#myModal5">Your Account</a></li>
+                        <li><a href="#">Personal information</a></li>
+                        <li><a href="#">Addresses</a></li>
+                        <li><a href="#">Discount</a></li>
+                        <li><a href="#">Orders history</a></li>
+                        <li><a href="#">Addresses</a></li>
+                        <li><a href="#">Search Terms</a></li>
+                    </ul>
+                </div>
+                <div class="footer-grid">
+                    <h3>Our Support</h3>
+                    <ul class="list1">
+                        <li><a href="contact.html">Site Map</a></li>
+                        <li><a href="#">Search Terms</a></li>
+                        <li><a href="#">Advanced Search</a></li>
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">Addresses</a></li>
+                    </ul>
+                </div>
+                <div class="footer-grid">
+                    <h3>Newsletter</h3>
+                    <p class="footer_desc">Nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat</p>
+                    <div class="search_footer">
+                        <form>
+                            <input type="text" placeholder="Email...." required="">
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="footer-grid footer-grid_last">
+                    <h3>About Us</h3>
+                    <p class="footer_desc">Diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat enim ad minim veniam,.</p>
+                    <p class="f_text">Phone:  &nbsp;&nbsp;&nbsp;00-250-2131</p>
+                    <p class="email">Email : &nbsp;<span><a href="mailto:mail@example.com">info(at)mailing.com</a></span></p>	
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <!--footer section start-->
+        <footer>
+            <p>&copy 2016 Mosaic. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts.</a></p>
+        </footer>
+        <!--footer section end-->
         <!-- /wthree-agile -->
-        <script src="js/jquery.nicescroll.js"></script>
-        <script src="js/scripts.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="js/bootstrap.js"></script>
-    </body>
+        <!-- main content end-->
+    </section>
+    <!-- /wthree-agile -->
+    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.js"></script>
+</body>
 </html>
