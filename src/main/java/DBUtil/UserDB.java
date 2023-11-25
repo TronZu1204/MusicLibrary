@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DBUtil;
-
+import LibraryClass.Playlist;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -11,7 +11,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 import LibraryClass.User;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 /**
  *
  * @author GIGABYTE
@@ -174,8 +176,25 @@ public class UserDB {
         } finally {
             em.close();
         }
+    
+}
 
+ public static User selectUserforAdmin(long userID){
+    EntityManager em = DButil.getFactory().createEntityManager();
+    User user = em.find(User.class, userID);
+    return user;
+}
+   public static List<User> findUser(String find) throws UnsupportedEncodingException {
+        String decodedFind = URLDecoder.decode(find, StandardCharsets.UTF_8.toString());
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String queryString = "SELECT u FROM User u WHERE u.name LIKE :search";
+        TypedQuery<User> query = em.createQuery(queryString, User.class);
+        query.setParameter("search", "%" + decodedFind + "%");
+        List<User> result = query.getResultList();
+        return result;
     }
+
+    
 
     public static User selectUserforAdmin(long userID) {
         EntityManager em = DButil.getFactory().createEntityManager();

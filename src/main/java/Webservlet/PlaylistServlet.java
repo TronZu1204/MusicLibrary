@@ -47,6 +47,7 @@ public class PlaylistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         User user = (User) request.getSession().getAttribute("loggeduser");
         long ID = user.getUserID();
         List<Playlist> playlist = PlaylistDB.selectPlaylist(user);
@@ -128,6 +129,8 @@ public class PlaylistServlet extends HttpServlet {
             request.setAttribute("userPlaylists", userPlaylists);
         }
         if (action.equals("View playlist")) {
+            List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
+            request.setAttribute("randPlaylist", randPlaylist);
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
             //get the selected playlist
             Playlist selectedPlaylist = PlaylistDB.selectPlaylistByID(playlistID);

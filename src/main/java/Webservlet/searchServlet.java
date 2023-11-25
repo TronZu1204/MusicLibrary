@@ -44,6 +44,8 @@ public class searchServlet extends HttpServlet {
         String url = "/browse.jsp";
         String action = request.getParameter("action");
         User user = (User) request.getSession().getAttribute("loggeduser");
+        List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
+        request.setAttribute("randPlaylist", randPlaylist);
         if (user != null){
          List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
         request.setAttribute("userPlaylists", userPlaylists);
@@ -51,6 +53,7 @@ public class searchServlet extends HttpServlet {
         if(action.equals("search")){
             SearchMusic(request,response);
             SearchPlaylist(request,response);
+            SearchUser(request,response);
         }
            if (action.equals("Add Song to Playlist")){
             Long playlistID = Long.parseLong(request.getParameter("addPlaylistID"));
@@ -58,6 +61,7 @@ public class searchServlet extends HttpServlet {
             addSongToPlaylist(playlistID, songID);
             SearchMusic(request,response);
             SearchPlaylist(request,response);
+            SearchUser(request,response);
     }
         if (action.equals("View playlist")) {
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
@@ -72,6 +76,7 @@ public class searchServlet extends HttpServlet {
             String playlistOwnerName = UserDB.selectUserNameFromID(playlistOwner.getUserID());
             request.setAttribute("playlistOwnerName", playlistOwnerName);
             url = "/playlistDetails.jsp";
+            
         }
          getServletContext()
                 .getRequestDispatcher(url)
@@ -92,6 +97,13 @@ public class searchServlet extends HttpServlet {
         List<Playlist> result = PlaylistDB.findPlaylist(pattern);
         request.setAttribute("playlistResults", result);
     }
+     private static void SearchUser(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
+        String pattern = request.getParameter("songSearch");
+        pattern = URLEncoder.encode( pattern, "ISO-8859-1" );
+        pattern = URLDecoder.decode( pattern, "UTF-8" );
+        List<User> result = UserDB.findUser(pattern);
+        request.setAttribute("userResults", result);
+    }
       private void addSongToPlaylist(long playlistID, Long songID) {
         Playlist playlist = new Playlist();
         playlist.setPlaylistID(playlistID);
@@ -103,4 +115,5 @@ public class searchServlet extends HttpServlet {
         
         PlaylistDB.addSongsToPlaylist(playlist, songs);
     }
+      
 }

@@ -52,7 +52,39 @@
                     <!--sidebar nav end-->
                 </div>
             </div>
+ <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-info">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+                        </div>
+                        <div class="modal-body modal-spa">
+                            <div class="sign-grids">
+                                <div class="sign">
+                                    <div class="sign-right">
+                                        <form action="login" method="post" onsubmit="return validateForm()">
+                                            <h3>Create your account </h3>
+                                            <input type="hidden" name="action" value="registerUser">
+                                            <label>Name</label><br>
+                                            <input type="text" name="Name"  required>
+                                            <label>Phone number</label><br>
+                                            <input type="text" name="Number"  required>
+                                            <label>Email</label><br>
+                                            <input type="text" name="Email" required>	
+                                            <label>Password</label><br>
+                                            <input type="password" name="Password" required>	
 
+                                            <input type="submit" value="CREATE ACCOUNT" >
+                                        </form>
+                                    </div>
+                                    <div class="clearfix"></div>								
+                                </div>
+                                <p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- main content start-->
             <div class="main-content">
                 <!-- header-starts -->

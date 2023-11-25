@@ -68,41 +68,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- left side end-->
 			 	 <!-- /w3l-agile -->
 		<!-- signup -->
-			<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-info">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-						</div>
-						<div class="modal-body modal-spa">
-							<div class="sign-grids">
-								<div class="sign">
-									<div class="sign-left">
-										<ul>
-											<li><a class="fb" href="#"><i></i>Sign in with Facebook</a></li>
-											<li><a class="goog" href="#"><i></i>Sign in with Google</a></li>
-											<li><a class="linkin" href="#"><i></i>Sign in with Linkedin</a></li>
-										</ul>
-									</div>
-									<div class="sign-right">
-										<form action="#" method="post">
-											<h3>Create your account </h3>
-											<input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-											<input type="text" value="Mobile number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mobile number';}" required="">
-											<input type="text" value="Email id" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email id';}" required="">	
-											<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">	
-											
-											<input type="submit" value="CREATE ACCOUNT" >
-										</form>
-									</div>
-									<div class="clearfix"></div>								
-								</div>
-								<p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			 <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-info">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+                        </div>
+                        <div class="modal-body modal-spa">
+                            <div class="sign-grids">
+                                <div class="sign">
+                                    <div class="sign-right">
+                                        <form action="login" method="post" onsubmit="return validateForm()">
+                                            <h3>Create your account </h3>
+                                            <input type="hidden" name="action" value="registerUser">
+                                            <label>Name</label><br>
+                                            <input type="text" name="Name"  required>
+                                            <label>Phone number</label><br>
+                                            <input type="text" name="Number"  required>
+                                            <label>Email</label><br>
+                                            <input type="text" name="Email" required>	
+                                            <label>Password</label><br>
+                                            <input type="password" name="Password" required>	
+
+                                            <input type="submit" value="CREATE ACCOUNT" >
+                                        </form>
+                                    </div>
+                                    <div class="clearfix"></div>								
+                                </div>
+                                <p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<!-- //signup -->
  	 <!-- /agileits -->
 		<!-- main content start-->
@@ -284,7 +282,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
                                                                     <c:if test="${empty songResults}">
                                                                         <p>No result</p>
-                                                                        <div class="clearfix"> </div>
                                                                     </c:if>
                                                                 <c:forEach items="${songResults}" var="songResult">
 								<div class="col-md-3 browse-grid">
@@ -304,7 +301,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</div>
                                                                         <c:if test="${empty playlistResults}">
                                                                         <p>No result</p>
-                                                                        <div class="clearfix"> </div>
                                                                     </c:if>
                                                                 <c:forEach items="${playlistResults}" var="playlistResult">
                                                                         
@@ -320,87 +316,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                                 </c:forEach>
                                                 </div>
                                       </div>
-                                                          <div class="clearfix"> </div>              
+                                                          <div class="clearfix"> </div>    
+                                                           <div class="browse">
+								<div class="tittle-head two">
+                                                                    <h3 class="tittle">Artists</h3>
+									<div class="clearfix"> </div>
+								</div>
+                                                                        <c:if test="${empty userResults}">
+                                                                        <p>No result</p>
+                                                                    </c:if>
+                                                                <c:forEach items="${userResults}" var="userResult">
+                                                                        
+								<div class="col-md-3 browse-grid">
+                                                                        <input type="hidden" value="${userResult.getUserID()}" name="playlistID">
+									<a  href="#"><img src="${userResult.getImage()}" style="width:200px;height:200px"></a>
+									<a class="sing">${userResult.getName()}</a>
+                                                                        </div>	
+                                                                </c:forEach>
+                                                </div>
+                                                          <div class="clearfix"> </div>   
 						<!--//discover-view-->
 							<!--//music-left-->
 							
 						<!--body wrapper start-->
 						<div class="review-slider">
 								<div class="tittle-head">
-									<h3 class="tittle">Featured Albums <span class="new"> New</span></h3>
-									<div class="clearfix"> </div>
-								</div>
-								 <ul id="flexiselDemo1">
-								<li>
-									<a href="single.html"><img src="images/v1.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Adele21 </div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v2.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Adele21</h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v21.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Joe</h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v4.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Stuck on a feeling</h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v5.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Ricky Martine </h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v6.jpg" alt=""/></a>
-									<div class="slide-title"><h4>Ellie Goluding</h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
-								<li>
-									<a href="single.html"><img src="images/v6.jpeg" alt=""/></a>
-									<div class="slide-title"><h4>Fifty Shades </h4></div>
-									<div class="date-city">
-										<h5>Jan-02-16</h5>
-										<div class="buy-tickets">
-											<a href="single.html">READ MORE</a>
-										</div>
-									</div>
-								</li>
+									   <h3 class="tittle">Maybe you will like</h3>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <ul id="flexiselDemo1">
+                             <c:forEach items="${randPlaylist}" var="playlist">
+                            <li>
+                                 <form action="search" method="post"> 
+                                                                        <input type="hidden" value="${playlist.getPlaylistID()}" name="playlistID">
+                                                                    <button class="btn" name="action" value="View playlist" type="submit">
+									<a  href="#"><img src="${playlist.getCover()}" style="width:200px;height:200px"></a>
+									<a class="sing">${playlist.getName()}</a>
+                                                                    </button>
+                                                                    </form>
+                            </li>
+                             </c:forEach>
+                        </ul>
 							</ul>
 							<script type="text/javascript">
 						$(window).load(function() {

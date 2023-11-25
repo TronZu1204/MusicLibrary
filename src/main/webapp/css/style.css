@@ -171,7 +171,7 @@ li:hover .adminbtn {
     display: none;
 }
 div#page-wrapper {
-    padding:3em 2em;
+    padding:1em 2em;
 }
 .left-side-collapsed .logo-icon {
     height: 51px;
@@ -1128,6 +1128,7 @@ a.trend:hover {
     -o-border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
+    height:600px;
 }
 /*-- main --*/
 .audio-grid p{

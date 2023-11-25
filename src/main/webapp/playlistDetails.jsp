@@ -65,13 +65,6 @@
                         <div class="modal-body modal-spa">
                             <div class="sign-grids">
                                 <div class="sign">
-                                    <div class="sign-left">
-                                        <ul>
-                                            <li><a class="fb" href="#"><i></i>Sign in with Facebook</a></li>
-                                            <li><a class="goog" href="#"><i></i>Sign in with Google</a></li>
-                                            <li><a class="linkin" href="#"><i></i>Sign in with Linkedin</a></li>
-                                        </ul>
-                                    </div>
                                     <div class="sign-right">
                                         <form action="#" method="post">
                                             <h3>Create your account </h3>
@@ -397,80 +390,28 @@
                     <div class="review-slider">
 
                         <div class="tittle-head">
-                            <h3 class="tittle">Featured Albums <span class="new"> New</span></h3>
+                            <h3 class="tittle">Maybe you will like</h3>
                             <div class="clearfix"> </div>
                         </div>
                         <ul id="flexiselDemo1">
+                             <c:forEach items="${randPlaylist}" var="playlist">
                             <li>
-                                <a href="single.html"><img src="images/v1.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Adele21 </div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
+                                <c:if test="${playlist.getPlaylistID() != selectedPlaylist.getPlaylistID()}">
+                                 <form action="search" method="post"> 
+                                                                        <input type="hidden" value="${playlist.getPlaylistID()}" name="playlistID">
+                                                                    <button class="btn" name="action" value="View playlist" type="submit">
+									<a  href="#"><img src="${playlist.getCover()}" style="width:200px;height:200px"></a>
+									<a class="sing">${playlist.getName()}</a>
+                                                                    </button>
+                                                                    </form>
+                                </c:if>
+                                 <c:if test="${playlist.getPlaylistID() == selectedPlaylist.getPlaylistID()}">
+                                                                        <p>Playing</p>
+									<a  href="#"><img src="${playlist.getCover()}" style="width:200px;height:200px"></a>
+									<a class="sing">${playlist.getName()}</a>
+                                </c:if>
                             </li>
-                            <li>
-                                <a href="single.html"><img src="images/v2.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Adele21</h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="single.html"><img src="images/v3.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Shomlock</h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="single.html"><img src="images/v4.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Stuck on a feeling</h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="single.html"><img src="images/v5.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Ricky Martine </h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="single.html"><img src="images/v6.jpg" alt=""/></a>
-                                <div class="slide-title"><h4>Ellie Goluding </h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="single.html"><img src="images/v6.jpeg" alt=""/></a>
-                                <div class="slide-title"><h4>Fifty Shades </h4></div>
-                                <div class="date-city">
-                                    <h5>Jan-02-16</h5>
-                                    <div class="buy-tickets">
-                                        <a href="single.html">READ MORE</a>
-                                    </div>
-                                </div>
-                            </li>
+                             </c:forEach>
                         </ul>
                         <script type="text/javascript">
                             $(window).load(function () {
