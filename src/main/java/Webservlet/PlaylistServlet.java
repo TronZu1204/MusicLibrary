@@ -47,6 +47,7 @@ public class PlaylistServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         User user = (User) request.getSession().getAttribute("loggeduser");
         long ID = user.getUserID();
         List<Playlist> playlist = PlaylistDB.selectPlaylist(user);

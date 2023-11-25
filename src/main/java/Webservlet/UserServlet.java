@@ -53,18 +53,20 @@ public class UserServlet extends HttpServlet {
         if(action.equals("registerUser")){
         String email = request.getParameter("Email");
         boolean check = UserDB.checkUser(email);
-        if (check == false)
+        if (check == false){
         registerUser(request, response);
-        else request.setAttribute("message", "Email is already existed");
+        request.setAttribute("messagelogin", "Account created successfully");}
+        else request.setAttribute("messagelogin", "Email is already registered");
         url ="/index.jsp";
         }
         else if(action.equals("loginUser")){
             List<User> u = loginUser(request,response);
             if(u == null){
-                request.setAttribute("message", "Wrong email or password");
+                request.setAttribute("messagelogin", "Wrong email or password, please try again");
                 url="/index.jsp";
             }
             else{
+                request.setAttribute("messagelogin", "Account signed in successfully");
                 User user = u.get(0);
                 request.getSession().setAttribute("loggeduser", user);
             List<Playlist> userPlaylists = PlaylistDB.selectPlaylist(user);
@@ -74,7 +76,8 @@ public class UserServlet extends HttpServlet {
         }
         else if(action.equals("Log out")){
             request.getSession().invalidate();
-            request.removeAttribute("loggeduser");  
+            request.removeAttribute("loggeduser");
+            request.setAttribute("messagelogin", "Account logged out");
             url ="/index.jsp";
         }
         else if(action.equals("My profile")){
@@ -124,6 +127,7 @@ public class UserServlet extends HttpServlet {
             }
             url = "/addMusic.jsp";
         }
+        System.out.println("Test message: "+ request.getAttribute("messagelogin"));
          getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request,response);

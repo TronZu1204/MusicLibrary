@@ -27,15 +27,17 @@
         <link rel="stylesheet" href="css/icon-font.css" type='text/css' />
         <!-- //lined-icons -->
         <!-- Meters graphs -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="js/jquery-2.1.4.js"></script>
         <script src="js/play_music_script.js"></script>
-         <script>
+        <script>
                                     function passIDToModal(ID) {
                                         var inputElement = document.getElementById('songID');
                                         inputElement.value = ID;
                                         inputElement.setAttribute('value', ID);
                                     }
                     </script>
+                   
         <% 
         List<Music> newMusic = MusicDB.select12Songs();
         List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
@@ -44,7 +46,28 @@
     </head> 
     <!-- /w3layouts-agile -->
     <body class="sticky-header left-side-collapsed"  onload="initMap()">
-
+        <script>
+            $(document).ready(function() {
+    var successMessage = "${messagelogin}";
+    if (successMessage.trim() !== "") {
+        $('#loginmodal').modal('show');
+    }
+});
+        </script>
+        <c:if test ="${not empty messagelogin}">
+            <div class="modal" id="loginmodal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h3><span class="lnr lnr-enter" style="font-size: 22px;">  Notification</span></h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 18px;text-align: center">${messagelogin}</p>
+      </div>
+    </div>
+  </div>
+</div>
+        </c:if>
         <section>
             <!-- left side start-->
             <div class="left-side sticky-left-side">
@@ -80,9 +103,8 @@
                             <div class="sign-grids">
                                 <div class="sign">
                                     <div class="sign-right">
-                                        <form action="login" method="post">
+                                        <form action="login" method="post" onsubmit="return validateForm()">
                                             <h3>Create your account </h3>
-
                                             <input type="hidden" name="action" value="registerUser">
                                             <label>Name</label><br>
                                             <input type="text" name="Name"  required>
@@ -190,7 +212,7 @@
                                                             <label for="password">Password</label>
                                                             <input type="password" name="loginPass" id="password">
                                                         </fieldset>
-                                                        <input type="submit" id="login" value="Sign in">
+                                                        <input type="submit" id="login" value="Sign in" onclick="showPopup()">
                                                         <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
                                                     </fieldset>
                                                     <span><a href="#">Forgot your password?</a></span>
@@ -271,35 +293,32 @@
                                                 <ul class="rslides callbacks callbacks1" id="slider4">
                                                     <li>
                                                         <div class="banner-img">
-                                                            <img src="images/11.jpg" class="img-responsive" alt="">
+                                                            <img src="images/songs_img/banner1.jpg" class="img-responsive" alt="" onclick="createNewPlaylist(1, 'Tháng tư là lời nói dối của em', 'Hà Anh Tuấn')">
                                                         </div>
                                                         <div class="banner-info">
-                                                            <a class="trend" href="single.html">TRENDING</a>
-                                                            <h3>Let Your Home</h3>
-                                                            <p>Album by <span>Rock star</span></p>
+                                                            <h3>Tháng tư là lời nói dối của em</h3>
+                                                            <p><span>Hà Anh Tuấn</span></p>
                                                         </div>
 
                                                     </li>
                                                     <li>
                                                         <div class="banner-img">
-                                                            <img src="images/22.jpg" class="img-responsive" alt="">
+                                                            <img src="images/songs_img/banner2.jpg" class="img-responsive" alt="" onclick="createNewPlaylist(2, 'Hạ còn vương nắng', 'DATKKA')">
                                                         </div>
                                                         <div class="banner-info">
-                                                            <a class="trend" href="single.html">TRENDING</a>
-                                                            <h3>Charis Brown feet</h3>
-                                                            <p>Album by <span>Rock star</span></p>
+                                                            <h3>Hạ còn vương nắng</h3>
+                                                            <p><span>DATKKA</span></p>
                                                         </div>
 
 
                                                     </li>
                                                     <li>
                                                         <div class="banner-img">
-                                                            <img src="images/33.jpg" class="img-responsive" alt="">
+                                                            <img src="images/songs_img/banner3.jpg" class="img-responsive" alt="" onclick="createNewPlaylist(3, 'Nàng thơ', 'Hoàng Dũng')">
                                                         </div>
                                                         <div class="banner-info"> 
-                                                            <a class="trend" href="single.html">TRENDING</a>
-                                                            <h3>Let Your Home</h3>
-                                                            <p>Album by <span>Rock star</span></p>
+                                                            <h3>Nàng thơ</h3>
+                                                            <p><span>Hoàng Dũng</span></p>
                                                         </div>
 
                                                         <!-- /w3layouts-agileits -->
