@@ -4,6 +4,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
+
 h4, h5, h6,
 h1, h2, h3 {
     margin-top: 0;
@@ -4605,3 +4606,54 @@ a.not {
     }
 }
 /***responsive***/
+/*.browse-inner{
+    display: flex;
+    justify-content: start;
+}
+
+.artist-grid {
+    height: 200px;
+    width: 130px;
+    margin: 20px !important;
+    padding: 0;
+}
+
+.album-img-container {
+    height: 130px;
+    display: flex;
+    align-items: end;
+    box-sizing: border-box;
+}
+
+
+
+.artist-info {
+    height: 70px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.art {
+    height: 100%;
+    width: 100%;
+}*/
+
+.album-img-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.art {
+    height: 100%;
+    text-align: center;
+}
+
+.artist-thumbnail img{
+    height: 80% !important;
+}
+
+.artist-info {
+    height: 20%;
+}
