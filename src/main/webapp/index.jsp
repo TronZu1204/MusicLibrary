@@ -41,6 +41,7 @@
         <% 
         List<Music> newMusic = MusicDB.select12Songs();
         List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
+        List<Playlist> first8Playlist = PlaylistDB.selectFirst8Playlist();
         %>
 
     </head> 
@@ -424,76 +425,17 @@
                                     <div class="clearfix"> </div>
                                 </div>
                                 <ul id="flexiselDemo1">
+                                     <% for (Playlist playlist : first8Playlist) { %>
                                     <li>
-                                        <a href="single.html"><img src="images/v1.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Adele21 </div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v2.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Adele21</h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v3.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Shomlock</h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v4.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Stuck on a feeling</h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v5.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Ricky Martine </h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v6.jpg" alt=""/></a>
-                                        <div class="slide-title"><h4>Ellie Goluding </h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="single.html"><img src="images/v6.jpeg" alt=""/></a>
-                                        <div class="slide-title"><h4>Fifty Shades </h4></div>
-                                        <div class="date-city">
-                                            <h5>Jan-02-16</h5>
-                                            <div class="buy-tickets">
-                                                <a href="single.html">READ MORE</a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                       <form action="search" method="post"> 
+                                                                        <input type="hidden" value="<%=playlist.getPlaylistID() %>" name="playlistID">
+                                                                    <button class="btn" name="action" value="View playlist" type="submit">
+									<a  href="#"><img src="<%=playlist.getCover() %>" style="width:200px;height:200px"></a>
+									<a class="sing"><%=playlist.getName() %></a>
+                                                                    </button>
+                                                                    </form>
+                                                                     </li>
+                                        <% } %>
                                 </ul>
                                  <div class="modal fade" id="addToPlaylist" tabindex="-1" role="dialog" aria-labelledby="modalLabelLarge" aria-hidden="true">
                         <div class="modal-dialog modal-lg">

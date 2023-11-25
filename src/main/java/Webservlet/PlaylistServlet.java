@@ -129,6 +129,8 @@ public class PlaylistServlet extends HttpServlet {
             request.setAttribute("userPlaylists", userPlaylists);
         }
         if (action.equals("View playlist")) {
+            List<Playlist> randPlaylist = PlaylistDB.select8Playlist();
+            request.setAttribute("randPlaylist", randPlaylist);
             Long playlistID = Long.parseLong(request.getParameter("playlistID"));
             //get the selected playlist
             Playlist selectedPlaylist = PlaylistDB.selectPlaylistByID(playlistID);

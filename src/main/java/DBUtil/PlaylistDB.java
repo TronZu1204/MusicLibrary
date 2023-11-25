@@ -200,4 +200,12 @@ public class PlaylistDB {
           int count = Math.min(result.size(), 8);
           return result.subList(0, count);
     }
+            public static List<Playlist> selectFirst8Playlist(){
+        EntityManager em = DButil.getFactory().createEntityManager();
+         String queryString = "SELECT u FROM Playlist u";
+         TypedQuery<Playlist> query = em.createQuery(queryString, Playlist.class);
+         query.setMaxResults(8);
+          List<Playlist> result = query.getResultList();
+          return result;
+    }
 }
