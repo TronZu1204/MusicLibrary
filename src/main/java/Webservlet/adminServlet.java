@@ -70,6 +70,11 @@ public class adminServlet extends HttpServlet {
            request.setAttribute("allPlaylists", playlist);
            url="/allPlaylist.jsp"; 
        }
+         if (action.equals("showAllArtist")) {
+             List<User> allUsers = UserDB.selectAllUserExceptAdmin();
+             request.setAttribute("allArtists", allUsers);
+             url="/allArtist.jsp";
+         }
           if(action.equals("deleteSongAdmin")){
            deleteSongAdmin(request,response);
            url="/allMusic.jsp"; 

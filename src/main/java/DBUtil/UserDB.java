@@ -19,42 +19,39 @@ import java.nio.charset.StandardCharsets;
  * @author GIGABYTE
  */
 public class UserDB {
-    public static void insertUser(User user){
+
+    public static void insertUser(User user) {
         EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         try {
             em.persist(user);
             trans.commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             trans.rollback();
-        }
-        finally {
+        } finally {
             em.close();
         }
     }
-    
-    public static List<User> selectUser(String email,String pass){
-    EntityManager em = DButil.getFactory().createEntityManager();
-    String qString = "Select u FROM User u " + "WHERE u.gmail = :email AND" +" u.pass = :pass";
-    TypedQuery<User> q = em.createQuery(qString, User.class);
-    q.setParameter("email", email);
-    q.setParameter("pass", pass);
-    List<User> user = null;
-    try{
-        user = q.getResultList();
-        return user;
+
+    public static List<User> selectUser(String email, String pass) {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "Select u FROM User u " + "WHERE u.gmail = :email AND" + " u.pass = :pass";
+        TypedQuery<User> q = em.createQuery(qString, User.class);
+        q.setParameter("email", email);
+        q.setParameter("pass", pass);
+        List<User> user = null;
+        try {
+            user = q.getResultList();
+            return user;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
     }
-    catch (NoResultException e){
-        return null;
-    }
-    finally{
-        em.close();
-    }
-}
-    
+
     public static String selectUserNameFromID(long userID) {
         EntityManager em = DButil.getFactory().createEntityManager();
         try {
@@ -65,50 +62,62 @@ public class UserDB {
         } finally {
             em.close();
         }
-    } 
-    
-    
-    public static boolean checkUser(String email){
-    EntityManager em = DButil.getFactory().createEntityManager();
-    String qString = "Select u FROM User u " + "WHERE u.gmail = :email";
-    TypedQuery<User> q = em.createQuery(qString, User.class);
-    q.setParameter("email", email);
-    List<User> user;
-    try{
-        user = q.getResultList();
-        return !user.isEmpty();
     }
-    catch (NoResultException e){
-        System.out.println("Loi exception roi");
-        return false;
-    }
-    finally{
-        em.close();
-    }  
-} 
-    public static List<User> selectAllUser(){
-    EntityManager em = DButil.getFactory().createEntityManager();
-    String qString = "Select u FROM User u ";
-    TypedQuery<User> q = em.createQuery(qString, User.class);
-    List<User> user = null;
-    try{
-        user = q.getResultList();
-        return user;
-    }
-    catch (NoResultException e){
-        return null;
-    }
-    finally{
-        em.close();
-    }  
-} 
-public static boolean userExist(String email, String pass){
-   List<User> u = selectUser(email, pass);
-   return !u.isEmpty();
-}
 
-public static boolean updateUser(User user){
-         EntityManager em = DButil.getFactory().createEntityManager();
+    public static boolean checkUser(String email) {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "Select u FROM User u " + "WHERE u.gmail = :email";
+        TypedQuery<User> q = em.createQuery(qString, User.class);
+        q.setParameter("email", email);
+        List<User> user;
+        try {
+            user = q.getResultList();
+            return !user.isEmpty();
+        } catch (NoResultException e) {
+            System.out.println("Loi exception roi");
+            return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<User> selectAllUser() {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "Select u FROM User u ";
+        TypedQuery<User> q = em.createQuery(qString, User.class);
+        List<User> user = null;
+        try {
+            user = q.getResultList();
+            return user;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static List<User> selectAllUserExceptAdmin() {
+        EntityManager em = DButil.getFactory().createEntityManager();
+        String qString = "Select u FROM User u " + "WHERE u.userID != 1";
+        TypedQuery<User> q = em.createQuery(qString, User.class);
+        List<User> user;
+        try {
+            user = q.getResultList();
+            return user;
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public static boolean userExist(String email, String pass) {
+        List<User> u = selectUser(email, pass);
+        return !u.isEmpty();
+    }
+
+    public static boolean updateUser(User user) {
+        EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         User updated = em.find(User.class, user.getUserID());
@@ -120,20 +129,19 @@ public static boolean updateUser(User user){
             updated.setImage(user.getImage());
             em.merge(updated);
             trans.commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             trans.rollback();
             return false;
-        }
-        finally {
+        } finally {
             em.close();
             return true;
         }
-    
-}
-public static boolean updateUserbyAdmin(User user){
-         EntityManager em = DButil.getFactory().createEntityManager();
+
+    }
+
+    public static boolean updateUserbyAdmin(User user) {
+        EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         User updated = em.find(User.class, user.getUserID());
@@ -143,36 +151,34 @@ public static boolean updateUserbyAdmin(User user){
             updated.setImage(user.getImage());
             em.merge(updated);
             trans.commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             trans.rollback();
             return false;
-        }
-        finally {
+        } finally {
             em.close();
             return true;
         }
-    
-}
-public static void deleteUser(User user){
-         EntityManager em = DButil.getFactory().createEntityManager();
+
+    }
+
+    public static void deleteUser(User user) {
+        EntityManager em = DButil.getFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
         User updated = em.find(User.class, user.getUserID());
         try {
             em.remove(em.merge(updated));
             trans.commit();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             trans.rollback();
-        }
-        finally {
+        } finally {
             em.close();
         }
     
 }
+
  public static User selectUserforAdmin(long userID){
     EntityManager em = DButil.getFactory().createEntityManager();
     User user = em.find(User.class, userID);
@@ -187,6 +193,5 @@ public static void deleteUser(User user){
         List<User> result = query.getResultList();
         return result;
     }
+
 }
-
-
